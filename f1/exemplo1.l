@@ -1,5 +1,5 @@
 numero				[0-9]+
-token				abc
+token				ab+c
 
 %%
 
