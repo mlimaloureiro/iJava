@@ -1,4 +1,5 @@
 numero				[0-9]+
+token				abc
 
 %%
 
@@ -7,7 +8,8 @@ numero				[0-9]+
 "-"{numero} 			{printf(" Inteiro negativo ");}
 "-"{numero}"."{numero}  {printf(" Real negativo ");}
 "+"{numero} 			{printf(" Inteiro positivo explicito ");}
-"+"{numero}"."{numero}  {printf(" Real positivo explicito");}
+"+"{numero}"."{numero}  {printf(" Real positivo explicito ");}
+{token}					{printf(" Token! ");}
 
 %%
 
