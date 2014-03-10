@@ -1,5 +1,8 @@
 numero				[0-9]+
 token				ab+c
+tokenB				[b|B]
+tokenC				[c|C]
+token2				a?({tokenB}{tokenC})+
 
 %%
 
@@ -10,6 +13,7 @@ token				ab+c
 "+"{numero} 			{printf(" Inteiro positivo explicito ");}
 "+"{numero}"."{numero}  {printf(" Real positivo explicito ");}
 {token}					{printf(" Token! ");}
+{token2}				{printf(" Token! ");}
 
 %%
 
