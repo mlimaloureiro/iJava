@@ -4,18 +4,19 @@ tokenB				[b|B]
 tokenC				[c|C]
 token2				a?({tokenB}{tokenC})+
 
-
 %%
 
-{numero}				{printf(" integer ");}
-{numero}"l"				{printf(" long ");}
-{numero}"u"				{printf(" unsigned int ");}
-{numero}"ul"			{printf(" unsigned long ");}
-{numero}","{numero}		{printf(" float ");}
-{numero}"."{numero}		{printf(" float ");}
-{numero}"e-"{numero}    {printf(" floating point ");}
-{numero}"e+"{numero}    {printf(" floating point ");}
-{numero}"f"    			{printf(" float ");}
+{numero}							{printf(" integer ");}
+{numero}"l"							{printf(" long ");}
+{numero}"u"							{printf(" unsigned int ");}
+{numero}"ul"						{printf(" unsigned long ");}
+{numero}","{numero}					{printf(" float ");}
+{numero}"."{numero}					{printf(" float ");}
+{numero}","{numero}"e-"{numero}     {printf(" floating point ");}
+{numero}"e-"{numero}    			{printf(" floating point ");}
+{numero}","{numero}"e+"{numero}    	{printf(" floating point ");}
+{numero}"e+"{numero}    			{printf(" floating point ");}
+{numero}"f"    						{printf(" float ");}
 
 %%
 
