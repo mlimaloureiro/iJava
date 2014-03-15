@@ -1,0 +1,21 @@
+numero				[0-9]+
+
+%%
+
+{numero}							{printf(" integer ");}
+. 									{;}
+[\n]								{;}
+	
+%%
+
+int main()
+{
+	yylex();
+	return 0;
+}
+
+int yywrap()
+{
+	return 1;
+}
+
