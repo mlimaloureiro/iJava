@@ -14,8 +14,8 @@
 <INITIAL>"}"										{printf("CBRACE\n");}
 <INITIAL>"["										{printf("OSQUARE\n");}
 <INITIAL>"]"										{printf("CSQUARE\n");}
-<INITIAL>"true"										{printf("BOOLIT\n");}
-<INITIAL>"false"									{printf("BOOLIT\n");}
+<INITIAL>"true"										{printf("BOOLLIT\n");}
+<INITIAL>"false"									{printf("BOOLLIT\n");}
 <INITIAL>"int"										{printf("INT\n");}
 <INITIAL>"boolean"									{printf("BOOL\n");}
 <INITIAL>"new"										{printf("NEW\n");}
@@ -64,6 +64,7 @@
 <INITIAL>"strictfp"									{printf("RESERVED(%s)\n", yytext);}
 <INITIAL>"super"									{printf("RESERVED(%s)\n", yytext);}
 <INITIAL>"switch"									{printf("RESERVED(%s)\n", yytext);}
+<INITIAL>"synchronized"								{printf("RESERVED(%s)\n", yytext);}
 <INITIAL>"this"										{printf("RESERVED(%s)\n", yytext);}
 <INITIAL>"throw"									{printf("RESERVED(%s)\n", yytext);}
 <INITIAL>"throws"									{printf("RESERVED(%s)\n", yytext);}
