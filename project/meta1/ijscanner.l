@@ -4,10 +4,10 @@
 
 numero				[0-9]+
 
-%S IN_COMMENT
+%S IN_COMMENT DASH_COMMENT
 
 %%
-
+<INITIAL>"//"									{BEGIN DASH_COMMENT; in_comment = 1;}
 <INITIAL>"/*"									{BEGIN IN_COMMENT; in_comment = 1;}
 <INITIAL>"if"									{printf("IF\n");}
 <INITIAL>"else"									{printf("ELSE\n");}
@@ -30,11 +30,13 @@ numero				[0-9]+
 <INITIAL>";"									{printf("SEMIC\n");}
 <INITIAL>","									{printf("COMMA\n");}
 <INITIAL>{numero}								{printf(" integer ");}
-<INITIAL>. 									{;}
+<INITIAL>. 										{;}
 <INITIAL>[\n]									{;}
-<IN_COMMENT>"*/"			{BEGIN INITIAL; in_comment = 0;};	
-<IN_COMMENT>.				{;};	
-<IN_COMMENT>\n				{;};
+<IN_COMMENT>"*/"								{BEGIN INITIAL; in_comment = 0;};	
+<IN_COMMENT>.									{;};	
+<IN_COMMENT>\n									{;};
+<DASH_COMMENT>.									{;};
+<DASH_COMMENT>\n								{BEGIN INITIAL; in_comment = 0;};
 
 %%
 
