@@ -1,59 +1,40 @@
-BOOLLIT = “true” | “false” INT = “int”
-BOOL = “boolean”
-NEW = “new”
-IF = “if”
-ELSE = “else”
-WHILE = “while”
-PRINT = “System.out.println”
-PARSEINT = “Integer.parseInt”
-CLASS = “class”
-PUBLIC = “public”
-STATIC = “static”
-VOID = “void”
-STRING = “String”
-DOTLENGTH = “.length”
-RETURN = “return”
-OCURV = “(”
-CCURV = “)”
-OBRACE = “{”
-CBRACE = “}”
-OSQUARE = “[”
-CSQUARE = “]”
-OP1 = “&&” | “||”
-OP2 = “<” | “>” | “==” | “!=” | “<=” | “>=”
-OP3 = “+” | “-”
-OP4 = “*” | “/” | “%”
-NOT = “!”
-ASSIGN = “=”
-SEMIC = “;”
-COMMA = “,”
+%{
+	int in_comment = 0;
+%}
 
 numero				[0-9]+
 
+%S IN_COMMENT
+
 %%
-"if"								{printf("IF\n");}
-"else"								{printf("ELSE\n");}
-"while"								{printf("WHILE\n");}
-"&&"								{printf("OP1(%s)\n", yytext);}
-"||"								{printf("OP1(%s)\n", yytext);}
-"<"									{printf("OP2(%s)\n", yytext);}
-">"									{printf("OP2(%s)\n", yytext);}
-"=="								{printf("OP2(%s)\n", yytext);}
-"!="								{printf("OP2(%s)\n", yytext);}
-"<="								{printf("OP2(%s)\n", yytext);}
-">="								{printf("OP2(%s)\n", yytext);}
-"+"									{printf("OP3(%s)\n", yytext);}
-"-"									{printf("OP3(%s)\n", yytext);}
-"*"									{printf("OP4(%s)\n", yytext);}
-"/"									{printf("OP4(%s)\n", yytext);}
-"%"									{printf("OP4(%s)\n", yytext);}
-"!"									{printf("NOT\n");}
-"="									{printf("ASSIGN\n");}
-";"									{printf("SEMIC\n");}
-","									{printf("COMMA\n");}
-{numero}							{printf(" integer ");}
-. 									{;}
-[\n]								{;}
+
+<INITIAL>"/*"									{BEGIN IN_COMMENT; in_comment = 1;}
+<INITIAL>"if"									{printf("IF\n");}
+<INITIAL>"else"									{printf("ELSE\n");}
+<INITIAL>"while"								{printf("WHILE\n");}
+<INITIAL>"&&"									{printf("OP1(%s)\n", yytext);}
+<INITIAL>"||"									{printf("OP1(%s)\n", yytext);}
+<INITIAL>"<"									{printf("OP2(%s)\n", yytext);}
+<INITIAL>">"									{printf("OP2(%s)\n", yytext);}
+<INITIAL>"=="									{printf("OP2(%s)\n", yytext);}
+<INITIAL>"!="									{printf("OP2(%s)\n", yytext);}
+<INITIAL>"<="									{printf("OP2(%s)\n", yytext);}
+<INITIAL>">="									{printf("OP2(%s)\n", yytext);}
+<INITIAL>"+"									{printf("OP3(%s)\n", yytext);}
+<INITIAL>"-"									{printf("OP3(%s)\n", yytext);}
+<INITIAL>"*"									{printf("OP4(%s)\n", yytext);}
+<INITIAL>"/"									{printf("OP4(%s)\n", yytext);}
+<INITIAL>"%"									{printf("OP4(%s)\n", yytext);}
+<INITIAL>"!"									{printf("NOT\n");}
+<INITIAL>"="									{printf("ASSIGN\n");}
+<INITIAL>";"									{printf("SEMIC\n");}
+<INITIAL>","									{printf("COMMA\n");}
+<INITIAL>{numero}								{printf(" integer ");}
+<INITIAL>. 									{;}
+<INITIAL>[\n]									{;}
+<IN_COMMENT>"*/"			{BEGIN INITIAL; in_comment = 0;};	
+<IN_COMMENT>.				{;};	
+<IN_COMMENT>\n				{;};
 
 %%
 
