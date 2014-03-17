@@ -1,0 +1,14 @@
+/*
+
+enaksdas
+dasd
+ sad
+ a 
+*/
+ok
+10
+1
+0001
+cenas
+int
+false

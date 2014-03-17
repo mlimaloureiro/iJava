@@ -118,6 +118,9 @@ int main()
 
 int yywrap()
 {
+	if(in_comment) {
+		printf ("Line %d, col %d: unterminated comment\n", linhaerro+1, colunaerro+1);
+	}
 	return 1;
 }
 
