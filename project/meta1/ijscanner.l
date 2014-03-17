@@ -5,7 +5,6 @@
 %S IN_COMMENT DASH_COMMENT
 
 %%
-
 <INITIAL>"//"										{BEGIN DASH_COMMENT; in_comment = 1;}
 <INITIAL>"/*"										{BEGIN IN_COMMENT; in_comment = 1;}
 <INITIAL>"("										{printf("OCURV\n");}
@@ -88,6 +87,11 @@
 <INITIAL>"="										{printf("ASSIGN\n");}
 <INITIAL>";"										{printf("SEMIC\n");}
 <INITIAL>","										{printf("COMMA\n");}
+<INITIAL>(\"(((\\)?[^\"\n\\])|\\\\|\\\")*\") 		{printf("STRLIT\n");}
+<INITIAL>(\'(((\\)?[^'\n\\])|\\\\|\\')\') 			{printf("CHRLIT\n");}
+<INITIAL>([a-zA-Z$])+([0-9a-zA-Z_$])*				{printf("ID(%s)\n",yytext);}
+<INITIAL>(([1-9])([0-9])*|0)	  					{printf("INTLIT(%s)\n",yytext);}
+<INITIAL>(0[xX][0-9a-fA-F]+)	  					{printf("INTLIT(%s)\n",yytext);}
 <INITIAL>. 											{;}
 <INITIAL>[\n]										{;}
 <IN_COMMENT>"*/"									{BEGIN INITIAL; in_comment = 0;};	
@@ -95,9 +99,7 @@
 <IN_COMMENT>\n										{;};
 <DASH_COMMENT>.										{;};
 <DASH_COMMENT>\n									{BEGIN INITIAL; in_comment = 0;};
-<INITIAL>([a-zA-Z"$"])+([0-9a-zA-Z_"$"])*			{printf("ID(%s)\n",yytext);}
-<INITIAL>(([1-9])([0-9])*|0)	  					{printf("INTLIT(%s)\n",yytext);}
-<INITIAL>(0[xX][0-9a-fA-F]+)	  					{printf("INTLIT(%s)\n",yytext);}
+
 
 %%
 
