@@ -6,15 +6,14 @@
 	int linhaerro=0;
 	int colunaerro=0;
 	void conta();
-	int ilegallcaracter;
 %}
 
 %S IN_COMMENT DASH_COMMENT
 
 %%
-<INITIAL>"//"										{conta(); BEGIN DASH_COMMENT; in_dash_comment = 1;}
-<INITIAL>"/*"										{conta(); BEGIN IN_COMMENT; in_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
-<INITIAL>"("										{conta(); printf("OCURV\n");}
+<INITIAL>"//"										{conta();BEGIN DASH_COMMENT; in_dash_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
+<INITIAL>"/*"										{conta();BEGIN IN_COMMENT; in_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
+<INITIAL>"("										{conta();printf("OCURV\n");}
 <INITIAL>")"										{conta();printf("CCURV\n");}
 <INITIAL>"{"										{conta();printf("OBRACE\n");}
 <INITIAL>"}"										{conta();printf("CBRACE\n");}
@@ -94,13 +93,11 @@
 <INITIAL>"="										{conta();printf("ASSIGN\n");}
 <INITIAL>";"										{conta();printf("SEMIC\n");}
 <INITIAL>","										{conta();printf("COMMA\n");}
-<INITIAL>(\"(((\\)?[^\"\n\\])|\\\\|\\\")*\") 		{conta();printf("STRLIT(%s)\n", yytext);}
-<INITIAL>(\'(((\\)?[^'\n\\])|\\\\|\\')\') 			{conta();printf("CHRLIT(%s)\n", yytext);}
 <INITIAL>([a-zA-Z_$])+([0-9a-zA-Z_$])*				{conta();printf("ID(%s)\n", yytext);}
 <INITIAL>(([1-9])([0-9])*|0+([1-9])([0-9])*|0+)	  	{conta();printf("INTLIT(%s)\n", yytext);}
 <INITIAL>(0[xX][0-9a-fA-F]+)	  					{conta();printf("INTLIT(%s)\n", yytext);}
-<INITIAL>[\n]										{conta();}
-<INITIAL>. 											{conta();}
+<INITIAL>\n|\t|[ ]|\\								{conta();};	
+<INITIAL>.											{printf("Line %d, col %d: illegal character ('%c')\n",linha+1,coluna+1,yytext[0]);conta();};
 <IN_COMMENT>"*/"									{conta();BEGIN INITIAL; in_comment = 0;};	
 <IN_COMMENT>.										{conta();};	
 <IN_COMMENT>\n										{conta();};
