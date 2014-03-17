@@ -97,7 +97,7 @@
 <INITIAL>(\"(((\\)?[^\"\n\\])|\\\\|\\\")*\") 		{conta();printf("STRLIT(%s)\n", yytext);}
 <INITIAL>(\'(((\\)?[^'\n\\])|\\\\|\\')\') 			{conta();printf("CHRLIT(%s)\n", yytext);}
 <INITIAL>([a-zA-Z_$])+([0-9a-zA-Z_$])*				{conta();printf("ID(%s)\n", yytext);}
-<INITIAL>(([1-9])([0-9])*|0)	  					{conta();printf("INTLIT(%s)\n", yytext);}
+<INITIAL>(([1-9])([0-9])*|0+)	  					{conta();printf("INTLIT(%s)\n", yytext);}
 <INITIAL>(0[xX][0-9a-fA-F]+)	  					{conta();printf("INTLIT(%s)\n", yytext);}
 <INITIAL>[\n]										{conta();}
 <INITIAL>. 											{printf("Line %d, col %d: illegal character ('%c')\n",linha+1,coluna+1,yytext[0]);conta();}
