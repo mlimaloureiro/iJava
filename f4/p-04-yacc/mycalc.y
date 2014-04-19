@@ -1,10 +1,12 @@
 %{
-
-#include<stdio.h>
+    #include<stdio.h>
 %}
-%token NUMBER
 
-%% 
+%token NUMBER
+%left '+' '-'
+%left '/' '*'
+
+%%
 calc: 		expression 			{printf("%d\n", $1);}
 
 expression:	expression '+' expression   	{$$=$1+$3;}
@@ -17,6 +19,5 @@ expression:	expression '+' expression   	{$$=$1+$3;}
 %%
 int main()
 {
-yyparse();
-
+    yyparse();
 }
