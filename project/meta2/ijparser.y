@@ -17,7 +17,7 @@
     char *identifier;
 }
 
-%token OCCURV
+%token OCURV
 %token CCURV
 %token OBRACE
 %token CBRACE

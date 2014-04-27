@@ -787,6 +787,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "ijscanner.l"
 #line 2 "ijscanner.l"
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include "y.tab.h"
 	int in_comment = 0;
 	int in_dash_comment = 0;
 	int linha=0;
@@ -795,7 +799,7 @@ char *yytext;
 	int colunaerro=0;
 	void conta();
 
-#line 799 "lex.yy.c"
+#line 803 "lex.yy.c"
 
 #define INITIAL 0
 #define IN_COMMENT 1
@@ -979,9 +983,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 13 "ijscanner.l"
+#line 17 "ijscanner.l"
 
-#line 985 "lex.yy.c"
+#line 989 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -1066,473 +1070,473 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "ijscanner.l"
+#line 18 "ijscanner.l"
 {conta();BEGIN DASH_COMMENT; in_dash_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "ijscanner.l"
+#line 19 "ijscanner.l"
 {conta();BEGIN IN_COMMENT; in_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "ijscanner.l"
-{conta();printf("OCURV\n");}
+#line 20 "ijscanner.l"
+{conta();return OCURV;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "ijscanner.l"
-{conta();printf("CCURV\n");}
+#line 21 "ijscanner.l"
+{conta();return CCURV;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 18 "ijscanner.l"
-{conta();printf("OBRACE\n");}
+#line 22 "ijscanner.l"
+{conta();return OBRACE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 19 "ijscanner.l"
-{conta();printf("CBRACE\n");}
+#line 23 "ijscanner.l"
+{conta();return CBRACE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 20 "ijscanner.l"
-{conta();printf("OSQUARE\n");}
+#line 24 "ijscanner.l"
+{conta();return OSQUARE;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 21 "ijscanner.l"
-{conta();printf("CSQUARE\n");}
+#line 25 "ijscanner.l"
+{conta();return CSQUARE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 22 "ijscanner.l"
-{conta();printf("BOOLLIT(%s)\n", yytext);}
+#line 26 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext); return BOOLLIT;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 23 "ijscanner.l"
-{conta();printf("BOOLLIT(%s)\n", yytext);}
+#line 27 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext); return BOOLLIT;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 24 "ijscanner.l"
-{conta();printf("INT\n");}
+#line 28 "ijscanner.l"
+{conta();return INT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 25 "ijscanner.l"
-{conta();printf("BOOL\n");}
+#line 29 "ijscanner.l"
+{conta();return BOOL;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 26 "ijscanner.l"
-{conta();printf("NEW\n");}
+#line 30 "ijscanner.l"
+{conta();return NEW;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 27 "ijscanner.l"
-{conta();printf("PRINT\n");}
+#line 31 "ijscanner.l"
+{conta();return PRINT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 28 "ijscanner.l"
-{conta();printf("PARSEINT\n");}
+#line 32 "ijscanner.l"
+{conta();return PARSEINT;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 29 "ijscanner.l"
-{conta();printf("CLASS\n");}
+#line 33 "ijscanner.l"
+{conta();return CLASS;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 30 "ijscanner.l"
-{conta();printf("PUBLIC\n");}
+#line 34 "ijscanner.l"
+{conta();return PUBLIC;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 31 "ijscanner.l"
-{conta();printf("STATIC\n");}
+#line 35 "ijscanner.l"
+{conta();return STATIC;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 32 "ijscanner.l"
-{conta();printf("VOID\n");}
+#line 36 "ijscanner.l"
+{conta();return VOID;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 33 "ijscanner.l"
-{conta();printf("STRING\n");}
+#line 37 "ijscanner.l"
+{conta();return STRING;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 34 "ijscanner.l"
-{conta();printf("DOTLENGTH\n");}
+#line 38 "ijscanner.l"
+{conta();return DOTLENGTH;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 35 "ijscanner.l"
-{conta();printf("RETURN\n");}
+#line 39 "ijscanner.l"
+{conta();return RETURN;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 36 "ijscanner.l"
-{conta();printf("IF\n");}
+#line 40 "ijscanner.l"
+{conta();return IF;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 37 "ijscanner.l"
-{conta();printf("ELSE\n");}
+#line 41 "ijscanner.l"
+{conta();return ELSE;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 38 "ijscanner.l"
-{conta();printf("WHILE\n");}
+#line 42 "ijscanner.l"
+{conta();return WHILE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 39 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 43 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 40 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 44 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 41 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 45 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 42 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 46 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 43 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 47 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 44 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 48 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 45 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 49 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 46 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 50 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 47 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 51 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 48 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 52 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 49 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 53 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 50 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 54 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 51 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 55 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 52 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 56 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 53 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 57 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 54 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 58 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 55 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 59 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 56 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 60 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 57 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 61 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 58 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 62 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 59 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 63 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 60 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 64 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 61 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 65 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 62 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 66 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 63 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 67 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 64 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 68 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 65 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 69 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 66 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 70 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 67 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 71 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 68 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 72 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 69 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 73 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 70 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 74 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 71 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 75 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 72 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 76 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 73 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 77 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 74 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 78 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 75 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 79 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 76 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 80 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 77 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 81 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 78 "ijscanner.l"
-{conta();printf("RESERVED(%s)\n", yytext);}
+#line 82 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 79 "ijscanner.l"
-{conta();printf("OP1(%s)\n", yytext);}
+#line 83 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP1;}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 80 "ijscanner.l"
-{conta();printf("OP1(%s)\n", yytext);}
+#line 84 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP1;}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 81 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 85 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 82 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 86 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 83 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 87 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 84 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 88 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 85 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 89 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 86 "ijscanner.l"
-{conta();printf("OP2(%s)\n", yytext);}
+#line 90 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP2;}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 87 "ijscanner.l"
-{conta();printf("OP3(%s)\n", yytext);}
+#line 91 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP3;}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 88 "ijscanner.l"
-{conta();printf("OP3(%s)\n", yytext);}
+#line 92 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP3;}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 89 "ijscanner.l"
-{conta();printf("OP4(%s)\n", yytext);}
+#line 93 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP4;}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 90 "ijscanner.l"
-{conta();printf("OP4(%s)\n", yytext);}
+#line 94 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP4;}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 91 "ijscanner.l"
-{conta();printf("OP4(%s)\n", yytext);}
+#line 95 "ijscanner.l"
+{conta();yylval.value=(char*)strdup(yytext);return OP4;}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 92 "ijscanner.l"
-{conta();printf("NOT\n");}
+#line 96 "ijscanner.l"
+{conta();return NOT;}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 93 "ijscanner.l"
-{conta();printf("ASSIGN\n");}
+#line 97 "ijscanner.l"
+{conta();return ASSIGN;}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 94 "ijscanner.l"
-{conta();printf("SEMIC\n");}
+#line 98 "ijscanner.l"
+{conta();return SEMIC;}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 95 "ijscanner.l"
-{conta();printf("COMMA\n");}
+#line 99 "ijscanner.l"
+{conta();return COMMA;}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 96 "ijscanner.l"
-{conta();printf("ID(%s)\n", yytext);}
+#line 100 "ijscanner.l"
+{conta();yylval.identifier=(char*)strdup(yytext); return ID;}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 97 "ijscanner.l"
-{conta();printf("INTLIT(%s)\n", yytext);}
+#line 101 "ijscanner.l"
+{conta();yylval.intlit=atoi(yytext);return INTLIT;}
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 98 "ijscanner.l"
-{conta();printf("INTLIT(%s)\n", yytext);}
+#line 102 "ijscanner.l"
+{conta();yylval.intlit=atoi(yytext); return INTLIT;}
 	YY_BREAK
 case 86:
 /* rule 86 can match eol */
 YY_RULE_SETUP
-#line 99 "ijscanner.l"
-{conta();};	
+#line 103 "ijscanner.l"
+{conta();};
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 100 "ijscanner.l"
+#line 104 "ijscanner.l"
 {printf("Line %d, col %d: illegal character ('%c')\n",linha+1,coluna+1,yytext[0]);conta();};
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 101 "ijscanner.l"
-{conta();BEGIN INITIAL; in_comment = 0;};	
+#line 105 "ijscanner.l"
+{conta();BEGIN INITIAL; in_comment = 0;};
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 102 "ijscanner.l"
-{conta();};	
+#line 106 "ijscanner.l"
+{conta();};
 	YY_BREAK
 case 90:
 /* rule 90 can match eol */
 YY_RULE_SETUP
-#line 103 "ijscanner.l"
+#line 107 "ijscanner.l"
 {conta();};
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 104 "ijscanner.l"
+#line 108 "ijscanner.l"
 {conta();};
 	YY_BREAK
 case 92:
 /* rule 92 can match eol */
 YY_RULE_SETUP
-#line 105 "ijscanner.l"
+#line 109 "ijscanner.l"
 {conta();BEGIN INITIAL; in_dash_comment = 0;};
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 108 "ijscanner.l"
+#line 112 "ijscanner.l"
 ECHO;
 	YY_BREAK
-#line 1536 "lex.yy.c"
+#line 1540 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(IN_COMMENT):
 case YY_STATE_EOF(DASH_COMMENT):
@@ -2531,15 +2535,9 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 108 "ijscanner.l"
+#line 112 "ijscanner.l"
 
 
-
-int main()
-{
-	yylex();
-	return 0;
-}
 
 int yywrap()
 {
@@ -2557,7 +2555,7 @@ void conta()
 			linha++;
 			coluna = 0;
 		}
-		
+
 		else
 			coluna++;
 	}

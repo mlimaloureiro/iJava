@@ -66,7 +66,7 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     OCCURV = 258,
+     OCURV = 258,
      CCURV = 259,
      OBRACE = 260,
      CBRACE = 261,
@@ -102,7 +102,7 @@
    };
 #endif
 /* Tokens.  */
-#define OCCURV 258
+#define OCURV 258
 #define CCURV 259
 #define OBRACE 260
 #define CBRACE 261
@@ -488,7 +488,7 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "OCCURV", "CCURV", "OBRACE", "CBRACE",
+  "$end", "error", "$undefined", "OCURV", "CCURV", "OBRACE", "CBRACE",
   "OSQUARE", "CSQUARE", "BOOLLIT", "INT", "BOOL", "NEW", "PRINT",
   "PARSEINT", "CLASS", "PUBLIC", "STATIC", "VOID", "STRING", "DOTLENGTH",
   "RETURN", "IF", "ELSE", "WHILE", "RESERVED", "OP1", "OP2", "OP3", "OP4",

@@ -39,7 +39,7 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     OCCURV = 258,
+     OCURV = 258,
      CCURV = 259,
      OBRACE = 260,
      CBRACE = 261,
@@ -75,7 +75,7 @@
    };
 #endif
 /* Tokens.  */
-#define OCCURV 258
+#define OCURV 258
 #define CCURV 259
 #define OBRACE 260
 #define CBRACE 261
