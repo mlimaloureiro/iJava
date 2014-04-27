@@ -114,7 +114,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 13 "ijparser.y"
+#line 14 "ijparser.y"
 {
     /* structures */
     char *value;

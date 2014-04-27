@@ -3,6 +3,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include <unistd.h>
+    #include "structures.h"
 
     int yylex(void);
     int yyerror(char *s);
@@ -55,8 +56,37 @@
 
 %%
     start :     program;
+    program:    CLASS ID OBRACE CBRACE                      {printf("start program, nothing inside\n");};
+        |       CLASS ID OBRACE function_definition CBRACE  {printf("start program, function definition\n");}
+        ;
 
-    program: CLASS ID OBRACE CBRACE {printf("%s\n", $2);};
+    function_definition: function_definition FieldDecl      {printf("function definition, field declaration\n");}
+        //|                function_definition MethodDecl     {printf("function definition, method declaration\n");}
+        |                FieldDecl                          {printf("field declaration\n");}
+        //|                MethodDecl                         {printf("method declaration\n");}
+        ;
+
+    FieldDecl: STATIC VarDecl                               {printf("inside field declaration\n");}
+    ;
+
+    VarDecl: Type ID SEMIC                                  {printf("var declaration\n");}
+        |    Type ID VarDeclList SEMIC                      {printf("var declaration list\n");}
+        ;
+
+    VarDeclList: VarDeclList COMMA ID                       {printf("inside declaration list\n");}
+        |        COMMA ID                                   {printf("last declaration list\n");}
+
+    Type: INT OSQUARE CSQUARE                               {printf("var INT ARRAY\n");}
+        | BOOL OSQUARE CSQUARE                              {printf("var BOOL ARRAY\n");}
+        | INT                                               {printf("var INT\n");}
+        | BOOL                                              {printf("var bool\n");}
+        ;
+
+
+
+    //MethodDecl:
+
+
 
 
 %%

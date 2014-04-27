@@ -3,6 +3,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "y.tab.h"
+	#include "structures.h"
 	int in_comment = 0;
 	int in_dash_comment = 0;
 	int linha=0;
