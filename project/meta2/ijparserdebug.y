@@ -7,7 +7,7 @@
 
     int yylex(void);
     int yyerror(char *s);
-    int linha, coluna;
+    int linha, coluna,error;
     char* yytext;
 %}
 
@@ -186,49 +186,51 @@
           {printf("expr4");}
       |   Expr OSQUARE Expr CSQUARE
           {printf("expr5");}
-      |*/   ID
-          {printf("expr6");}
+      |*/ ID
+          {printf("Expression ID\n");}
       |   INTLIT
-          {printf("expr7");}
+          {printf("Expression INT\n");}
       |   BOOLLIT
-          {printf("expr8");}
+          {printf("Expressiont BOOLLIT\n");}
       |   NEW INT OSQUARE Expr CSQUARE
-          {printf("expr9");}
+          {printf("new int[3]\n");}
       |   NEW BOOL OSQUARE Expr CSQUARE
-          {printf("expr10");}
+          {printf("new boolean[2]\n");}
       |   OCURV Expr CCURV
-          {printf("expr11");}
+          {printf("(expr)\n");}
       |   Expr DOTLENGTH
-          {printf("expr12");}
+          {printf("expr.\n");}
       | /*  OP3 Expr
           {printf("expr13");}
       |   NOT Expr
           {printf("expr14");}
       | */  PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-          {printf("expr15");}
+          {printf("Integer.parseInt(variable)\n");}
       |   ID OCURV Args CCURV
-          {printf("expr16");}
+          {printf("expr16\n");}
       |   ID OCURV CCURV
-          {printf("expr17");}
+          {printf("expr17\n");}
 
     Args: Args COMMA Expr
-          {printf("args List");}
+          {printf("args List\n");}
         |  Expr
-          {printf("ends args List");}
+          {printf("ends args List\n");}
 
 
 %%
 
 int main(int argc, char* argv[])
 {
-    coluna = 0;
-    linha = 0;
+    coluna = 1;
+    linha = 1;
     yyparse();
     return 0;
 }
 
 int yyerror(char *s)
 {
+    printf ("Line %d, col %zd: %s: %s\n", linha, coluna - strlen(yytext), s, yytext);
+    error=1;
     return 0;
 }
 

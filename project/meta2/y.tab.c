@@ -140,7 +140,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "ijparser.y"
+#line 1 "ijparserdebug.y"
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -150,7 +150,7 @@
 
     int yylex(void);
     int yyerror(char *s);
-    int linha, coluna;
+    int linha, coluna,error;
     char* yytext;
 
 
@@ -174,7 +174,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 14 "ijparser.y"
+#line 14 "ijparserdebug.y"
 {
     /* structures */
     char *value;
@@ -1501,258 +1501,258 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 68 "ijparser.y"
-    {}
+#line 68 "ijparserdebug.y"
+    {printf("start program, nothing inside\n");}
     break;
 
   case 4:
-#line 70 "ijparser.y"
-    {}
+#line 70 "ijparserdebug.y"
+    {printf("start program, function definition\n");}
     break;
 
   case 5:
-#line 74 "ijparser.y"
-    {}
+#line 74 "ijparserdebug.y"
+    {printf("class definition, field declaration\n");}
     break;
 
   case 6:
-#line 76 "ijparser.y"
-    {}
+#line 76 "ijparserdebug.y"
+    {printf("class definition, method declaration\n");}
     break;
 
   case 7:
-#line 78 "ijparser.y"
-    {}
+#line 78 "ijparserdebug.y"
+    {printf("field declaration\n");}
     break;
 
   case 8:
-#line 80 "ijparser.y"
-    {}
+#line 80 "ijparserdebug.y"
+    {printf("method declaration\n");}
     break;
 
   case 9:
-#line 84 "ijparser.y"
-    {}
+#line 84 "ijparserdebug.y"
+    {printf("inside field declaration\n");}
     break;
 
   case 10:
-#line 88 "ijparser.y"
-    {}
+#line 88 "ijparserdebug.y"
+    {printf("var declaration\n");}
     break;
 
   case 11:
-#line 90 "ijparser.y"
-    {}
+#line 90 "ijparserdebug.y"
+    {printf("var declaration list\n");}
     break;
 
   case 12:
-#line 94 "ijparser.y"
-    {}
+#line 94 "ijparserdebug.y"
+    {printf("inside declaration list\n");}
     break;
 
   case 13:
-#line 96 "ijparser.y"
-    {}
+#line 96 "ijparserdebug.y"
+    {printf("last declaration list\n");}
     break;
 
   case 14:
-#line 100 "ijparser.y"
-    {}
+#line 100 "ijparserdebug.y"
+    {printf("var INT ARRAY\n");}
     break;
 
   case 15:
-#line 102 "ijparser.y"
-    {}
+#line 102 "ijparserdebug.y"
+    {printf("var BOOL ARRAY\n");}
     break;
 
   case 16:
-#line 104 "ijparser.y"
-    {}
+#line 104 "ijparserdebug.y"
+    {printf("var INT\n");}
     break;
 
   case 17:
-#line 106 "ijparser.y"
-    {}
+#line 106 "ijparserdebug.y"
+    {printf("var bool\n");}
     break;
 
   case 18:
-#line 111 "ijparser.y"
-    {}
+#line 111 "ijparserdebug.y"
+    {printf("inside MethodDecl\n");}
     break;
 
   case 19:
-#line 113 "ijparser.y"
-    {}
+#line 113 "ijparserdebug.y"
+    {printf("inside VOID MethodDecl\n");}
     break;
 
   case 20:
-#line 117 "ijparser.y"
-    {}
+#line 117 "ijparserdebug.y"
+    {printf("Method 1\n");}
     break;
 
   case 21:
-#line 119 "ijparser.y"
-    {}
+#line 119 "ijparserdebug.y"
+    {printf("Method 2\n");}
     break;
 
   case 22:
-#line 121 "ijparser.y"
-    {}
+#line 121 "ijparserdebug.y"
+    {printf("Method 3\n");}
     break;
 
   case 23:
-#line 125 "ijparser.y"
-    {}
+#line 125 "ijparserdebug.y"
+    {printf("USING BOTH OPTIONALS\n");}
     break;
 
   case 24:
-#line 127 "ijparser.y"
-    {}
+#line 127 "ijparserdebug.y"
+    {printf("ONLY VAR DECLARATOR\n");}
     break;
 
   case 25:
-#line 129 "ijparser.y"
-    {}
+#line 129 "ijparserdebug.y"
+    {printf("ONLY STATEMENTS\n");}
     break;
 
   case 26:
-#line 133 "ijparser.y"
-    {}
+#line 133 "ijparserdebug.y"
+    {printf("Method var declarator\n");}
     break;
 
   case 27:
-#line 135 "ijparser.y"
-    {}
+#line 135 "ijparserdebug.y"
+    {printf("end Method var declarator\n");}
     break;
 
   case 28:
-#line 139 "ijparser.y"
-    {}
+#line 139 "ijparserdebug.y"
+    {printf("Method statement\n");}
     break;
 
   case 29:
-#line 141 "ijparser.y"
-    {}
+#line 141 "ijparserdebug.y"
+    {printf("end Method statement\n");}
     break;
 
   case 30:
-#line 145 "ijparser.y"
-    {}
+#line 145 "ijparserdebug.y"
+    {printf("Formal Params 1\n");}
     break;
 
   case 31:
-#line 147 "ijparser.y"
-    {}
+#line 147 "ijparserdebug.y"
+    {printf("Formal Params 2\n");}
     break;
 
   case 32:
-#line 151 "ijparser.y"
-    {}
+#line 151 "ijparserdebug.y"
+    {printf("Formal params cont 1\n");}
     break;
 
   case 33:
-#line 153 "ijparser.y"
-    {}
+#line 153 "ijparserdebug.y"
+    {printf("Formal params cont 2\n");}
     break;
 
   case 34:
-#line 159 "ijparser.y"
-    {}
+#line 159 "ijparserdebug.y"
+    {printf("statement 1\n");}
     break;
 
   case 35:
-#line 163 "ijparser.y"
-    {}
+#line 163 "ijparserdebug.y"
+    {printf("statement 3\n");}
     break;
 
   case 36:
-#line 165 "ijparser.y"
-    {}
+#line 165 "ijparserdebug.y"
+    {printf("statement 4\n");}
     break;
 
   case 37:
-#line 167 "ijparser.y"
-    {}
+#line 167 "ijparserdebug.y"
+    {printf("statement 5\n");}
     break;
 
   case 38:
-#line 169 "ijparser.y"
-    {}
+#line 169 "ijparserdebug.y"
+    {printf("statement 6\n");}
     break;
 
   case 39:
-#line 171 "ijparser.y"
-    {}
+#line 171 "ijparserdebug.y"
+    {printf("statement 7\n");}
     break;
 
   case 40:
-#line 173 "ijparser.y"
-    {}
+#line 173 "ijparserdebug.y"
+    {printf("statement 8\n");}
     break;
 
   case 41:
-#line 175 "ijparser.y"
-    {}
+#line 175 "ijparserdebug.y"
+    {printf("statement 9\n");}
     break;
 
   case 42:
-#line 190 "ijparser.y"
-    {}
+#line 190 "ijparserdebug.y"
+    {printf("Expression ID\n");}
     break;
 
   case 43:
-#line 192 "ijparser.y"
-    {}
+#line 192 "ijparserdebug.y"
+    {printf("Expression INT\n");}
     break;
 
   case 44:
-#line 194 "ijparser.y"
-    {}
+#line 194 "ijparserdebug.y"
+    {printf("Expressiont BOOLLIT\n");}
     break;
 
   case 45:
-#line 196 "ijparser.y"
-    {}
+#line 196 "ijparserdebug.y"
+    {printf("new int[3]\n");}
     break;
 
   case 46:
-#line 198 "ijparser.y"
-    {}
+#line 198 "ijparserdebug.y"
+    {printf("new boolean[2]\n");}
     break;
 
   case 47:
-#line 200 "ijparser.y"
-    {}
+#line 200 "ijparserdebug.y"
+    {printf("(expr)\n");}
     break;
 
   case 48:
-#line 202 "ijparser.y"
-    {}
+#line 202 "ijparserdebug.y"
+    {printf("expr.\n");}
     break;
 
   case 49:
-#line 208 "ijparser.y"
-    {}
+#line 208 "ijparserdebug.y"
+    {printf("Integer.parseInt(variable)\n");}
     break;
 
   case 50:
-#line 210 "ijparser.y"
-    {}
+#line 210 "ijparserdebug.y"
+    {printf("expr16\n");}
     break;
 
   case 51:
-#line 212 "ijparser.y"
-    {}
+#line 212 "ijparserdebug.y"
+    {printf("expr17\n");}
     break;
 
   case 52:
-#line 215 "ijparser.y"
-    {}
+#line 215 "ijparserdebug.y"
+    {printf("args List\n");}
     break;
 
   case 53:
-#line 217 "ijparser.y"
-    {}
+#line 217 "ijparserdebug.y"
+    {printf("ends args List\n");}
     break;
 
 
@@ -1971,19 +1971,21 @@ yyreturn:
 }
 
 
-#line 220 "ijparser.y"
+#line 220 "ijparserdebug.y"
 
 
 int main(int argc, char* argv[])
 {
-    coluna = 0;
-    linha = 0;
+    coluna = 1;
+    linha = 1;
     yyparse();
     return 0;
 }
 
 int yyerror(char *s)
 {
+    printf ("Line %d, col %zd: %s: %s\n", linha, coluna - strlen(yytext), s, yytext);
+    error=1;
     return 0;
 }
 

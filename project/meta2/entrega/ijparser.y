@@ -7,7 +7,7 @@
 
     int yylex(void);
     int yyerror(char *s);
-    int linha, coluna;
+    int linha, coluna,error;
     char* yytext;
 %}
 
@@ -221,17 +221,17 @@
 
 int main(int argc, char* argv[])
 {
-    coluna = 0;
-    linha = 0;
+    coluna = 1;
+    linha = 1;
     yyparse();
     return 0;
 }
 
 int yyerror(char *s)
 {
+    printf ("Line %d, col %zd: %s: %s\n", linha, coluna - strlen(yytext), s, yytext);
+    error=1;
     return 0;
 }
-
-
 
 

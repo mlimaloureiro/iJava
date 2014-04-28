@@ -7,7 +7,7 @@
 
     int yylex(void);
     int yyerror(char *s);
-    int linha, coluna;
+    int linha, coluna,error;
     char* yytext;
 %}
 
