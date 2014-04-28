@@ -56,35 +56,52 @@
 
 %%
     start :     program;
-    program:    CLASS ID OBRACE CBRACE                      {}
-        |       CLASS ID OBRACE class_definition CBRACE     {}
+    program:    CLASS ID OBRACE CBRACE
+                {};
+        |       CLASS ID OBRACE class_definition CBRACE
+                {}
         ;
 
-    class_definition: class_definition FieldDecl            {}
-        |             class_definition MethodDecl           {}
-        |             FieldDecl                             {}
-        |             MethodDecl                            {}
+    class_definition: class_definition FieldDecl
+                      {}
+        |             class_definition MethodDecl
+                      {}
+        |             FieldDecl
+                      {}
+        |             MethodDecl
+                      {}
         ;
 
-    FieldDecl: STATIC VarDecl                               {}
+    FieldDecl: STATIC VarDecl
+               {}
     ;
 
-    VarDecl: Type ID SEMIC                                  {}
-        |    Type ID VarDeclList SEMIC                      {}
+    VarDecl: Type ID SEMIC
+             {}
+        |    Type ID VarDeclList SEMIC
+             {}
         ;
 
-    VarDeclList: VarDeclList COMMA ID                       {}
-        |        COMMA ID                                   {}
+    VarDeclList: VarDeclList COMMA ID
+                 {}
+        |        COMMA ID
+                 {}
 
-    Type: INT OSQUARE CSQUARE                               {}
-        | BOOL OSQUARE CSQUARE                              {}
-        | INT                                               {}
-        | BOOL                                              {}
+    Type: INT OSQUARE CSQUARE
+          {}
+        | BOOL OSQUARE CSQUARE
+          {}
+        | INT
+          {}
+        | BOOL
+          {}
         ;
 
     /* --------- METHODS PART ---------*/
-    MethodDecl: PUBLIC STATIC Type ID method_declarator         {}
-        |       PUBLIC STATIC VOID ID method_declarator         {}
+    MethodDecl: PUBLIC STATIC Type ID method_declarator
+                {}
+        |       PUBLIC STATIC VOID ID method_declarator
+                {}
         ;
 
     method_declarator: OCURV FormalParams CCURV OBRACE method_optionals CBRACE
@@ -95,39 +112,58 @@
                        {}
         ;
 
-    method_optionals: method_var_declarator method_statement    {}
-        |   method_var_declarator                               {}
-        |   method_statement                                    {}
+    method_optionals: method_var_declarator method_statement
+                      {}
+        |             method_var_declarator
+                      {}
+        |             method_statement
+                      {}
         ;
 
-    method_var_declarator: method_var_declarator VarDecl        {}
-        | VarDecl                                               {}
+    method_var_declarator: method_var_declarator VarDecl
+                           {}
+        |                  VarDecl
+                           {}
         ;
 
-    method_statement: method_statement Statement                {}
-        | Statement                                             {}
+    method_statement: method_statement Statement
+                      {}
+        |             Statement
+                      {}
         ;
 
-    FormalParams: Type ID formal_params_cont                    {}
-        | STRING OSQUARE CSQUARE ID                             {}
+    FormalParams: Type ID formal_params_cont
+                  {}
+        |         STRING OSQUARE CSQUARE ID
+                  {}
         ;
 
-    formal_params_cont: formal_params_cont COMMA Type ID        {}
-        | COMMA Type ID                                         {}
+    formal_params_cont: formal_params_cont COMMA Type ID
+                        {}
+        |               COMMA Type ID
+                        {}
         ;
 
     /* ----------- STATEMENTS ------------ */
 
-    Statement: OBRACE Statement CBRACE {}
-        | IF OCURV Expr CCURV Statement ELSE Statement {}
-        | IF OCURV Expr CCURV Statement {}
-        | WHILE OCURV Expr CCURV Statement {}
-        | PRINT OCURV Expr CCURV SEMIC {}
-        | ID OSQUARE Expr CSQUARE ASSIGN Expr SEMIC {}
-        | ID ASSIGN Expr SEMIC {}
-        | RETURN Expr SEMIC {}
-        | RETURN SEMIC {}
-        | OBRACE CBRACE {}
+    Statement: OBRACE Statement CBRACE
+               {}
+        |      IF OCURV Expr CCURV Statement ELSE Statement
+               {}
+        |      IF OCURV Expr CCURV Statement
+               {}
+        |      WHILE OCURV Expr CCURV Statement
+               {}
+        |      PRINT OCURV Expr CCURV SEMIC
+               {}
+        |      ID OSQUARE Expr CSQUARE ASSIGN Expr SEMIC
+               {}
+        |      ID ASSIGN Expr SEMIC
+               {}
+        |      RETURN Expr SEMIC
+               {}
+        |      RETURN SEMIC
+               {}
         ;
 
     /* ---------- EXPRESSIONS ------------ */
