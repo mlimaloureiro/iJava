@@ -52,6 +52,14 @@
 %token<intlit> INTLIT
 %token NOT
 
+%right ASSIGN
+%left OP1
+%left OP2
+%left OP3
+%left OP4
+%right NOT
+%left OBRACE CBRACE OSQUARE CSQUARE
+%nonassoc IF ELSE
 
 
 %%
@@ -73,7 +81,7 @@
         ;
 
     FieldDecl: STATIC VarDecl
-               {}
+              {}
     ;
 
     VarDecl: Type ID SEMIC
@@ -86,6 +94,7 @@
                  {}
         |        COMMA ID
                  {}
+        ;
 
     Type: INT OSQUARE CSQUARE
           {}
@@ -148,8 +157,8 @@
 
     Statement: OBRACE Statement CBRACE
                {}
-        |      IF OCURV Expr CCURV Statement ELSE Statement
-               {}
+        /*|      IF OCURV Expr CCURV Statement ELSE Statement
+               {printf("statement 2\n");}*/
         |      IF OCURV Expr CCURV Statement
                {}
         |      WHILE OCURV Expr CCURV Statement
@@ -167,8 +176,45 @@
         ;
 
     /* ---------- EXPRESSIONS ------------ */
-    Expr:
+    Expr: /*Expr OP1 Expr
+          {printf("expr1");}
+      |   Expr OP2 Expr
+          {printf("expr2");}
+      |   Expr OP3 Expr
+          {printf("expr3");}
+      |   Expr OP4 Expr
+          {printf("expr4");}
+      |   Expr OSQUARE Expr CSQUARE
+          {printf("expr5");}
+      |*/   ID
+          {}
+      |   INTLIT
+          {}
+      |   BOOLLIT
+          {}
+      |   NEW INT OSQUARE Expr CSQUARE
+          {}
+      |   NEW BOOL OSQUARE Expr CSQUARE
+          {}
+      |   OCURV Expr CCURV
+          {}
+      |   Expr DOTLENGTH
+          {}
+      | /*  OP3 Expr
+          {printf("expr13");}
+      |   NOT Expr
+          {printf("expr14");}
+      | */  PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+          {}
+      |   ID OCURV Args CCURV
+          {}
+      |   ID OCURV CCURV
+          {}
 
+    Args: Args COMMA Expr
+          {}
+        |  Expr
+          {}
 
 
 %%
