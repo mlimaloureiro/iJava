@@ -18,7 +18,7 @@
 %%
 <INITIAL>"//"										{conta();BEGIN DASH_COMMENT; in_dash_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
 <INITIAL>"/*"										{conta();BEGIN IN_COMMENT; in_comment = 1; linhaerro = linha; colunaerro = coluna-2;}
-<INITIAL>"("										{conta();return OCURV;}
+<INITIAL>"("                         				{conta();return OCURV;}
 <INITIAL>")"										{conta();return CCURV;}
 <INITIAL>"{"										{conta();return OBRACE;}
 <INITIAL>"}"										{conta();return CBRACE;}
@@ -110,7 +110,6 @@
 <IN_COMMENT>\n										{conta();};
 <DASH_COMMENT>.										{conta();};
 <DASH_COMMENT>\n									{conta();BEGIN INITIAL; in_dash_comment = 0;};
-
 
 %%
 

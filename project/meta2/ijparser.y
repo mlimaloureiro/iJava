@@ -4,19 +4,27 @@
     #include <string.h>
     #include <unistd.h>
     #include "structures.h"
+    #include "functions.h"
+    #include "show.h"
 
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
     char* yytext;
+    struct is_start_list *arvore = NULL;
 %}
 
 %union{
     /* structures */
+    struct  is_start_list        *start_t;
+
     char *value;
     int intlit;
     char *identifier;
 }
+
+
+%type <start_t> program
 
 %token NUMBER
 %token ENDOF
@@ -188,6 +196,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
+
+    if(error == 0) {
+      show_program(arvore);
+    }
+
     return 0;
 }
 
