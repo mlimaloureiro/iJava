@@ -52,170 +52,131 @@
 %token<intlit> INTLIT
 %token NOT
 
-%right ASSIGN
+%left OR
+%left AND
+%left EQUALS
 %left OP1
 %left OP2
 %left OP3
 %left OP4
 %right NOT
-%left OBRACE CBRACE OSQUARE CSQUARE
-%nonassoc IF ELSE
+%left DOTLENGTH
+%left OCURV CCURV OSQUARE CSQUARE
+%nonassoc ELSE
 
 
 %%
-    start :     program;
-    program:    CLASS ID OBRACE CBRACE
-                {printf("start program, nothing inside\n");};
-        |       CLASS ID OBRACE class_definition CBRACE
-                {printf("start program, function definition\n");}
-        ;
 
-    class_definition: class_definition FieldDecl
-                      {printf("class definition, field declaration\n");}
-        |             class_definition MethodDecl
-                      {printf("class definition, method declaration\n");}
-        |             FieldDecl
-                      {printf("field declaration\n");}
-        |             MethodDecl
-                      {printf("method declaration\n");}
-        ;
+Start : Program
+  ;
+Program : CLASS ID OBRACE field_or_method CBRACE
 
-    FieldDecl: STATIC VarDecl
-              {printf("inside field declaration\n");}
-    ;
+field_or_method:
+        |field_decl field_or_method
+        |method_decl field_or_method
+;
 
-    VarDecl: Type ID SEMIC
-             {printf("var declaration\n");}
-        |    Type ID VarDeclList SEMIC
-             {printf("var declaration list\n");}
-        ;
+field_decl : STATIC var_decl
+;
 
-    VarDeclList: VarDeclList COMMA ID
-                 {printf("inside declaration list\n");}
-        |        COMMA ID
-                 {printf("last declaration list\n");}
-        ;
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE
+;
 
-    Type: INT OSQUARE CSQUARE
-          {printf("var INT ARRAY\n");}
-        | BOOL OSQUARE CSQUARE
-          {printf("var BOOL ARRAY\n");}
-        | INT
-          {printf("var INT\n");}
-        | BOOL
-          {printf("var bool\n");}
-        ;
 
-    /* --------- METHODS PART ---------*/
-    MethodDecl: PUBLIC STATIC Type ID method_declarator
-                {printf("inside MethodDecl\n");}
-        |       PUBLIC STATIC VOID ID method_declarator
-                {printf("inside VOID MethodDecl\n");}
-        ;
+opt_formal_params:
+          |formal_params
+;
 
-    method_declarator: OCURV FormalParams CCURV OBRACE method_optionals CBRACE
-                       {printf("Method 1\n");}
-        |              OCURV CCURV OBRACE method_optionals CBRACE
-                       {printf("Method 2\n");}
-        |              OCURV CCURV OBRACE CBRACE
-                       {printf("Method 3\n");}
-        ;
+function_type: Type
+        |VOID
+;
 
-    method_optionals: method_var_declarator method_statement
-                      {printf("USING BOTH OPTIONALS\n");}
-        |             method_var_declarator
-                      {printf("ONLY VAR DECLARATOR\n");}
-        |             method_statement
-                      {printf("ONLY STATEMENTS\n");}
-        ;
+formal_params : Type ID opt_param
+       | STRING OSQUARE CSQUARE ID
+;
 
-    method_var_declarator: method_var_declarator VarDecl
-                           {printf("Method var declarator\n");}
-        |                  VarDecl
-                           {printf("end Method var declarator\n");}
-        ;
+opt_param :
+        |COMMA Type ID opt_param
+;
 
-    method_statement: method_statement Statement
-                      {printf("Method statement\n");}
-        |             Statement
-                      {printf("end Method statement\n");}
-        ;
+opt_var_decl:
+        |var_decl opt_var_decl
+;
 
-    FormalParams: Type ID formal_params_cont
-                  {printf("Formal Params 1\n");}
-        |         STRING OSQUARE CSQUARE ID
-                  {printf("Formal Params 2\n");}
-        ;
+opt_variable:
+        |COMMA ID opt_variable
+;
 
-    formal_params_cont: formal_params_cont COMMA Type ID
-                        {printf("Formal params cont 1\n");}
-        |               COMMA Type ID
-                        {printf("Formal params cont 2\n");}
-        ;
+var_decl : Type ID opt_variable SEMIC
+;
 
-    /* ----------- STATEMENTS ------------ */
+Type : var_type opt_array
+;
 
-    Statement: OBRACE Statement CBRACE
-               {printf("statement 1\n");}
-        /*|      IF OCURV Expr CCURV Statement ELSE Statement
-               {printf("statement 2\n");}*/
-        |      IF OCURV Expr CCURV Statement
-               {printf("statement 3\n");}
-        |      WHILE OCURV Expr CCURV Statement
-               {printf("statement 4\n");}
-        |      PRINT OCURV Expr CCURV SEMIC
-               {printf("statement 5\n");}
-        |      ID OSQUARE Expr CSQUARE ASSIGN Expr SEMIC
-               {printf("statement 6\n");}
-        |      ID ASSIGN Expr SEMIC
-               {printf("statement 7\n");}
-        |      RETURN Expr SEMIC
-               {printf("statement 8\n");}
-        |      RETURN SEMIC
-               {printf("statement 9\n");}
-        ;
+var_type:INT
+    |BOOL
+;
 
-    /* ---------- EXPRESSIONS ------------ */
-    Expr: /*Expr OP1 Expr
-          {printf("expr1");}
-      |   Expr OP2 Expr
-          {printf("expr2");}
-      |   Expr OP3 Expr
-          {printf("expr3");}
-      |   Expr OP4 Expr
-          {printf("expr4");}
-      |   Expr OSQUARE Expr CSQUARE
-          {printf("expr5");}
-      |*/ ID
-          {printf("Expression ID\n");}
-      |   INTLIT
-          {printf("Expression INT\n");}
-      |   BOOLLIT
-          {printf("Expressiont BOOLLIT\n");}
-      |   NEW INT OSQUARE Expr CSQUARE
-          {printf("new int[3]\n");}
-      |   NEW BOOL OSQUARE Expr CSQUARE
-          {printf("new boolean[2]\n");}
-      |   OCURV Expr CCURV
-          {printf("(expr)\n");}
-      |   Expr DOTLENGTH
-          {printf("expr.\n");}
-      | /*  OP3 Expr
-          {printf("expr13");}
-      |   NOT Expr
-          {printf("expr14");}
-      | */  PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-          {printf("Integer.parseInt(variable)\n");}
-      |   ID OCURV Args CCURV
-          {printf("expr16\n");}
-      |   ID OCURV CCURV
-          {printf("expr17\n");}
+opt_array:
+    |OSQUARE CSQUARE opt_array
+;
 
-    Args: Args COMMA Expr
-          {printf("args List\n");}
-        |  Expr
-          {printf("ends args List\n");}
+opt_statement:
+          |Statement opt_statement
+;
 
+Statement : OBRACE opt_statement CBRACE
+      | IF OCURV Expr CCURV Statement
+      | IF OCURV Expr CCURV Statement ELSE Statement
+      | PRINT OCURV Expr CCURV SEMIC
+      | WHILE OCURV Expr CCURV Statement
+      | ID opt_array_pos ASSIGN Expr SEMIC
+      | RETURN opt_expr SEMIC
+;
+
+
+opt_array_pos:
+          |OSQUARE Expr CSQUARE
+;
+
+opt_expr:
+      |Expr
+;
+
+Expr : array_dym OSQUARE Expr CSQUARE
+   | NEW n_Type OSQUARE Expr CSQUARE
+   | Expr OP1 Expr
+   | Expr OP2 Expr
+   | Expr OP3 Expr
+   | Expr OP4 Expr
+   | OP3 Expr
+   | NOT Expr
+   | array_dym
+;
+
+array_dym: ID
+   | INTLIT
+   | BOOLLIT
+   | OCURV Expr CCURV
+   | Expr DOTLENGTH
+   | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+   | ID OCURV opt_args CCURV
+;
+
+opt_args:
+      |Args
+;
+
+Args : Expr opt_arg
+;
+
+opt_arg:
+        |COMMA Expr opt_arg
+;
+
+n_Type:INT
+    |BOOL
+;
 
 %%
 

@@ -18,6 +18,8 @@
     char *identifier;
 }
 
+%token NUMBER
+%token ENDOF
 %token OCURV
 %token CCURV
 %token OBRACE
@@ -52,176 +54,138 @@
 %token<intlit> INTLIT
 %token NOT
 
-%right ASSIGN
+%left OR
+%left AND
+%left EQUALS
 %left OP1
 %left OP2
 %left OP3
 %left OP4
 %right NOT
-%left OBRACE CBRACE OSQUARE CSQUARE
-%nonassoc IF ELSE
+%left DOTLENGTH
+%left OCURV CCURV OSQUARE CSQUARE
+%nonassoc ELSE
 
 
 %%
-    start :     program;
-    program:    CLASS ID OBRACE CBRACE
-                {};
-        |       CLASS ID OBRACE class_definition CBRACE
-                {}
-        ;
 
-    class_definition: class_definition FieldDecl
-                      {}
-        |             class_definition MethodDecl
-                      {}
-        |             FieldDecl
-                      {}
-        |             MethodDecl
-                      {}
-        ;
+Start : Program
+  ;
+Program : CLASS ID OBRACE field_or_method CBRACE
 
-    FieldDecl: STATIC VarDecl
-              {}
-    ;
+field_or_method:
+        |field_decl field_or_method
+        |method_decl field_or_method
+;
 
-    VarDecl: Type ID SEMIC
-             {}
-        |    Type ID VarDeclList SEMIC
-             {}
-        ;
+field_decl : STATIC var_decl
+;
 
-    VarDeclList: VarDeclList COMMA ID
-                 {}
-        |        COMMA ID
-                 {}
-        ;
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE
+;
 
-    Type: INT OSQUARE CSQUARE
-          {}
-        | BOOL OSQUARE CSQUARE
-          {}
-        | INT
-          {}
-        | BOOL
-          {}
-        ;
+function_type: Type
+        |VOID
+;
 
-    /* --------- METHODS PART ---------*/
-    MethodDecl: PUBLIC STATIC Type ID method_declarator
-                {}
-        |       PUBLIC STATIC VOID ID method_declarator
-                {}
-        ;
+opt_formal_params:
+          |formal_params
+;
 
-    method_declarator: OCURV FormalParams CCURV OBRACE method_optionals CBRACE
-                       {}
-        |              OCURV CCURV OBRACE method_optionals CBRACE
-                       {}
-        |              OCURV CCURV OBRACE CBRACE
-                       {}
-        ;
+formal_params : Type ID opt_param
+       | STRING OSQUARE CSQUARE ID
+;
 
-    method_optionals: method_var_declarator method_statement
-                      {}
-        |             method_var_declarator
-                      {}
-        |             method_statement
-                      {}
-        ;
+opt_param :
+        |COMMA Type ID opt_param
+;
 
-    method_var_declarator: method_var_declarator VarDecl
-                           {}
-        |                  VarDecl
-                           {}
-        ;
+opt_var_decl:
+        |var_decl opt_var_decl
+;
 
-    method_statement: method_statement Statement
-                      {}
-        |             Statement
-                      {}
-        ;
+opt_variable:
+        |COMMA ID opt_variable
+;
 
-    FormalParams: Type ID formal_params_cont
-                  {}
-        |         STRING OSQUARE CSQUARE ID
-                  {}
-        ;
+var_decl : Type ID opt_variable SEMIC
+;
 
-    formal_params_cont: formal_params_cont COMMA Type ID
-                        {}
-        |               COMMA Type ID
-                        {}
-        ;
+Type : var_type opt_array
+;
 
-    /* ----------- STATEMENTS ------------ */
+var_type:INT
+    |BOOL
+;
 
-    Statement: OBRACE Statement CBRACE
-               {}
-        /*|      IF OCURV Expr CCURV Statement ELSE Statement
-               {printf("statement 2\n");}*/
-        |      IF OCURV Expr CCURV Statement
-               {}
-        |      WHILE OCURV Expr CCURV Statement
-               {}
-        |      PRINT OCURV Expr CCURV SEMIC
-               {}
-        |      ID OSQUARE Expr CSQUARE ASSIGN Expr SEMIC
-               {}
-        |      ID ASSIGN Expr SEMIC
-               {}
-        |      RETURN Expr SEMIC
-               {}
-        |      RETURN SEMIC
-               {}
-        ;
+opt_array:
+    |OSQUARE CSQUARE opt_array
+;
 
-    /* ---------- EXPRESSIONS ------------ */
-    Expr: /*Expr OP1 Expr
-          {printf("expr1");}
-      |   Expr OP2 Expr
-          {printf("expr2");}
-      |   Expr OP3 Expr
-          {printf("expr3");}
-      |   Expr OP4 Expr
-          {printf("expr4");}
-      |   Expr OSQUARE Expr CSQUARE
-          {printf("expr5");}
-      |*/   ID
-          {}
-      |   INTLIT
-          {}
-      |   BOOLLIT
-          {}
-      |   NEW INT OSQUARE Expr CSQUARE
-          {}
-      |   NEW BOOL OSQUARE Expr CSQUARE
-          {}
-      |   OCURV Expr CCURV
-          {}
-      |   Expr DOTLENGTH
-          {}
-      | /*  OP3 Expr
-          {printf("expr13");}
-      |   NOT Expr
-          {printf("expr14");}
-      | */  PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-          {}
-      |   ID OCURV Args CCURV
-          {}
-      |   ID OCURV CCURV
-          {}
+opt_statement:
+          |Statement opt_statement
+;
 
-    Args: Args COMMA Expr
-          {}
-        |  Expr
-          {}
+Statement : OBRACE opt_statement CBRACE
+      | IF OCURV Expr CCURV Statement
+      | IF OCURV Expr CCURV Statement ELSE Statement
+      | WHILE OCURV Expr CCURV Statement
+      | PRINT OCURV Expr CCURV SEMIC
+      | ID opt_array_pos ASSIGN Expr SEMIC
+      | RETURN opt_expr SEMIC
+;
+
+
+opt_array_pos:
+          |OSQUARE Expr CSQUARE
+;
+
+opt_expr:
+      |Expr
+;
+
+Expr : array_dim OSQUARE Expr CSQUARE
+   | NEW n_Type OSQUARE Expr CSQUARE
+   | Expr OP1 Expr
+   | Expr OP2 Expr
+   | Expr OP3 Expr
+   | Expr OP4 Expr
+   | OP3 Expr
+   | NOT Expr
+   | array_dim
+;
+
+array_dim: ID
+   | INTLIT
+   | BOOLLIT
+   | OCURV Expr CCURV
+   | Expr DOTLENGTH
+   | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+   | ID OCURV opt_args CCURV
+;
+
+n_Type:INT
+    |BOOL
+;
+
+opt_args:
+      |Args
+;
+
+Args : Expr opt_arg
+;
+
+opt_arg:
+        |COMMA Expr opt_arg
+;
+
 
 
 %%
 
 int main(int argc, char* argv[])
 {
-    coluna = 1;
+    coluna = 0;
     linha = 1;
     yyparse();
     return 0;
@@ -229,9 +193,11 @@ int main(int argc, char* argv[])
 
 int yyerror(char *s)
 {
-    printf ("Line %d, col %zd: %s: %s\n", linha, coluna - strlen(yytext), s, yytext);
+    printf ("Line %d, col %zd: %s: %s\n", linha, coluna - strlen(yytext) + 1, s, yytext);
     error=1;
     return 0;
 }
+
+
 
 

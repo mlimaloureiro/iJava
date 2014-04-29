@@ -6,9 +6,9 @@
 	#include "structures.h"
 	int in_comment = 0;
 	int in_dash_comment = 0;
-	int linha=0;
+	int linha=1;
 	int coluna=0;
-	int linhaerro=0;
+	int linhaerro=1;
 	int colunaerro=0;
 	void conta();
 %}
@@ -81,6 +81,8 @@
 <INITIAL>"transient"								{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 <INITIAL>"try"										{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 <INITIAL>"volatile"									{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
+<INITIAL>"++"										{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
+<INITIAL>"--"										{conta();yylval.value=(char*)strdup(yytext);return RESERVED;}
 <INITIAL>"&&"										{conta();yylval.value=(char*)strdup(yytext);return OP1;}
 <INITIAL>"||"										{conta();yylval.value=(char*)strdup(yytext);return OP1;}
 <INITIAL>"<"										{conta();yylval.value=(char*)strdup(yytext);return OP2;}
@@ -102,7 +104,7 @@
 <INITIAL>(([1-9])([0-9])*|0+([1-9])([0-9])*|0+)	  	{conta();yylval.intlit=atoi(yytext);return INTLIT;}
 <INITIAL>(0[xX][0-9a-fA-F]+)	  					{conta();yylval.intlit=atoi(yytext); return INTLIT;}
 <INITIAL>\n|\t|[ ]									{conta();};
-<INITIAL>.											{printf("Line %d, col %d: illegal character ('%c')\n",linha+1,coluna+1,yytext[0]);conta();};
+<INITIAL>.											{printf("Line %d, col %d: illegal character ('%c')\n",linha,coluna,yytext[0]);conta();};
 <IN_COMMENT>"*/"									{conta();BEGIN INITIAL; in_comment = 0;};
 <IN_COMMENT>.										{conta();};
 <IN_COMMENT>\n										{conta();};
@@ -115,7 +117,7 @@
 int yywrap()
 {
 	if(in_comment) {
-		printf ("Line %d, col %d: unterminated comment\n", linhaerro+1, colunaerro+1);
+		printf ("Line %d, col %d: unterminated comment\n", linhaerro, colunaerro);
 	}
 	return 1;
 }

@@ -39,82 +39,92 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     OCURV = 258,
-     CCURV = 259,
-     OBRACE = 260,
-     CBRACE = 261,
-     OSQUARE = 262,
-     CSQUARE = 263,
-     BOOLLIT = 264,
-     INT = 265,
-     BOOL = 266,
-     NEW = 267,
-     PRINT = 268,
-     PARSEINT = 269,
-     CLASS = 270,
-     PUBLIC = 271,
-     STATIC = 272,
-     VOID = 273,
-     STRING = 274,
-     DOTLENGTH = 275,
-     RETURN = 276,
-     IF = 277,
-     ELSE = 278,
-     WHILE = 279,
-     RESERVED = 280,
-     OP1 = 281,
-     OP2 = 282,
-     OP3 = 283,
-     OP4 = 284,
-     ASSIGN = 285,
-     SEMIC = 286,
-     COMMA = 287,
-     ID = 288,
-     INTLIT = 289,
-     NOT = 290
+     NUMBER = 258,
+     ENDOF = 259,
+     OCURV = 260,
+     CCURV = 261,
+     OBRACE = 262,
+     CBRACE = 263,
+     OSQUARE = 264,
+     CSQUARE = 265,
+     BOOLLIT = 266,
+     INT = 267,
+     BOOL = 268,
+     NEW = 269,
+     PRINT = 270,
+     PARSEINT = 271,
+     CLASS = 272,
+     PUBLIC = 273,
+     STATIC = 274,
+     VOID = 275,
+     STRING = 276,
+     DOTLENGTH = 277,
+     RETURN = 278,
+     IF = 279,
+     ELSE = 280,
+     WHILE = 281,
+     RESERVED = 282,
+     OP1 = 283,
+     OP2 = 284,
+     OP3 = 285,
+     OP4 = 286,
+     ASSIGN = 287,
+     SEMIC = 288,
+     COMMA = 289,
+     ID = 290,
+     INTLIT = 291,
+     NOT = 292,
+     OR = 293,
+     AND = 294,
+     EQUALS = 295
    };
 #endif
 /* Tokens.  */
-#define OCURV 258
-#define CCURV 259
-#define OBRACE 260
-#define CBRACE 261
-#define OSQUARE 262
-#define CSQUARE 263
-#define BOOLLIT 264
-#define INT 265
-#define BOOL 266
-#define NEW 267
-#define PRINT 268
-#define PARSEINT 269
-#define CLASS 270
-#define PUBLIC 271
-#define STATIC 272
-#define VOID 273
-#define STRING 274
-#define DOTLENGTH 275
-#define RETURN 276
-#define IF 277
-#define ELSE 278
-#define WHILE 279
-#define RESERVED 280
-#define OP1 281
-#define OP2 282
-#define OP3 283
-#define OP4 284
-#define ASSIGN 285
-#define SEMIC 286
-#define COMMA 287
-#define ID 288
-#define INTLIT 289
-#define NOT 290
+#define NUMBER 258
+#define ENDOF 259
+#define OCURV 260
+#define CCURV 261
+#define OBRACE 262
+#define CBRACE 263
+#define OSQUARE 264
+#define CSQUARE 265
+#define BOOLLIT 266
+#define INT 267
+#define BOOL 268
+#define NEW 269
+#define PRINT 270
+#define PARSEINT 271
+#define CLASS 272
+#define PUBLIC 273
+#define STATIC 274
+#define VOID 275
+#define STRING 276
+#define DOTLENGTH 277
+#define RETURN 278
+#define IF 279
+#define ELSE 280
+#define WHILE 281
+#define RESERVED 282
+#define OP1 283
+#define OP2 284
+#define OP3 285
+#define OP4 286
+#define ASSIGN 287
+#define SEMIC 288
+#define COMMA 289
+#define ID 290
+#define INTLIT 291
+#define NOT 292
+#define OR 293
+#define AND 294
+#define EQUALS 295
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 14 "ijparserdebug.y"
+#line 14 "ijparser.y"
 {
     /* structures */
     char *value;
@@ -122,7 +132,7 @@ typedef union YYSTYPE
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 126 "y.tab.h"
+#line 136 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
