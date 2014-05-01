@@ -17,14 +17,13 @@
 %union{
     /* structures */
     struct  is_start_list        *start_t;
-
     char *value;
     int intlit;
     char *identifier;
 }
 
 
-%type <start_t> program
+%type <start_t> Program
 
 %token NUMBER
 %token ENDOF
@@ -79,7 +78,7 @@
 
 Start : Program
   ;
-Program : CLASS ID OBRACE field_or_method CBRACE
+Program : CLASS ID OBRACE field_or_method CBRACE { $$ = insert_program($2,$4); }
 
 field_or_method:
         |field_decl field_or_method

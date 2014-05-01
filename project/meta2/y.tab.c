@@ -157,11 +157,14 @@
     #include <string.h>
     #include <unistd.h>
     #include "structures.h"
+    #include "functions.h"
+    #include "show.h"
 
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
     char* yytext;
+    struct is_start_list *arvore = NULL;
 
 
 /* Enabling traces.  */
@@ -184,15 +187,16 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 14 "ijparser.y"
+#line 17 "ijparser.y"
 {
     /* structures */
+    struct  is_start_list        *start_t;
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 193 of yacc.c.  */
-#line 196 "y.tab.c"
+#line 200 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -205,7 +209,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 209 "y.tab.c"
+#line 213 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -516,13 +520,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    72,    72,    74,    76,    77,    78,    81,    84,    87,
-      88,    91,    92,    95,    96,    99,   100,   103,   104,   107,
-     108,   111,   114,   117,   118,   121,   122,   125,   126,   129,
-     130,   131,   132,   133,   134,   135,   139,   140,   143,   144,
-     147,   148,   149,   150,   151,   152,   153,   154,   155,   158,
-     159,   160,   161,   162,   163,   164,   167,   168,   171,   172,
-     175,   178,   179
+       0,    79,    79,    81,    83,    84,    85,    88,    91,    94,
+      95,    98,    99,   102,   103,   106,   107,   110,   111,   114,
+     115,   118,   121,   124,   125,   128,   129,   132,   133,   136,
+     137,   138,   139,   140,   141,   142,   146,   147,   150,   151,
+     154,   155,   156,   157,   158,   159,   160,   161,   162,   165,
+     166,   167,   168,   169,   170,   171,   174,   175,   178,   179,
+     182,   185,   186
 };
 #endif
 
@@ -1522,7 +1526,7 @@ yyreduce:
     {
       
 /* Line 1267 of yacc.c.  */
-#line 1526 "y.tab.c"
+#line 1530 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1736,7 +1740,7 @@ yyreturn:
 }
 
 
-#line 184 "ijparser.y"
+#line 191 "ijparser.y"
 
 
 int main(int argc, char* argv[])
@@ -1744,6 +1748,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
+
+    if(error == 0) {
+      show_program(arvore);
+    }
+
     return 0;
 }
 

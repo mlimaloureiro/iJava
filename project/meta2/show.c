@@ -11,7 +11,7 @@ void show_program(is_start_list *list){
         return;
     }
     printf("Program\n");
-    identation+=2;
+    /*identation+=2;
     is_start_list* list_element;
     for(list_element=list; list_element!=NULL; list_element=list_element->next){
         switch(list_element->element_type)
@@ -28,4 +28,5 @@ void show_program(is_start_list *list){
         }
     }
     identation-=2;
+    */
 }

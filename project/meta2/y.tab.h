@@ -124,15 +124,16 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 14 "ijparser.y"
+#line 17 "ijparser.y"
 {
     /* structures */
+    struct  is_start_list        *start_t;
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 136 "y.tab.h"
+#line 137 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
