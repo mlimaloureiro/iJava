@@ -4,19 +4,22 @@
 #include <stdio.h>
 
 
-is_start_list* insert_start_list_field_declaration( is_start_list* list, is_field_declaration* to_insert) {
+is_field_or_method* insert_field_or_method(is_field_declaration* field, is_method_declaration* method, is_field_or_method* field_or_method_to_insert) {
 
-    is_start_list* new_element = (is_start_list*)malloc( sizeof(is_start_list));
-    new_element->element_type=d_field_declaration;
-    new_element->element.field_declaration=(struct is_field_declaration*) to_insert;
-    new_element->next = NULL;
-    if(list==NULL)
-        return new_element;
-    is_start_list* last_element;
-    for(last_element=list; last_element->next != NULL; last_element = last_element->next);
-
-    last_element->next = new_element;
-
-    return list;
+    is_field_or_method* new = (is_field_or_method*) malloc(sizeof(is_field_or_method));
+    
+    new->method = method;
+    new->field = field;
+    new->next = field_or_method_to_insert;
+    
+    if (field_or_method_to_insert == NULL)
+        return new;
+    
+    is_field_or_method* last_element;
+    for (last_element = field_or_method_to_insert; last_element->next != NULL; last_element = last_element->next);
+    
+    last_element->next = new;
+    
+    return new;
 }
 

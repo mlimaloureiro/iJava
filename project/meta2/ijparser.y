@@ -76,19 +76,52 @@
 
 %%
 
+/*
+ Start → Program
+ Program → CLASS ID OBRACE { FieldDecl | MethodDecl } CBRACE
+ FieldDecl → STATIC VarDecl
+ MethodDecl → PUBLIC STATIC ( Type | VOID ) ID OCURV [ FormalParams ] CCURV OBRACE { VarDecl } { Statement } CBRACE
+ FormalParams → Type ID { COMMA Type ID }
+ FormalParams → STRING OSQUARE CSQUARE ID
+ VarDecl → Type ID { COMMA ID } SEMIC
+ Type → ( INT | BOOL ) [ OSQUARE CSQUARE ]
+ Statement → OBRACE { Statement } CBRACE
+ Statement → IF OCURV Expr CCURV Statement [ ELSE Statement ]
+ Statement → WHILE OCURV Expr CCURV Statement
+ Statement → PRINT OCURV Expr CCURV SEMIC
+ Statement → ID [ OSQUARE Expr CSQUARE ] ASSIGN Expr SEMIC
+ Statement → RETURN [ Expr ] SEMIC
+ Expr → Expr ( OP1 | OP2 | OP3 | OP4 ) Expr
+ Expr → Expr OSQUARE Expr CSQUARE
+ Expr → ID | INTLIT | BOOLLIT
+ Expr → NEW ( INT | BOOL ) OSQUARE Expr CSQUARE
+ Expr → OCURV Expr CCURV
+ Expr → Expr DOTLENGTH | ( OP3 | NOT ) Expr
+ Expr → PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+ Expr → ID OCURV [ Args ] CCURV
+ Args → Expr { COMMA Expr }
+
+
+ */
+
 Start : Program
   ;
-Program : CLASS ID OBRACE field_or_method CBRACE { $$ = insert_program($2,$4); }
+Program : CLASS ID OBRACE field_or_method CBRACE { }
 
 field_or_method:
-        |field_decl field_or_method
-        |method_decl field_or_method
+        |field_decl field_or_method {}
+        |method_decl field_or_method {}
 ;
 
 field_decl : STATIC var_decl
 ;
 
 method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE
+        |  PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl CBRACE
+        |  PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_statement CBRACE
+        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_var_decl opt_statement CBRACE
+        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_var_decl CBRACE
+        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_statement CBRACE
 ;
 
 function_type: Type
@@ -127,10 +160,12 @@ var_type:INT
 
 opt_array:
     |OSQUARE CSQUARE opt_array
+    |OSQUARE CSQUARE
 ;
 
 opt_statement:
           |Statement opt_statement
+          |Statement
 ;
 
 Statement : OBRACE opt_statement CBRACE
