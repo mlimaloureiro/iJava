@@ -26,4 +26,18 @@ void print_program(is_program* program) {
     int i;
     for(i=0;i<identation;i++) printf(" ");
     printf("ID(%s)\n",program->ident);
+    
+    while(program->field_or_method) {
+        switch(program->field_or_method->type)
+        {
+            case d_field_declaration:
+                printf("WE HAVE A FIELD DECLARATION");
+                break;
+            case d_method_declaration:
+                printf("WE HAVE A METHOD DECLARATION");
+                break;
+        }
+        program->field_or_method = program->field_or_method->next;
+    }
+    
 }

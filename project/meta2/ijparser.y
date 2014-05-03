@@ -89,15 +89,15 @@ Start : Program {/*$$ = insert_start_list($1,NULL);tree = $$;*/}
 ;
 Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4); tree = $$;}
 
-field_or_method: {}
-|field_decl field_or_method {}
-|method_decl field_or_method {}
+field_or_method: {$$ = insert_field_or_method(NULL, NULL, NULL);}
+|field_decl field_or_method { $$ = insert_field_or_method($1, NULL, $2);}
+|method_decl field_or_method { $$ = insert_field_or_method(NULL, $1, $2); }
 ;
 
 field_decl : STATIC var_decl {}
 ;
 
-method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE {}
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE {  }
 ;
 
 function_type: Type {}

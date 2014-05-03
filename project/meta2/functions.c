@@ -37,21 +37,22 @@ is_program* insert_program(char* ident, is_field_or_method* field_or_method) {
 }
 
 is_field_or_method* insert_field_or_method(is_field_declaration* field, is_method_declaration* method, is_field_or_method* field_or_method_to_insert) {
+    printf("in insert field or method\n");
 
     is_field_or_method* new = (is_field_or_method*) malloc(sizeof(is_field_or_method));
     
-    new->method = method;
-    new->field = field;
+    if(method != NULL) {
+        printf("last element is a method\n");
+        new->type = d_method_declaration;
+    } else if(field != NULL) {
+        printf("last element is a field\n");
+        new->type = d_field_declaration;
+    }
+    
     new->next = field_or_method_to_insert;
+    new->element.field = (struct is_field_declaration*) field;
+    new->element.method = (struct is_method_declaration*) method;
     
-    if (field_or_method_to_insert == NULL)
-        return new;
-    
-    is_field_or_method* last_element;
-    for (last_element = field_or_method_to_insert; last_element->next != NULL; last_element = last_element->next);
-    
-    last_element->next = new;
-    
-    return new;
+    return field_or_method_to_insert;
 }
 

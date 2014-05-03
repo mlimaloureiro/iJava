@@ -15,10 +15,11 @@ typedef struct is_program {
 } is_program;
 
 typedef struct is_field_or_method {
+    d_field_or_method_type type;
     union {
         struct is_field_declaration* field;
         struct is_method_declaration* method;
-    };
+    } element;
     struct is_field_or_method* next;
 } is_field_or_method;
 

@@ -1,1 +1,1 @@
-class teste { static int ola; }
+class teste {static int ola; static int adeus;public static void main(){}  }

@@ -1541,17 +1541,17 @@ yyreduce:
 
   case 4:
 #line 92 "ijparser.y"
-    {}
+    {(yyval.field_or_method_t) = insert_field_or_method(NULL, NULL, NULL);}
     break;
 
   case 5:
 #line 93 "ijparser.y"
-    {}
+    { (yyval.field_or_method_t) = insert_field_or_method((yyvsp[(1) - (2)].field_decl_t), NULL, (yyvsp[(2) - (2)].field_or_method_t));}
     break;
 
   case 6:
 #line 94 "ijparser.y"
-    {}
+    { (yyval.field_or_method_t) = insert_field_or_method(NULL, (yyvsp[(1) - (2)].method_decl_t), (yyvsp[(2) - (2)].field_or_method_t)); }
     break;
 
   case 7:
@@ -1561,7 +1561,7 @@ yyreduce:
 
   case 8:
 #line 100 "ijparser.y"
-    {}
+    {  }
     break;
 
   case 9:
