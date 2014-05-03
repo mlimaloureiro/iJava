@@ -157,14 +157,15 @@
     #include <string.h>
     #include <unistd.h>
     #include "structures.h"
-    #include "functions.h"
-    #include "show.h"
+	#include "functions.h"
+	#include "show.h"
 
+    
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
+    struct is_start_list *tree = NULL;
     char* yytext;
-    struct is_start_list *arvore = NULL;
 
 
 /* Enabling traces.  */
@@ -187,16 +188,20 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 17 "ijparser.y"
+#line 18 "ijparser.y"
 {
+    struct is_start_list* is_start_list_t;
+    struct is_program* is_program_t;
+    struct is_field_or_method* field_or_method_t;
+    struct is_method_declaration* method_decl_t;
+    struct is_field_declaration* field_decl_t;
     /* structures */
-    struct  is_start_list        *start_t;
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 193 of yacc.c.  */
-#line 200 "y.tab.c"
+#line 205 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -209,7 +214,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 213 "y.tab.c"
+#line 218 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -520,13 +525,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    79,    79,    81,    83,    84,    85,    88,    91,    94,
-      95,    98,    99,   102,   103,   106,   107,   110,   111,   114,
-     115,   118,   121,   124,   125,   128,   129,   132,   133,   136,
-     137,   138,   139,   140,   141,   142,   146,   147,   150,   151,
-     154,   155,   156,   157,   158,   159,   160,   161,   162,   165,
-     166,   167,   168,   169,   170,   171,   174,   175,   178,   179,
-     182,   185,   186
+       0,    88,    88,    90,    92,    93,    94,    97,   100,   103,
+     104,   107,   108,   111,   112,   115,   116,   119,   120,   123,
+     124,   127,   130,   133,   134,   137,   138,   141,   142,   145,
+     146,   147,   148,   149,   150,   151,   155,   156,   159,   160,
+     163,   164,   165,   166,   167,   168,   169,   170,   171,   174,
+     175,   176,   177,   178,   179,   180,   183,   184,   187,   188,
+     191,   194,   195
 };
 #endif
 
@@ -1524,9 +1529,29 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
+        case 2:
+#line 88 "ijparser.y"
+    {(yyval.is_start_list_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t),NULL); tree = (yyval.is_start_list_t);}
+    break;
+
+  case 3:
+#line 90 "ijparser.y"
+    {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t));}
+    break;
+
+  case 5:
+#line 93 "ijparser.y"
+    {}
+    break;
+
+  case 6:
+#line 94 "ijparser.y"
+    {}
+    break;
+
+
 /* Line 1267 of yacc.c.  */
-#line 1530 "y.tab.c"
+#line 1555 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1740,7 +1765,7 @@ yyreturn:
 }
 
 
-#line 191 "ijparser.y"
+#line 200 "ijparser.y"
 
 
 int main(int argc, char* argv[])
@@ -1748,11 +1773,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
-
+    
     if(error == 0) {
-      show_program(arvore);
+        show_program(tree);
     }
-
+    
     return 0;
 }
 

@@ -1,0 +1,9 @@
+clear
+clear
+clear
+flex ijparser.l
+yacc -d ijparser.y --report-file=FILE --report all
+gcc -o ijparser y.tab.c lex.yy.c -ll -ly -Wno-format-zero-length functions.c print.c structures.h functions.h
+./ijparser < testes/enunciado > cenas
+zip -r ijparser.zip ijparser.y ijparser.l 
+cat cenas

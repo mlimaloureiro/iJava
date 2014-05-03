@@ -4,26 +4,34 @@
     #include <string.h>
     #include <unistd.h>
     #include "structures.h"
-    #include "functions.h"
-    #include "show.h"
+	#include "functions.h"
+	#include "show.h"
 
+    
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
+    struct is_start_list *tree = NULL;
     char* yytext;
-    struct is_start_list *arvore = NULL;
 %}
 
 %union{
+    struct is_start_list* is_start_list_t;
+    struct is_program* is_program_t;
+    struct is_field_or_method* field_or_method_t;
+    struct is_method_declaration* method_decl_t;
+    struct is_field_declaration* field_decl_t;
     /* structures */
-    struct  is_start_list        *start_t;
     char *value;
     int intlit;
     char *identifier;
 }
 
-
-%type <start_t> Program
+%type <is_start_list_t>             Start
+%type <is_program_t>                Program
+%type <field_or_method_t>			field_or_method
+%type <method_decl_t>               method_decl
+%type <field_decl_t>                field_decl
 
 %token NUMBER
 %token ENDOF
@@ -73,79 +81,47 @@
 %left OCURV CCURV OSQUARE CSQUARE
 %nonassoc ELSE
 
+%start Start
 
 %%
 
-/*
- Start → Program
- Program → CLASS ID OBRACE { FieldDecl | MethodDecl } CBRACE
- FieldDecl → STATIC VarDecl
- MethodDecl → PUBLIC STATIC ( Type | VOID ) ID OCURV [ FormalParams ] CCURV OBRACE { VarDecl } { Statement } CBRACE
- FormalParams → Type ID { COMMA Type ID }
- FormalParams → STRING OSQUARE CSQUARE ID
- VarDecl → Type ID { COMMA ID } SEMIC
- Type → ( INT | BOOL ) [ OSQUARE CSQUARE ]
- Statement → OBRACE { Statement } CBRACE
- Statement → IF OCURV Expr CCURV Statement [ ELSE Statement ]
- Statement → WHILE OCURV Expr CCURV Statement
- Statement → PRINT OCURV Expr CCURV SEMIC
- Statement → ID [ OSQUARE Expr CSQUARE ] ASSIGN Expr SEMIC
- Statement → RETURN [ Expr ] SEMIC
- Expr → Expr ( OP1 | OP2 | OP3 | OP4 ) Expr
- Expr → Expr OSQUARE Expr CSQUARE
- Expr → ID | INTLIT | BOOLLIT
- Expr → NEW ( INT | BOOL ) OSQUARE Expr CSQUARE
- Expr → OCURV Expr CCURV
- Expr → Expr DOTLENGTH | ( OP3 | NOT ) Expr
- Expr → PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
- Expr → ID OCURV [ Args ] CCURV
- Args → Expr { COMMA Expr }
-
-
- */
-
-Start : Program
-  ;
-Program : CLASS ID OBRACE field_or_method CBRACE { }
+Start : Program {$$ = insert_start_list($1,NULL); tree = $$;}
+;
+Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4);}
 
 field_or_method:
-        |field_decl field_or_method {}
-        |method_decl field_or_method {}
+|field_decl field_or_method {}
+|method_decl field_or_method {}
 ;
 
 field_decl : STATIC var_decl
 ;
 
 method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE
-        |  PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl CBRACE
-        |  PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_statement CBRACE
-        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_var_decl opt_statement CBRACE
-        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_var_decl CBRACE
-        |  PUBLIC STATIC function_type ID OCURV CCURV OBRACE opt_statement CBRACE
 ;
 
 function_type: Type
-        |VOID
+|VOID
 ;
 
 opt_formal_params:
-          |formal_params
+|formal_params
 ;
 
 formal_params : Type ID opt_param
-       | STRING OSQUARE CSQUARE ID
+| STRING OSQUARE CSQUARE ID
 ;
 
 opt_param :
-        |COMMA Type ID opt_param
+|COMMA Type ID opt_param
 ;
 
 opt_var_decl:
-        |var_decl opt_var_decl
+|var_decl opt_var_decl
 ;
 
 opt_variable:
-        |COMMA ID opt_variable
+|COMMA ID opt_variable
 ;
 
 var_decl : Type ID opt_variable SEMIC
@@ -155,70 +131,68 @@ Type : var_type opt_array
 ;
 
 var_type:INT
-    |BOOL
+|BOOL
 ;
 
 opt_array:
-    |OSQUARE CSQUARE opt_array
-    |OSQUARE CSQUARE
+|OSQUARE CSQUARE opt_array
 ;
 
 opt_statement:
-          |Statement opt_statement
-          |Statement
+|Statement opt_statement
 ;
 
 Statement : OBRACE opt_statement CBRACE
-      | IF OCURV Expr CCURV Statement
-      | IF OCURV Expr CCURV Statement ELSE Statement
-      | WHILE OCURV Expr CCURV Statement
-      | PRINT OCURV Expr CCURV SEMIC
-      | ID opt_array_pos ASSIGN Expr SEMIC
-      | RETURN opt_expr SEMIC
+| IF OCURV Expr CCURV Statement
+| IF OCURV Expr CCURV Statement ELSE Statement
+| WHILE OCURV Expr CCURV Statement
+| PRINT OCURV Expr CCURV SEMIC
+| ID opt_array_pos ASSIGN Expr SEMIC
+| RETURN opt_expr SEMIC
 ;
 
 
 opt_array_pos:
-          |OSQUARE Expr CSQUARE
+|OSQUARE Expr CSQUARE
 ;
 
 opt_expr:
-      |Expr
+|Expr
 ;
 
 Expr : array_dim OSQUARE Expr CSQUARE
-   | NEW n_Type OSQUARE Expr CSQUARE
-   | Expr OP1 Expr
-   | Expr OP2 Expr
-   | Expr OP3 Expr
-   | Expr OP4 Expr
-   | OP3 Expr
-   | NOT Expr
-   | array_dim
+| NEW n_Type OSQUARE Expr CSQUARE
+| Expr OP1 Expr
+| Expr OP2 Expr
+| Expr OP3 Expr
+| Expr OP4 Expr
+| OP3 Expr
+| NOT Expr
+| array_dim
 ;
 
 array_dim: ID
-   | INTLIT
-   | BOOLLIT
-   | OCURV Expr CCURV
-   | Expr DOTLENGTH
-   | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-   | ID OCURV opt_args CCURV
+| INTLIT
+| BOOLLIT
+| OCURV Expr CCURV
+| Expr DOTLENGTH
+| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
+| ID OCURV opt_args CCURV
 ;
 
 n_Type:INT
-    |BOOL
+|BOOL
 ;
 
 opt_args:
-      |Args
+|Args
 ;
 
 Args : Expr opt_arg
 ;
 
 opt_arg:
-        |COMMA Expr opt_arg
+|COMMA Expr opt_arg
 ;
 
 
@@ -230,11 +204,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
-
+    
     if(error == 0) {
-      show_program(arvore);
+        show_program(tree);
     }
-
+    
     return 0;
 }
 

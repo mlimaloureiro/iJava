@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		49D2FB40191420570005A05B /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 49D2FB3F191420570005A05B /* main.c */; };
 		49D2FB42191420570005A05B /* ijava.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49D2FB41191420570005A05B /* ijava.1 */; };
+		49E1931E19143633001F1336 /* functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 49E1931719143633001F1336 /* functions.c */; };
+		49E1931F19143633001F1336 /* ijparser.l in Sources */ = {isa = PBXBuildFile; fileRef = 49E1931919143633001F1336 /* ijparser.l */; };
+		49E1932019143633001F1336 /* ijparser.y in Sources */ = {isa = PBXBuildFile; fileRef = 49E1931A19143633001F1336 /* ijparser.y */; };
+		49E1932119143633001F1336 /* show.c in Sources */ = {isa = PBXBuildFile; fileRef = 49E1931B19143633001F1336 /* show.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +32,13 @@
 		49D2FB3C191420570005A05B /* ijava */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ijava; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D2FB3F191420570005A05B /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		49D2FB41191420570005A05B /* ijava.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ijava.1; sourceTree = "<group>"; };
+		49E1931719143633001F1336 /* functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = functions.c; path = ../../functions.c; sourceTree = "<group>"; };
+		49E1931819143633001F1336 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = functions.h; path = ../../functions.h; sourceTree = "<group>"; };
+		49E1931919143633001F1336 /* ijparser.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; name = ijparser.l; path = ../../ijparser.l; sourceTree = "<group>"; };
+		49E1931A19143633001F1336 /* ijparser.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; name = ijparser.y; path = ../../ijparser.y; sourceTree = "<group>"; };
+		49E1931B19143633001F1336 /* show.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = show.c; path = ../../show.c; sourceTree = "<group>"; };
+		49E1931C19143633001F1336 /* show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = show.h; path = ../../show.h; sourceTree = "<group>"; };
+		49E1931D19143633001F1336 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = structures.h; path = ../../structures.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +71,13 @@
 		49D2FB3E191420570005A05B /* ijava */ = {
 			isa = PBXGroup;
 			children = (
+				49E1931719143633001F1336 /* functions.c */,
+				49E1931819143633001F1336 /* functions.h */,
+				49E1931919143633001F1336 /* ijparser.l */,
+				49E1931A19143633001F1336 /* ijparser.y */,
+				49E1931B19143633001F1336 /* show.c */,
+				49E1931C19143633001F1336 /* show.h */,
+				49E1931D19143633001F1336 /* structures.h */,
 				49D2FB3F191420570005A05B /* main.c */,
 				49D2FB41191420570005A05B /* ijava.1 */,
 			);
@@ -117,7 +135,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E1932119143633001F1336 /* show.c in Sources */,
+				49E1931F19143633001F1336 /* ijparser.l in Sources */,
+				49E1932019143633001F1336 /* ijparser.y in Sources */,
 				49D2FB40191420570005A05B /* main.c in Sources */,
+				49E1931E19143633001F1336 /* functions.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +247,7 @@
 				49D2FB47191420570005A05B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

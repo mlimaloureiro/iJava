@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A7ECEB46-A51F-49EF-9688-5289264C40A7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ijava</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6430EA1D-7691-4514-A957-24DC0AB8ABCC</key>
+		<string>https://github.com/mlimaloureiro/iJava.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>project/meta2/ijava/ijava.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6430EA1D-7691-4514-A957-24DC0AB8ABCC</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mlimaloureiro/iJava.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6430EA1D-7691-4514-A957-24DC0AB8ABCC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6430EA1D-7691-4514-A957-24DC0AB8ABCC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iJava</string>
+		</dict>
+	</array>
+</dict>
+</plist>

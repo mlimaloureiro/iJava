@@ -124,16 +124,20 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 17 "ijparser.y"
+#line 18 "ijparser.y"
 {
+    struct is_start_list* is_start_list_t;
+    struct is_program* is_program_t;
+    struct is_field_or_method* field_or_method_t;
+    struct is_method_declaration* method_decl_t;
+    struct is_field_declaration* field_decl_t;
     /* structures */
-    struct  is_start_list        *start_t;
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 137 "y.tab.h"
+#line 141 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
