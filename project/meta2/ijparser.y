@@ -7,11 +7,11 @@
 	#include "functions.h"
 	#include "show.h"
 
-    
+
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
-    struct is_start_list *tree = NULL;
+    struct is_program *tree = NULL;
     char* yytext;
 %}
 
@@ -85,23 +85,23 @@
 
 %%
 
-Start : Program {$$ = insert_start_list($1,NULL); tree = $$;}
+Start : Program {/*$$ = insert_start_list($1,NULL);tree = $$;*/}
 ;
-Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4);}
+Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4); tree = $$;}
 
-field_or_method:
+field_or_method: {}
 |field_decl field_or_method {}
 |method_decl field_or_method {}
 ;
 
-field_decl : STATIC var_decl
+field_decl : STATIC var_decl {}
 ;
 
-method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE {}
 ;
 
-function_type: Type
-|VOID
+function_type: Type {}
+|VOID {}
 ;
 
 opt_formal_params:
@@ -204,11 +204,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
-    
+
     if(error == 0) {
         show_program(tree);
     }
-    
+
     return 0;
 }
 

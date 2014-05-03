@@ -6,8 +6,8 @@
 
 int identation = 0;
 
-void show_program(is_start_list* list){
-    printf("AQUI ESTOU EU\n");
+void show_program(is_program* list){
+    /*printf("inside show program\n");*/
     
     if (list == NULL) {
         return;
@@ -15,9 +15,15 @@ void show_program(is_start_list* list){
     
 	printf("Program\n");
     identation+=2;
-    is_start_list* element;
+    is_program* element;
     
     for(element = list; element != NULL; element = element->next){
-        printf("%s\n",element->program->ident);
+        print_program(element);
     }
+}
+
+void print_program(is_program* program) {
+    int i;
+    for(i=0;i<identation;i++) printf(" ");
+    printf("ID(%s)\n",program->ident);
 }

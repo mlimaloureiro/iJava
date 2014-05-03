@@ -1,1 +1,1 @@
-class teste {}
+class teste { static int ola; }

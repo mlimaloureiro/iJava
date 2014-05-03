@@ -11,6 +11,7 @@ typedef struct is_start_list {
 typedef struct is_program {
     char* ident;
     struct is_field_or_method* field_or_method;
+    struct is_program* next;
 } is_program;
 
 typedef struct is_field_or_method {

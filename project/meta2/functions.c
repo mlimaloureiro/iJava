@@ -5,6 +5,12 @@
 
 
 is_start_list* insert_start_list(is_program* program, is_start_list* list) {
+    /**
+     *
+     * bullshit
+     *
+     */
+    
     is_start_list* new = (is_start_list*)malloc(sizeof(is_start_list));
     new->program = program;
     new->next = NULL;
@@ -23,7 +29,10 @@ is_start_list* insert_start_list(is_program* program, is_start_list* list) {
 is_program* insert_program(char* ident, is_field_or_method* field_or_method) {
     is_program* new = (is_program*)malloc(sizeof(is_program));
     new->field_or_method = field_or_method;
-    new->ident= ident;
+    new->ident = ident;
+    new->next = NULL;
+    
+    /*printf("inserted program %s\n", ident);*/
     return new;
 }
 

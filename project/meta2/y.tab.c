@@ -160,11 +160,11 @@
 	#include "functions.h"
 	#include "show.h"
 
-    
+
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
-    struct is_start_list *tree = NULL;
+    struct is_program *tree = NULL;
     char* yytext;
 
 
@@ -1531,12 +1531,17 @@ yyreduce:
     {
         case 2:
 #line 88 "ijparser.y"
-    {(yyval.is_start_list_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t),NULL); tree = (yyval.is_start_list_t);}
+    {/*$$ = insert_start_list($1,NULL);tree = $$;*/}
     break;
 
   case 3:
 #line 90 "ijparser.y"
-    {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t));}
+    {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t)); tree = (yyval.is_program_t);}
+    break;
+
+  case 4:
+#line 92 "ijparser.y"
+    {}
     break;
 
   case 5:
@@ -1549,9 +1554,29 @@ yyreduce:
     {}
     break;
 
+  case 7:
+#line 97 "ijparser.y"
+    {}
+    break;
+
+  case 8:
+#line 100 "ijparser.y"
+    {}
+    break;
+
+  case 9:
+#line 103 "ijparser.y"
+    {}
+    break;
+
+  case 10:
+#line 104 "ijparser.y"
+    {}
+    break;
+
 
 /* Line 1267 of yacc.c.  */
-#line 1555 "y.tab.c"
+#line 1580 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1773,11 +1798,11 @@ int main(int argc, char* argv[])
     coluna = 0;
     linha = 1;
     yyparse();
-    
+
     if(error == 0) {
         show_program(tree);
     }
-    
+
     return 0;
 }
 
