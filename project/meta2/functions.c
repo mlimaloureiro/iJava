@@ -31,13 +31,12 @@ is_field_or_method* insert_field_or_method(is_field_declaration* field, is_metho
     is_field_or_method* new = (is_field_or_method*) malloc(sizeof(is_field_or_method));
     
     if(method != NULL) {
-        printf("last element is a method\n");
+        /*printf("last element is a method\n");*/
         new->type = d_method_declaration;
         new->field = NULL;
         new->method = method;
-        
     } else if(field != NULL) {
-        printf("last element is a field\n");
+        /*printf("last element is a field\n");*/
         new->type = d_field_declaration;
         new->field = field;
         new->method = NULL;
@@ -62,7 +61,7 @@ field_declarator* insert_field_declarator(is_type_specifier* type, char* ident, 
     new->ident = ident;
     new->opt_vars = opt_list;
     
-    printf("Inserted field declarator %s\n", ident);
+    /*printf("Inserted field declarator %s\n", ident);*/
     
     return new;
 }
@@ -71,7 +70,7 @@ field_declarator_list* insert_opt_vars(char* ident, field_declarator_list *next)
     field_declarator_list* new = (field_declarator_list*)malloc(sizeof(field_declarator_list));
     new->ident = ident;
     new->next = next;
-    printf("Inserted field list %s\n", ident);
+    /*printf("Inserted field list %s\n", ident);*/
     return new;
 }
 
