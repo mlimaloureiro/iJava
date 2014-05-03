@@ -6,7 +6,7 @@
 
 int identation = 0;
 
-void show_program(is_program* list){
+void show_program(is_root* list){
     /*printf("inside show program\n");*/
     
     if (list == NULL) {
@@ -15,19 +15,18 @@ void show_program(is_program* list){
     
 	printf("Program\n");
     identation+=2;
-    is_program* element;
     
-    for(element = list; element != NULL; element = element->next){
-        print_program(element);
-    }
+    print_program(list->program);
+    
 }
 
 void print_program(is_program* program) {
     int i;
-    for(i=0;i<identation;i++) printf(" ");
+    for(i = 0;i < identation; i++) printf(" ");
     printf("ID(%s)\n",program->ident);
     
     while(program->field_or_method) {
+        printf("ai esta\n");
         switch(program->field_or_method->type)
         {
             case d_field_declaration:
@@ -39,5 +38,8 @@ void print_program(is_program* program) {
         }
         program->field_or_method = program->field_or_method->next;
     }
-    
 }
+
+
+
+

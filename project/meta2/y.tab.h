@@ -126,7 +126,7 @@
 typedef union YYSTYPE
 #line 18 "ijparser.y"
 {
-    struct is_start_list* is_start_list_t;
+    struct is_root* is_root_t;
     struct is_program* is_program_t;
     struct is_field_or_method* field_or_method_t;
     struct is_method_declaration* method_decl_t;

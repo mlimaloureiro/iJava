@@ -11,12 +11,12 @@
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
-    struct is_program *tree = NULL;
+    struct is_root *tree = NULL;
     char* yytext;
 %}
 
 %union{
-    struct is_start_list* is_start_list_t;
+    struct is_root* is_root_t;
     struct is_program* is_program_t;
     struct is_field_or_method* field_or_method_t;
     struct is_method_declaration* method_decl_t;
@@ -27,7 +27,7 @@
     char *identifier;
 }
 
-%type <is_start_list_t>             Start
+%type <is_root_t>                   Start
 %type <is_program_t>                Program
 %type <field_or_method_t>			field_or_method
 %type <method_decl_t>               method_decl
@@ -85,9 +85,9 @@
 
 %%
 
-Start : Program {/*$$ = insert_start_list($1,NULL);tree = $$;*/}
+Start : Program {$$ = insert_start_list($1);tree = $$;}
 ;
-Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4); tree = $$;}
+Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4);}
 
 field_or_method: {$$ = insert_field_or_method(NULL, NULL, NULL);}
 |field_decl field_or_method { $$ = insert_field_or_method($1, NULL, $2);}

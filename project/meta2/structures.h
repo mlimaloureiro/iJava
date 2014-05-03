@@ -3,10 +3,10 @@
 typedef enum { is_bool,is_int} is_type;
 typedef enum {d_field_declaration, d_method_declaration} d_field_or_method_type;
 
-typedef struct is_start_list {
+typedef struct is_root {
+    struct root* is_root;
     struct is_program* program;
-    struct is_start_list* next;
-} is_start_list;
+} is_root;
 
 typedef struct is_program {
     char* ident;

@@ -164,7 +164,7 @@
     int yylex(void);
     int yyerror(char *s);
     int linha, coluna,error;
-    struct is_program *tree = NULL;
+    struct is_root *tree = NULL;
     char* yytext;
 
 
@@ -190,7 +190,7 @@
 typedef union YYSTYPE
 #line 18 "ijparser.y"
 {
-    struct is_start_list* is_start_list_t;
+    struct is_root* is_root_t;
     struct is_program* is_program_t;
     struct is_field_or_method* field_or_method_t;
     struct is_method_declaration* method_decl_t;
@@ -1531,12 +1531,12 @@ yyreduce:
     {
         case 2:
 #line 88 "ijparser.y"
-    {/*$$ = insert_start_list($1,NULL);tree = $$;*/}
+    {(yyval.is_root_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t));tree = (yyval.is_root_t);}
     break;
 
   case 3:
 #line 90 "ijparser.y"
-    {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t)); tree = (yyval.is_program_t);}
+    {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t));}
     break;
 
   case 4:
