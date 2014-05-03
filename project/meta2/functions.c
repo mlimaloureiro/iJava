@@ -42,6 +42,6 @@ is_field_or_method* insert_field_or_method(is_field_declaration* field, is_metho
     new->element.field = (struct is_field_declaration*) field;
     new->element.method = (struct is_method_declaration*) method;
     
-    return field_or_method_to_insert;
+    return new;
 }
 

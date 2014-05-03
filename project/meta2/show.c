@@ -15,7 +15,6 @@ void show_program(is_root* list){
     
 	printf("Program\n");
     identation+=2;
-    
     print_program(list->program);
     
 }
@@ -25,18 +24,21 @@ void print_program(is_program* program) {
     for(i = 0;i < identation; i++) printf(" ");
     printf("ID(%s)\n",program->ident);
     
-    while(program->field_or_method) {
-        printf("ai esta\n");
-        switch(program->field_or_method->type)
+    is_field_or_method* node = program->field_or_method;
+    
+    while(node) {
+        switch(node->type)
         {
             case d_field_declaration:
-                printf("WE HAVE A FIELD DECLARATION");
+                printf("WE HAVE A FIELD DECLARATION\n");
+                
                 break;
             case d_method_declaration:
-                printf("WE HAVE A METHOD DECLARATION");
+                printf("WE HAVE A METHOD DECLARATION\n");
+                
                 break;
         }
-        program->field_or_method = program->field_or_method->next;
+        node = node->next;
     }
 }
 

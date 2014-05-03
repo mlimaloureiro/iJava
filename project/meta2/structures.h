@@ -25,12 +25,23 @@ typedef struct is_field_or_method {
 
 
 typedef struct is_method_declaration {
-    struct is_type_specifier *type_specifier;
+    struct is_type_specifier* type_specifier;
 } is_method_declaration;
 
 typedef struct is_field_declaration {
-    struct is_type_specifier *type_specifier;
+    struct field_declarator* varDecl;
 } is_field_declaration;
+
+typedef struct field_declarator {
+    char* ident;
+    struct is_type_specifier* type_specifier;
+    struct field_declarator_list* opt_vars;
+} field_declarator;
+
+typedef struct field_declarator_list {
+    char* ident;
+    struct field_declarator_list* next;
+} field_declarator_list;
 
 
 typedef struct is_type_specifier{
