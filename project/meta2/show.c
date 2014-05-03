@@ -6,6 +6,9 @@
 
 int identation = 0;
 
+void print_field_declaration(is_field_or_method* var);
+void print_type(is_type_specifier* type);
+
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
     
@@ -30,15 +33,29 @@ void print_program(is_program* program) {
         switch(node->type)
         {
             case d_field_declaration:
-                printf("WE HAVE A FIELD DECLARATION\n");
-                
+                print_field_declaration(node);
                 break;
             case d_method_declaration:
                 printf("WE HAVE A METHOD DECLARATION\n");
-                
                 break;
         }
         node = node->next;
+    }
+}
+
+void print_field_declaration(is_field_or_method* var) {
+        print_type(var->field->varDecl->type_specifier);
+        printf("ID(%s)\n", var->field->varDecl->ident);
+}
+
+void print_type(is_type_specifier* type) {
+    switch(type->var_type->type) {
+        case is_int:
+            printf("INT\n");
+            break;
+        case is_bool:
+            printf("BOOL\n");
+            break;
     }
 }
 
