@@ -2,6 +2,7 @@
 
 typedef enum { is_bool,is_int} is_type;
 typedef enum {d_field_declaration, d_method_declaration} d_field_or_method_type;
+typedef enum {is_array,not_array} opt_array;
 
 typedef struct is_root {
     struct root* is_root;
@@ -45,5 +46,14 @@ typedef struct field_declarator_list {
 
 
 typedef struct is_type_specifier{
-	is_type type;
+    struct var_type* var_type;
+    struct is_opt_array* opt_array;
 }is_type_specifier;
+
+typedef struct var_type {
+    is_type type;
+}var_type;
+
+typedef struct is_opt_array {
+    opt_array array;
+} is_opt_array;

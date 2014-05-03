@@ -21,6 +21,11 @@
     struct is_field_or_method* field_or_method_t;
     struct is_method_declaration* method_decl_t;
     struct is_field_declaration* field_decl_t;
+    struct field_declarator* field_declarator_t;
+    struct field_declarator_list* field_declarator_list_t;
+    struct is_type_specifier* is_type_specifier_t;
+    struct is_opt_array* is_opt_array_t;
+    struct var_type* is_var_type_t;
     /* structures */
     char *value;
     int intlit;
@@ -32,6 +37,11 @@
 %type <field_or_method_t>			field_or_method
 %type <method_decl_t>               method_decl
 %type <field_decl_t>                field_decl
+%type <field_declarator_t>          var_decl
+%type <field_declarator_list_t>     opt_variable
+%type <is_type_specifier_t>         Type
+%type <is_opt_array_t>              opt_array
+%type <is_var_type_t>               var_type
 
 %token NUMBER
 %token ENDOF
@@ -94,7 +104,7 @@ field_or_method: {$$ = insert_field_or_method(NULL, NULL, NULL);}
 |method_decl field_or_method { $$ = insert_field_or_method(NULL, $1, $2); }
 ;
 
-field_decl : STATIC var_decl {}
+field_decl : STATIC var_decl { $$ = insert_field_declaration($2);}
 ;
 
 method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE {  }
@@ -120,22 +130,22 @@ opt_var_decl:
 |var_decl opt_var_decl
 ;
 
-opt_variable:
-|COMMA ID opt_variable
+opt_variable:           { $$ = insert_opt_vars(NULL,NULL); }
+|COMMA ID opt_variable  { $$ = insert_opt_vars($2,$3); }
 ;
 
-var_decl : Type ID opt_variable SEMIC
+var_decl : Type ID opt_variable SEMIC { $$ = insert_field_declarator($1,$2,$3); }
 ;
 
-Type : var_type opt_array
+Type : var_type opt_array { $$ = insert_type_specifier($1,$2); }
 ;
 
-var_type:INT
-|BOOL
+var_type:INT    { $$ = insert_type(is_int); }
+|BOOL           { $$ = insert_type(is_bool); }
 ;
 
-opt_array:
-|OSQUARE CSQUARE opt_array
+opt_array:                 { $$ = insert_opt_array(not_array); }
+|OSQUARE CSQUARE           { $$ = insert_opt_array(is_array); }
 ;
 
 opt_statement:

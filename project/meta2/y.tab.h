@@ -131,13 +131,18 @@ typedef union YYSTYPE
     struct is_field_or_method* field_or_method_t;
     struct is_method_declaration* method_decl_t;
     struct is_field_declaration* field_decl_t;
+    struct field_declarator* field_declarator_t;
+    struct field_declarator_list* field_declarator_list_t;
+    struct is_type_specifier* is_type_specifier_t;
+    struct is_opt_array* is_opt_array_t;
+    struct var_type* is_var_type_t;
     /* structures */
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 141 "y.tab.h"
+#line 146 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
