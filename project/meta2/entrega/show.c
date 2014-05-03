@@ -87,14 +87,6 @@ void print_field_declaration(is_field_or_method* var) {
     
     indentation++;indent();
     printf("ID(%s)\n", var->field->varDecl->ident);
-    
-    if(var->field->varDecl->opt_vars->ident != NULL) {
-        while(var->field->varDecl->opt_vars->ident) {
-            indent();
-            printf("ID(%s)\n", var->field->varDecl->opt_vars->ident);
-            var->field->varDecl->opt_vars = var->field->varDecl->opt_vars->next;
-        }
-    }
     indentation-=2;
 }
 
