@@ -122,14 +122,31 @@ void print_statements(is_statement* var) {
                 break;
             case if_stm:
                 printf("IfElse\n");
+                indentation++;indent();
+
+                if(var->expression) {;}
+                else { printf("Null\n"); }
+                
+                if(var->statement1) { print_statements(var->statement1); }
+                else { printf("Null\n"); }
+                
+                indentation--;
+                
                 break;
             case else_stm:
                 printf("IfElse\n");
-                if(var->statement1) { indentation++; print_statements(var->statement1); indentation--;}
+                indentation++;indent();
+                
+                if(var->expression) {;}
                 else { printf("Null\n"); }
                 
-                if(var->statement2) { indentation++;print_statements(var->statement2);indentation--; }
+                if(var->statement1) { print_statements(var->statement1);}
                 else { printf("Null\n"); }
+                
+                if(var->statement2) { print_statements(var->statement2); }
+                else { printf("Null\n"); }
+                
+                indentation--;
                 
                 break;
             case print_stm:
@@ -146,13 +163,23 @@ void print_statements(is_statement* var) {
                 break;
             case while_stm:
                 printf("While\n");
+                
+                indentation++;indent();
+                
+                if(var->expression) {;}
+                else { printf("Null\n"); }
+                
+                if(var->statement1) { print_statements(var->statement1); }
+                else { printf("Null\n"); }
+                
+                indentation--;
+                
                 break;
             default:
                 break;
         }
     
     if(var->opt_statement) {
-        printf("HERE");
         print_opt_statements(var->opt_statement);
     }
 
