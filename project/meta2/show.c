@@ -62,16 +62,17 @@ void print_method_declaration(is_field_or_method* var) {
 
     printf("MethodDecl\n");
     
-    /*
-    if(var->method->type_specifier) {
-		print_type(var->method->type_specifier);
+    
+    if(var->method->function_type->type_specifier) {
+        indentation++;indent();
+		print_type(var->method->function_type->type_specifier);
 	} else {
+        indentation++;indent();
 		printf("Void\n");
 	}
     
-    */
-    indentation++;indent();
-    printf("ID\n");
+    indent();
+    printf("ID(%s)\n",var->method->id);
     
 }
 

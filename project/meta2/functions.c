@@ -127,6 +127,9 @@ is_function_type* insert_function_type(is_type_specifier* type_specifier) {
 is_opt_formal_params* insert_opt_formal_params(is_formal_params* params) {
 	is_opt_formal_params *new = (is_opt_formal_params*) malloc(sizeof(is_opt_formal_params));
     new->formal_params = params;
+    
+    printf("saved opt_formal_params\n");
+    
 	return new;
 }
 
@@ -135,6 +138,9 @@ is_formal_params* insert_formal_params(is_type_specifier* type, char* id, is_for
     new->type_specifier = type;
     new->id = id;
     new->list = list;
+    
+    printf("saved formal_params\n");
+    
     return new;
 }
 
@@ -144,6 +150,9 @@ is_formal_params_list* insert_formal_params_list(is_type_specifier* type,
     new->type_specifier = type;
     new->id = id;
     new->next = list;
+    
+    printf("saved formal_params_list\n");
+
     return new;
 }
 
@@ -151,6 +160,9 @@ is_opt_var_decl* insert_opt_var_decl(field_declarator* var_decl, is_opt_var_decl
     is_opt_var_decl* new = (is_opt_var_decl*) malloc(sizeof(is_opt_var_decl));
     new->varDecl = var_decl;
     new->next = next;
+    
+    printf("saved opt_var_decl\n");
+    
     return new;
 }
 
