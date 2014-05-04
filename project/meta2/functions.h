@@ -17,3 +17,21 @@ var_type* insert_type(is_type type);
 is_opt_array* insert_opt_array(opt_array arr);
 
 
+
+is_method_declaration* insert_method_declaration(is_function_type* function_type,
+                                                 char* id,
+                                                 is_opt_formal_params* opt_formal_params,
+                                                 is_opt_var_decl* opt_var_decl,
+                                                 is_opt_statement* opt_statement );
+
+is_function_type* insert_function_type(is_type_specifier* type_specifier);
+
+is_opt_formal_params* insert_opt_formal_params(is_formal_params* params);
+
+is_formal_params* insert_formal_params(is_type_specifier* type, char* id, is_formal_params_list* list);
+
+is_formal_params_list* insert_formal_params_list(is_type_specifier* type, char* id, is_formal_params_list* list);
+
+is_opt_var_decl* insert_opt_var_decl(field_declarator* var_decl, is_opt_var_decl* next);
+
+

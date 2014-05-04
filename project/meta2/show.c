@@ -73,7 +73,6 @@ void print_method_declaration(is_field_or_method* var) {
     indentation++;indent();
     printf("ID\n");
     
-    
 }
 
 void print_field_declaration(is_field_or_method* var) {

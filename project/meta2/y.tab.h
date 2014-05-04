@@ -126,23 +126,33 @@
 typedef union YYSTYPE
 #line 18 "ijparser.y"
 {
-    struct is_root* is_root_t;
-    struct is_program* is_program_t;
-    struct is_field_or_method* field_or_method_t;
-    struct is_method_declaration* method_decl_t;
-    struct is_field_declaration* field_decl_t;
-    struct field_declarator* field_declarator_t;
-    struct field_declarator_list* field_declarator_list_t;
-    struct is_type_specifier* is_type_specifier_t;
-    struct is_opt_array* is_opt_array_t;
-    struct var_type* is_var_type_t;
+    struct is_root*                         is_root_t;
+    struct is_program*                      is_program_t;
+    struct is_field_or_method*              field_or_method_t;
+    struct is_method_declaration*           method_decl_t;
+    struct is_field_declaration*            field_decl_t;
+    struct field_declarator*                field_declarator_t;
+    struct field_declarator_list*           field_declarator_list_t;
+    struct is_type_specifier*               is_type_specifier_t;
+    struct is_opt_array*                    is_opt_array_t;
+    struct var_type*                        is_var_type_t;
+    struct is_function_type*                is_function_type_t;
+    
+    struct is_opt_formal_params*            is_opt_formal_params_t;
+    struct is_formal_params*                is_formal_params_t;
+    struct is_formal_params_list*           is_formal_params_list_t;
+    
+    struct is_opt_var_decl*                 is_opt_var_decl_t;
+    struct is_opt_statement*                is_opt_statement_t;
+    struct is_statement*                    is_statement_t;
+
     /* structures */
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 146 "y.tab.h"
+#line 156 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

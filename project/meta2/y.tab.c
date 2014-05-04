@@ -190,23 +190,33 @@
 typedef union YYSTYPE
 #line 18 "ijparser.y"
 {
-    struct is_root* is_root_t;
-    struct is_program* is_program_t;
-    struct is_field_or_method* field_or_method_t;
-    struct is_method_declaration* method_decl_t;
-    struct is_field_declaration* field_decl_t;
-    struct field_declarator* field_declarator_t;
-    struct field_declarator_list* field_declarator_list_t;
-    struct is_type_specifier* is_type_specifier_t;
-    struct is_opt_array* is_opt_array_t;
-    struct var_type* is_var_type_t;
+    struct is_root*                         is_root_t;
+    struct is_program*                      is_program_t;
+    struct is_field_or_method*              field_or_method_t;
+    struct is_method_declaration*           method_decl_t;
+    struct is_field_declaration*            field_decl_t;
+    struct field_declarator*                field_declarator_t;
+    struct field_declarator_list*           field_declarator_list_t;
+    struct is_type_specifier*               is_type_specifier_t;
+    struct is_opt_array*                    is_opt_array_t;
+    struct var_type*                        is_var_type_t;
+    struct is_function_type*                is_function_type_t;
+    
+    struct is_opt_formal_params*            is_opt_formal_params_t;
+    struct is_formal_params*                is_formal_params_t;
+    struct is_formal_params_list*           is_formal_params_list_t;
+    
+    struct is_opt_var_decl*                 is_opt_var_decl_t;
+    struct is_opt_statement*                is_opt_statement_t;
+    struct is_statement*                    is_statement_t;
+
     /* structures */
     char *value;
     int intlit;
     char *identifier;
 }
 /* Line 193 of yacc.c.  */
-#line 210 "y.tab.c"
+#line 220 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -219,7 +229,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 223 "y.tab.c"
+#line 233 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -530,13 +540,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    98,    98,   100,   102,   103,   104,   107,   110,   113,
-     114,   117,   118,   121,   122,   125,   126,   129,   130,   133,
-     134,   137,   140,   143,   144,   147,   148,   151,   152,   155,
-     156,   157,   158,   159,   160,   161,   165,   166,   169,   170,
-     173,   174,   175,   176,   177,   178,   179,   180,   181,   184,
-     185,   186,   187,   188,   189,   190,   193,   194,   197,   198,
-     201,   204,   205
+       0,   117,   117,   119,   121,   122,   123,   126,   129,   132,
+     133,   136,   137,   140,   141,   144,   145,   148,   149,   152,
+     153,   156,   159,   162,   163,   166,   167,   170,   171,   174,
+     175,   176,   177,   178,   179,   180,   184,   185,   188,   189,
+     192,   193,   194,   195,   196,   197,   198,   199,   200,   203,
+     204,   205,   206,   207,   208,   209,   212,   213,   216,   217,
+     220,   223,   224
 };
 #endif
 
@@ -1535,93 +1545,128 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 98 "ijparser.y"
+#line 117 "ijparser.y"
     {(yyval.is_root_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t));tree = (yyval.is_root_t);}
     break;
 
   case 3:
-#line 100 "ijparser.y"
+#line 119 "ijparser.y"
     {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t));}
     break;
 
   case 4:
-#line 102 "ijparser.y"
+#line 121 "ijparser.y"
     {(yyval.field_or_method_t) = insert_field_or_method(NULL, NULL, NULL);}
     break;
 
   case 5:
-#line 103 "ijparser.y"
+#line 122 "ijparser.y"
     { (yyval.field_or_method_t) = insert_field_or_method((yyvsp[(1) - (2)].field_decl_t), NULL, (yyvsp[(2) - (2)].field_or_method_t));}
     break;
 
   case 6:
-#line 104 "ijparser.y"
+#line 123 "ijparser.y"
     { (yyval.field_or_method_t) = insert_field_or_method(NULL, (yyvsp[(1) - (2)].method_decl_t), (yyvsp[(2) - (2)].field_or_method_t)); }
     break;
 
   case 7:
-#line 107 "ijparser.y"
+#line 126 "ijparser.y"
     { (yyval.field_decl_t) = insert_field_declaration((yyvsp[(2) - (2)].field_declarator_t));}
     break;
 
   case 8:
-#line 110 "ijparser.y"
-    {  }
+#line 129 "ijparser.y"
+    { (yyval.method_decl_t) = insert_method_declaration((yyvsp[(3) - (11)].is_function_type_t),(yyvsp[(4) - (11)].identifier),(yyvsp[(6) - (11)].is_opt_formal_params_t),(yyvsp[(9) - (11)].is_opt_var_decl_t),(yyvsp[(10) - (11)].is_opt_statement_t)); }
     break;
 
   case 9:
-#line 113 "ijparser.y"
-    {}
+#line 132 "ijparser.y"
+    { (yyval.is_function_type_t) = insert_function_type((yyvsp[(1) - (1)].is_type_specifier_t)); }
     break;
 
   case 10:
-#line 114 "ijparser.y"
-    {}
+#line 133 "ijparser.y"
+    { (yyval.is_function_type_t) = insert_function_type(NULL); }
+    break;
+
+  case 11:
+#line 136 "ijparser.y"
+    {(yyval.is_opt_formal_params_t) = insert_opt_formal_params(NULL);}
+    break;
+
+  case 12:
+#line 137 "ijparser.y"
+    {(yyval.is_opt_formal_params_t) = insert_opt_formal_params((yyvsp[(1) - (1)].is_formal_params_t));}
+    break;
+
+  case 13:
+#line 140 "ijparser.y"
+    { (yyval.is_formal_params_t) = insert_formal_params((yyvsp[(1) - (3)].is_type_specifier_t),(yyvsp[(2) - (3)].identifier),(yyvsp[(3) - (3)].is_formal_params_list_t)); }
+    break;
+
+  case 14:
+#line 141 "ijparser.y"
+    { (yyval.is_formal_params_t) = insert_formal_params(NULL,(yyvsp[(4) - (4)].identifier),NULL); }
+    break;
+
+  case 16:
+#line 145 "ijparser.y"
+    { (yyval.is_formal_params_list_t) = insert_formal_params_list((yyvsp[(2) - (4)].is_type_specifier_t),(yyvsp[(3) - (4)].identifier),(yyvsp[(4) - (4)].is_formal_params_list_t));}
+    break;
+
+  case 17:
+#line 148 "ijparser.y"
+    { (yyval.is_opt_var_decl_t) = insert_opt_var_decl(NULL,NULL); }
+    break;
+
+  case 18:
+#line 149 "ijparser.y"
+    { (yyval.is_opt_var_decl_t) = insert_opt_var_decl((yyvsp[(1) - (2)].field_declarator_t),(yyvsp[(2) - (2)].is_opt_var_decl_t)); }
     break;
 
   case 19:
-#line 133 "ijparser.y"
+#line 152 "ijparser.y"
     { (yyval.field_declarator_list_t) = insert_opt_vars(NULL,NULL); }
     break;
 
   case 20:
-#line 134 "ijparser.y"
+#line 153 "ijparser.y"
     { (yyval.field_declarator_list_t) = insert_opt_vars((yyvsp[(2) - (3)].identifier),(yyvsp[(3) - (3)].field_declarator_list_t)); }
     break;
 
   case 21:
-#line 137 "ijparser.y"
+#line 156 "ijparser.y"
     { (yyval.field_declarator_t) = insert_field_declarator((yyvsp[(1) - (4)].is_type_specifier_t),(yyvsp[(2) - (4)].identifier),(yyvsp[(3) - (4)].field_declarator_list_t)); }
     break;
 
   case 22:
-#line 140 "ijparser.y"
+#line 159 "ijparser.y"
     { (yyval.is_type_specifier_t) = insert_type_specifier((yyvsp[(1) - (2)].is_var_type_t),(yyvsp[(2) - (2)].is_opt_array_t)); }
     break;
 
   case 23:
-#line 143 "ijparser.y"
+#line 162 "ijparser.y"
     { (yyval.is_var_type_t) = insert_type(is_int); }
     break;
 
   case 24:
-#line 144 "ijparser.y"
+#line 163 "ijparser.y"
     { (yyval.is_var_type_t) = insert_type(is_bool); }
     break;
 
   case 25:
-#line 147 "ijparser.y"
+#line 166 "ijparser.y"
     { (yyval.is_opt_array_t) = insert_opt_array(not_array); }
     break;
 
   case 26:
-#line 148 "ijparser.y"
+#line 167 "ijparser.y"
     { (yyval.is_opt_array_t) = insert_opt_array(is_array); }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1625 "y.tab.c"
+#line 1670 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1835,7 +1880,7 @@ yyreturn:
 }
 
 
-#line 210 "ijparser.y"
+#line 229 "ijparser.y"
 
 
 int main(int argc, char* argv[])

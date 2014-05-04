@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 is_root* insert_start_list(is_program* program) {
     /**
      *
@@ -92,6 +91,71 @@ is_opt_array* insert_opt_array(opt_array arr) {
 	new->array = arr;
 	return new;
 }
+
+/* ---- methods ----- */
+
+is_method_declaration* insert_method_declaration(is_function_type* function_type,
+                                                 char* id,
+                                                 is_opt_formal_params* opt_formal_params,
+                                                 is_opt_var_decl* opt_var_decl,
+                                                 is_opt_statement* opt_statement ) {
+    
+    
+    is_method_declaration* new = (is_method_declaration*) malloc(sizeof(is_method_declaration));
+    new->function_type = function_type;
+    new->id = id;
+    new->opt_formal_params = opt_formal_params;
+    new->opt_var_decl = opt_var_decl;
+    new->opt_statement = opt_statement;
+    
+    printf("saved method declaration\n");
+    
+	return new;
+    
+}
+
+is_function_type* insert_function_type(is_type_specifier* type_specifier) {
+    is_function_type* new = (is_function_type*) malloc(sizeof(is_function_type));
+    new->type_specifier = type_specifier;
+    
+    printf("saved function type\n");
+
+    return new;
+    
+}
+
+is_opt_formal_params* insert_opt_formal_params(is_formal_params* params) {
+	is_opt_formal_params *new = (is_opt_formal_params*) malloc(sizeof(is_opt_formal_params));
+    new->formal_params = params;
+	return new;
+}
+
+is_formal_params* insert_formal_params(is_type_specifier* type, char* id, is_formal_params_list* list) {
+    is_formal_params* new = (is_formal_params*) malloc(sizeof(is_formal_params));
+    new->type_specifier = type;
+    new->id = id;
+    new->list = list;
+    return new;
+}
+
+is_formal_params_list* insert_formal_params_list(is_type_specifier* type,
+                                                 char* id, is_formal_params_list* list) {
+    is_formal_params_list* new = (is_formal_params_list*) malloc(sizeof(is_formal_params_list));
+    new->type_specifier = type;
+    new->id = id;
+    new->next = list;
+    return new;
+}
+
+is_opt_var_decl* insert_opt_var_decl(field_declarator* var_decl, is_opt_var_decl* next) {
+    is_opt_var_decl* new = (is_opt_var_decl*) malloc(sizeof(is_opt_var_decl));
+    new->varDecl = var_decl;
+    new->next = next;
+    return new;
+}
+
+
+
 
 
 
