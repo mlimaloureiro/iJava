@@ -9,6 +9,8 @@ int indentation = 0;
 void indent();
 void print_field_declaration(is_field_or_method* var);
 void print_method_declaration(is_field_or_method* var);
+void print_formal_params(is_formal_params* var);
+void print_formal_params_list(is_formal_params_list* var);
 
 void print_type(is_type_specifier* type);
 
@@ -73,6 +75,39 @@ void print_method_declaration(is_field_or_method* var) {
     
     indent();
     printf("ID(%s)\n",var->method->id);
+    
+    if(var->method->opt_formal_params->formal_params) {
+        print_formal_params(var->method->opt_formal_params->formal_params);
+    }
+}
+
+void print_formal_params(is_formal_params* var) {
+    indent();
+    printf("MethodParams\n");
+    indentation++;indent();
+    
+    
+    if(var->type_specifier) {
+        printf("ParamDeclaration\n");
+        indentation++;indent();
+        
+        print_type(var->type_specifier);
+        indent();
+		printf("Id(%s)\n", var->id);
+        
+    } else {
+        printf("ParamDeclaration\n");
+        indentation++;indent();
+        
+        printf("StringArray\n");
+        indent();
+		printf("Id(%s)\n", var->id);
+    }
+    
+}
+
+void print_formal_params_list(is_formal_params_list* var) {
+    /* if we have more params */
     
 }
 
