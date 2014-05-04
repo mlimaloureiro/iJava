@@ -35,6 +35,10 @@
     struct is_opt_var_decl*                 is_opt_var_decl_t;
     struct is_opt_statement*                is_opt_statement_t;
     struct is_statement*                    is_statement_t;
+    
+    struct is_opt_expr*                     is_opt_expr_t;
+    struct is_opt_array_pos*                is_opt_array_pos_t;
+    struct is_expression*                   is_expression_t;
 
     /* structures */
     char *value;
@@ -61,6 +65,9 @@
 %type <is_opt_var_decl_t>           opt_var_decl
 %type <is_opt_statement_t>          opt_statement
 %type <is_statement_t>              Statement
+%type <is_opt_expr_t>               opt_expr
+%type <is_opt_array_pos_t>          opt_array_pos
+%type <is_expression_t>             Expr
 
 %token NUMBER
 %token ENDOF
@@ -177,16 +184,16 @@ Statement : OBRACE opt_statement CBRACE { $$ = insert_statement($2, compound_stm
 | WHILE OCURV Expr CCURV Statement { $$ = insert_statement(NULL, while_stm, $5, NULL, NULL, NULL, $3, NULL); }
 | PRINT OCURV Expr CCURV SEMIC { $$ = insert_statement(NULL, print_stm, NULL, NULL, NULL, NULL, $3, NULL); }
 | ID opt_array_pos ASSIGN Expr SEMIC { $$ = insert_statement(NULL, store_stm, NULL, NULL, $1, $2, $4, NULL); }
-| RETURN opt_expr SEMIC { $$ = insert_statement(NULL, return_stm, $5, NULL, NULL, NULL, $3, NULL); }
+| RETURN opt_expr SEMIC { $$ = insert_statement(NULL, return_stm, NULL, NULL, NULL, NULL, NULL, $2); }
 ;
 
 
-opt_array_pos: { }
-|OSQUARE Expr CSQUARE { }
+opt_array_pos: { /*$$ = insert_opt_array_pos(NULL);*/ }
+|OSQUARE Expr CSQUARE { /*$$ = insert_opt_array_pos($2);*/ }
 ;
 
-opt_expr: { }
-|Expr { }
+opt_expr: { /*$$ = insert_opt_expr(NULL); */}
+|Expr { /*$$ = insert_opt_expr($1);*/ }
 ;
 
 Expr : array_dim OSQUARE Expr CSQUARE { }

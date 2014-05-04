@@ -209,6 +209,10 @@ typedef union YYSTYPE
     struct is_opt_var_decl*                 is_opt_var_decl_t;
     struct is_opt_statement*                is_opt_statement_t;
     struct is_statement*                    is_statement_t;
+    
+    struct is_opt_expr*                     is_opt_expr_t;
+    struct is_opt_array_pos*                is_opt_array_pos_t;
+    struct is_expression*                   is_expression_t;
 
     /* structures */
     char *value;
@@ -216,7 +220,7 @@ typedef union YYSTYPE
     char *identifier;
 }
 /* Line 193 of yacc.c.  */
-#line 220 "y.tab.c"
+#line 224 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -229,7 +233,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 233 "y.tab.c"
+#line 237 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -540,13 +544,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   117,   117,   119,   121,   122,   123,   126,   129,   132,
-     133,   136,   137,   140,   141,   144,   145,   148,   149,   152,
-     153,   156,   159,   162,   163,   166,   167,   170,   171,   174,
-     175,   176,   177,   178,   179,   180,   184,   185,   188,   189,
-     192,   193,   194,   195,   196,   197,   198,   199,   200,   203,
-     204,   205,   206,   207,   208,   209,   212,   213,   216,   217,
-     220,   223,   224
+       0,   124,   124,   126,   128,   129,   130,   133,   136,   139,
+     140,   143,   144,   147,   148,   151,   152,   155,   156,   159,
+     160,   163,   166,   169,   170,   173,   174,   177,   178,   181,
+     182,   183,   184,   185,   186,   187,   191,   192,   195,   196,
+     199,   200,   201,   202,   203,   204,   205,   206,   207,   210,
+     211,   212,   213,   214,   215,   216,   219,   220,   223,   224,
+     227,   230,   231
 };
 #endif
 
@@ -1545,313 +1549,313 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 117 "ijparser.y"
+#line 124 "ijparser.y"
     {(yyval.is_root_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t));tree = (yyval.is_root_t);}
     break;
 
   case 3:
-#line 119 "ijparser.y"
+#line 126 "ijparser.y"
     {(yyval.is_program_t) = insert_program((yyvsp[(2) - (5)].identifier), (yyvsp[(4) - (5)].field_or_method_t));}
     break;
 
   case 4:
-#line 121 "ijparser.y"
+#line 128 "ijparser.y"
     {(yyval.field_or_method_t) = insert_field_or_method(NULL, NULL, NULL);}
     break;
 
   case 5:
-#line 122 "ijparser.y"
+#line 129 "ijparser.y"
     { (yyval.field_or_method_t) = insert_field_or_method((yyvsp[(1) - (2)].field_decl_t), NULL, (yyvsp[(2) - (2)].field_or_method_t));}
     break;
 
   case 6:
-#line 123 "ijparser.y"
+#line 130 "ijparser.y"
     { (yyval.field_or_method_t) = insert_field_or_method(NULL, (yyvsp[(1) - (2)].method_decl_t), (yyvsp[(2) - (2)].field_or_method_t)); }
     break;
 
   case 7:
-#line 126 "ijparser.y"
+#line 133 "ijparser.y"
     { (yyval.field_decl_t) = insert_field_declaration((yyvsp[(2) - (2)].field_declarator_t));}
     break;
 
   case 8:
-#line 129 "ijparser.y"
-    { (yyval.method_decl_t) = insert_method_declaration((yyvsp[(3) - (11)].is_function_type_t),(yyvsp[(4) - (11)].identifier),(yyvsp[(6) - (11)].is_opt_formal_params_t),(yyvsp[(9) - (11)].is_opt_var_decl_t),(yyvsp[(10) - (11)].is_opt_statement_t)); }
+#line 136 "ijparser.y"
+    { (yyval.method_decl_t) = insert_method_declaration((yyvsp[(3) - (11)].is_function_type_t), (yyvsp[(4) - (11)].identifier), (yyvsp[(6) - (11)].is_opt_formal_params_t), (yyvsp[(9) - (11)].is_opt_var_decl_t), (yyvsp[(10) - (11)].is_opt_statement_t)); }
     break;
 
   case 9:
-#line 132 "ijparser.y"
+#line 139 "ijparser.y"
     { (yyval.is_function_type_t) = insert_function_type((yyvsp[(1) - (1)].is_type_specifier_t)); }
     break;
 
   case 10:
-#line 133 "ijparser.y"
+#line 140 "ijparser.y"
     { (yyval.is_function_type_t) = insert_function_type(NULL); }
     break;
 
   case 11:
-#line 136 "ijparser.y"
+#line 143 "ijparser.y"
     {(yyval.is_opt_formal_params_t) = insert_opt_formal_params(NULL);}
     break;
 
   case 12:
-#line 137 "ijparser.y"
+#line 144 "ijparser.y"
     {(yyval.is_opt_formal_params_t) = insert_opt_formal_params((yyvsp[(1) - (1)].is_formal_params_t));}
     break;
 
   case 13:
-#line 140 "ijparser.y"
-    { (yyval.is_formal_params_t) = insert_formal_params((yyvsp[(1) - (3)].is_type_specifier_t),(yyvsp[(2) - (3)].identifier),(yyvsp[(3) - (3)].is_formal_params_list_t)); }
+#line 147 "ijparser.y"
+    { (yyval.is_formal_params_t) = insert_formal_params((yyvsp[(1) - (3)].is_type_specifier_t), (yyvsp[(2) - (3)].identifier), (yyvsp[(3) - (3)].is_formal_params_list_t)); }
     break;
 
   case 14:
-#line 141 "ijparser.y"
-    { (yyval.is_formal_params_t) = insert_formal_params(NULL,(yyvsp[(4) - (4)].identifier),NULL); }
+#line 148 "ijparser.y"
+    { (yyval.is_formal_params_t) = insert_formal_params(NULL, (yyvsp[(4) - (4)].identifier), NULL); }
     break;
 
   case 15:
-#line 144 "ijparser.y"
+#line 151 "ijparser.y"
     { (yyval.is_formal_params_list_t) = insert_formal_params_list(NULL,NULL,NULL);}
     break;
 
   case 16:
-#line 145 "ijparser.y"
-    { (yyval.is_formal_params_list_t) = insert_formal_params_list((yyvsp[(2) - (4)].is_type_specifier_t),(yyvsp[(3) - (4)].identifier),(yyvsp[(4) - (4)].is_formal_params_list_t));}
+#line 152 "ijparser.y"
+    { (yyval.is_formal_params_list_t) = insert_formal_params_list((yyvsp[(2) - (4)].is_type_specifier_t), (yyvsp[(3) - (4)].identifier), (yyvsp[(4) - (4)].is_formal_params_list_t));}
     break;
 
   case 17:
-#line 148 "ijparser.y"
+#line 155 "ijparser.y"
     { (yyval.is_opt_var_decl_t) = insert_opt_var_decl(NULL,NULL); }
     break;
 
   case 18:
-#line 149 "ijparser.y"
-    { (yyval.is_opt_var_decl_t) = insert_opt_var_decl((yyvsp[(1) - (2)].field_declarator_t),(yyvsp[(2) - (2)].is_opt_var_decl_t)); }
+#line 156 "ijparser.y"
+    { (yyval.is_opt_var_decl_t) = insert_opt_var_decl((yyvsp[(1) - (2)].field_declarator_t), (yyvsp[(2) - (2)].is_opt_var_decl_t)); }
     break;
 
   case 19:
-#line 152 "ijparser.y"
+#line 159 "ijparser.y"
     { (yyval.field_declarator_list_t) = insert_opt_vars(NULL,NULL); }
     break;
 
   case 20:
-#line 153 "ijparser.y"
-    { (yyval.field_declarator_list_t) = insert_opt_vars((yyvsp[(2) - (3)].identifier),(yyvsp[(3) - (3)].field_declarator_list_t)); }
+#line 160 "ijparser.y"
+    { (yyval.field_declarator_list_t) = insert_opt_vars((yyvsp[(2) - (3)].identifier), (yyvsp[(3) - (3)].field_declarator_list_t)); }
     break;
 
   case 21:
-#line 156 "ijparser.y"
-    { (yyval.field_declarator_t) = insert_field_declarator((yyvsp[(1) - (4)].is_type_specifier_t),(yyvsp[(2) - (4)].identifier),(yyvsp[(3) - (4)].field_declarator_list_t)); }
+#line 163 "ijparser.y"
+    { (yyval.field_declarator_t) = insert_field_declarator((yyvsp[(1) - (4)].is_type_specifier_t), (yyvsp[(2) - (4)].identifier), (yyvsp[(3) - (4)].field_declarator_list_t)); }
     break;
 
   case 22:
-#line 159 "ijparser.y"
-    { (yyval.is_type_specifier_t) = insert_type_specifier((yyvsp[(1) - (2)].is_var_type_t),(yyvsp[(2) - (2)].is_opt_array_t)); }
+#line 166 "ijparser.y"
+    { (yyval.is_type_specifier_t) = insert_type_specifier((yyvsp[(1) - (2)].is_var_type_t), (yyvsp[(2) - (2)].is_opt_array_t)); }
     break;
 
   case 23:
-#line 162 "ijparser.y"
+#line 169 "ijparser.y"
     { (yyval.is_var_type_t) = insert_type(is_int); }
     break;
 
   case 24:
-#line 163 "ijparser.y"
+#line 170 "ijparser.y"
     { (yyval.is_var_type_t) = insert_type(is_bool); }
     break;
 
   case 25:
-#line 166 "ijparser.y"
+#line 173 "ijparser.y"
     { (yyval.is_opt_array_t) = insert_opt_array(not_array); }
     break;
 
   case 26:
-#line 167 "ijparser.y"
+#line 174 "ijparser.y"
     { (yyval.is_opt_array_t) = insert_opt_array(is_array); }
     break;
 
   case 27:
-#line 170 "ijparser.y"
-    { }
+#line 177 "ijparser.y"
+    { (yyval.is_opt_statement_t) = insert_opt_statement(NULL,NULL); }
     break;
 
   case 28:
-#line 171 "ijparser.y"
-    { }
+#line 178 "ijparser.y"
+    { (yyval.is_opt_statement_t) = insert_opt_statement((yyvsp[(1) - (2)].is_statement_t), (yyvsp[(2) - (2)].is_opt_statement_t)); }
     break;
 
   case 29:
-#line 174 "ijparser.y"
-    { }
+#line 181 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement((yyvsp[(2) - (3)].is_opt_statement_t), compound_stm, NULL, NULL, NULL, NULL, NULL, NULL); }
     break;
 
   case 30:
-#line 175 "ijparser.y"
-    { }
+#line 182 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, if_stm, (yyvsp[(5) - (5)].is_statement_t), NULL, NULL, NULL, (yyvsp[(3) - (5)].is_expression_t), NULL); }
     break;
 
   case 31:
-#line 176 "ijparser.y"
-    { }
+#line 183 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, else_stm, (yyvsp[(5) - (7)].is_statement_t), (yyvsp[(7) - (7)].is_statement_t), NULL, NULL, (yyvsp[(3) - (7)].is_expression_t), NULL); }
     break;
 
   case 32:
-#line 177 "ijparser.y"
-    { }
+#line 184 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, while_stm, (yyvsp[(5) - (5)].is_statement_t), NULL, NULL, NULL, (yyvsp[(3) - (5)].is_expression_t), NULL); }
     break;
 
   case 33:
-#line 178 "ijparser.y"
-    { }
+#line 185 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, print_stm, NULL, NULL, NULL, NULL, (yyvsp[(3) - (5)].is_expression_t), NULL); }
     break;
 
   case 34:
-#line 179 "ijparser.y"
-    { }
+#line 186 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, store_stm, NULL, NULL, (yyvsp[(1) - (5)].identifier), (yyvsp[(2) - (5)].is_opt_array_pos_t), (yyvsp[(4) - (5)].is_expression_t), NULL); }
     break;
 
   case 35:
-#line 180 "ijparser.y"
-    { }
+#line 187 "ijparser.y"
+    { (yyval.is_statement_t) = insert_statement(NULL, return_stm, NULL, NULL, NULL, NULL, NULL, (yyvsp[(2) - (3)].is_opt_expr_t)); }
     break;
 
   case 36:
-#line 184 "ijparser.y"
-    { }
+#line 191 "ijparser.y"
+    { /*$$ = insert_opt_array_pos(NULL);*/ }
     break;
 
   case 37:
-#line 185 "ijparser.y"
-    { }
+#line 192 "ijparser.y"
+    { /*$$ = insert_opt_array_pos($2);*/ }
     break;
 
   case 38:
-#line 188 "ijparser.y"
-    { }
+#line 195 "ijparser.y"
+    { /*$$ = insert_opt_expr(NULL); */}
     break;
 
   case 39:
-#line 189 "ijparser.y"
-    { }
+#line 196 "ijparser.y"
+    { /*$$ = insert_opt_expr($1);*/ }
     break;
 
   case 40:
-#line 192 "ijparser.y"
-    { }
-    break;
-
-  case 41:
-#line 193 "ijparser.y"
-    { }
-    break;
-
-  case 42:
-#line 194 "ijparser.y"
-    { }
-    break;
-
-  case 43:
-#line 195 "ijparser.y"
-    { }
-    break;
-
-  case 44:
-#line 196 "ijparser.y"
-    { }
-    break;
-
-  case 45:
-#line 197 "ijparser.y"
-    { }
-    break;
-
-  case 46:
-#line 198 "ijparser.y"
-    { }
-    break;
-
-  case 47:
 #line 199 "ijparser.y"
     { }
     break;
 
-  case 48:
+  case 41:
 #line 200 "ijparser.y"
     { }
     break;
 
-  case 49:
+  case 42:
+#line 201 "ijparser.y"
+    { }
+    break;
+
+  case 43:
+#line 202 "ijparser.y"
+    { }
+    break;
+
+  case 44:
 #line 203 "ijparser.y"
     { }
     break;
 
-  case 50:
+  case 45:
 #line 204 "ijparser.y"
     { }
     break;
 
-  case 51:
+  case 46:
 #line 205 "ijparser.y"
     { }
     break;
 
-  case 52:
+  case 47:
 #line 206 "ijparser.y"
     { }
     break;
 
-  case 53:
+  case 48:
 #line 207 "ijparser.y"
     { }
     break;
 
-  case 54:
-#line 208 "ijparser.y"
+  case 49:
+#line 210 "ijparser.y"
     { }
     break;
 
-  case 55:
-#line 209 "ijparser.y"
+  case 50:
+#line 211 "ijparser.y"
     { }
     break;
 
-  case 56:
+  case 51:
 #line 212 "ijparser.y"
     { }
     break;
 
-  case 57:
+  case 52:
 #line 213 "ijparser.y"
     { }
     break;
 
-  case 58:
+  case 53:
+#line 214 "ijparser.y"
+    { }
+    break;
+
+  case 54:
+#line 215 "ijparser.y"
+    { }
+    break;
+
+  case 55:
 #line 216 "ijparser.y"
     { }
     break;
 
-  case 59:
-#line 217 "ijparser.y"
+  case 56:
+#line 219 "ijparser.y"
     { }
     break;
 
-  case 60:
+  case 57:
 #line 220 "ijparser.y"
     { }
     break;
 
-  case 61:
+  case 58:
 #line 223 "ijparser.y"
     { }
     break;
 
-  case 62:
+  case 59:
 #line 224 "ijparser.y"
+    { }
+    break;
+
+  case 60:
+#line 227 "ijparser.y"
+    { }
+    break;
+
+  case 61:
+#line 230 "ijparser.y"
+    { }
+    break;
+
+  case 62:
+#line 231 "ijparser.y"
     { }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1855 "y.tab.c"
+#line 1859 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2065,7 +2069,7 @@ yyreturn:
 }
 
 
-#line 229 "ijparser.y"
+#line 236 "ijparser.y"
 
 
 int main(int argc, char* argv[])

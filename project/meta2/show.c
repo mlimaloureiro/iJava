@@ -13,6 +13,7 @@ void print_formal_params(is_formal_params* var);
 void print_formal_params_list(is_formal_params_list* var);
 void print_opt_var_decl(is_opt_var_decl* var);
 void print_type(is_type_specifier* type);
+void print_statements(is_opt_statement* var);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -92,8 +93,48 @@ void print_method_declaration(is_field_or_method* var) {
         print_opt_var_decl(var->method->opt_var_decl);
     }
     
+    if(var->method->opt_statement->statement) {
+        print_statements(var->method->opt_statement);
+    }
     
     
+}
+
+void print_statements(is_opt_statement* var) {
+    while(var->statement) {
+        indent();
+        switch (var->statement->type) {
+            case compound_stm:
+                printf("compound_stm\n");
+                break;
+            case if_stm:
+                printf("IfElse\n");
+                break;
+            case else_stm:
+                printf("IfElse\n");
+                break;
+            case print_stm:
+                printf("Print\n");
+                break;
+            case return_stm:
+                printf("Return\n");
+                break;
+            case store_stm:
+                if(var->statement->opt_array_pos->teste)
+                    printf("StoreArray\n");
+                else
+                    printf("Store\n");
+                break;
+            case while_stm:
+                printf("While\n");
+                break;
+            default:
+                break;
+        }
+        
+        var = var->next;
+    }
+
 }
 
 void print_opt_var_decl(is_opt_var_decl* var) {

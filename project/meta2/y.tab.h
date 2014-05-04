@@ -145,6 +145,10 @@ typedef union YYSTYPE
     struct is_opt_var_decl*                 is_opt_var_decl_t;
     struct is_opt_statement*                is_opt_statement_t;
     struct is_statement*                    is_statement_t;
+    
+    struct is_opt_expr*                     is_opt_expr_t;
+    struct is_opt_array_pos*                is_opt_array_pos_t;
+    struct is_expression*                   is_expression_t;
 
     /* structures */
     char *value;
@@ -152,7 +156,7 @@ typedef union YYSTYPE
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 156 "y.tab.h"
+#line 160 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
