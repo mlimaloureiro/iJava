@@ -98,7 +98,7 @@ void print_method_declaration(is_field_or_method* var) {
     }
     
     if(var->method->opt_statement->statement) {
-    
+        indentation++;
         print_opt_statements(var->method->opt_statement);
         
     }

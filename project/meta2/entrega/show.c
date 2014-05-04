@@ -13,8 +13,10 @@ void print_formal_params(is_formal_params* var);
 void print_formal_params_list(is_formal_params_list* var);
 void print_opt_var_decl(is_opt_var_decl* var);
 void print_type(is_type_specifier* type);
-void print_statements(is_opt_statement* var);
+void print_statements(is_statement* var);
 void print_opt_statements(is_opt_statement* var);
+
+
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -96,25 +98,56 @@ void print_method_declaration(is_field_or_method* var) {
     }
     
     if(var->method->opt_statement->statement) {
-        print_statements(var->method->opt_statement);
+    
+        print_opt_statements(var->method->opt_statement);
+        
     }
     
     
 }
 
-void print_statements(is_opt_statement* var) {
-    
+void print_opt_statements(is_opt_statement* var) {
     while(var->statement) {
+        print_statements(var->statement);
+        var = var->next;
+    }
+}
+
+void print_statements(is_statement* var) {
+    
         indent();
-        switch (var->statement->type) {
+        switch (var->type) {
             case compound_stm:
                 printf("CompoundStat\n");
                 break;
             case if_stm:
                 printf("IfElse\n");
+                indentation++;indent();
+
+                if(var->expression) {;}
+                else { printf("Null\n"); }
+                
+                if(var->statement1) { print_statements(var->statement1); }
+                else { printf("Null\n"); }
+                
+                indentation--;
+                
                 break;
             case else_stm:
                 printf("IfElse\n");
+                indentation++;indent();
+                
+                if(var->expression) {;}
+                else { printf("Null\n"); }
+                
+                if(var->statement1) { print_statements(var->statement1);}
+                else { printf("Null\n"); }
+                
+                if(var->statement2) { print_statements(var->statement2); }
+                else { printf("Null\n"); }
+                
+                indentation--;
+                
                 break;
             case print_stm:
                 printf("Print\n");
@@ -123,37 +156,35 @@ void print_statements(is_opt_statement* var) {
                 printf("Return\n");
                 break;
             case store_stm:
-                if(var->statement->opt_array_pos->teste)
+                if(var->opt_array_pos->teste)
                     printf("StoreArray\n");
                 else
                     printf("Store\n");
                 break;
             case while_stm:
                 printf("While\n");
+                
+                indentation++;indent();
+                
+                if(var->expression) {;}
+                else { printf("Null\n"); }
+                
+                if(var->statement1) { print_statements(var->statement1); }
+                else { printf("Null\n"); }
+                
+                indentation--;
+                
                 break;
             default:
                 break;
         }
-        
-        /* if we have opt statements */
-        /*if(var->statement->opt_statement) {
-            printf("HEEEERE");
-            print_opt_statements(var->statement->opt_statement);
-        }*/
-        
-        var = var->next;
-    }
-
-}
-
-void print_opt_statements(is_opt_statement* var) {
-    is_opt_statement* copy = var;
     
-    while(copy->statement) {
-        print_statements(copy);
-        copy = copy->next;
+    if(var->opt_statement) {
+        print_opt_statements(var->opt_statement);
     }
+
 }
+
 
 void print_opt_var_decl(is_opt_var_decl* var) {
     indentation++;indent();
