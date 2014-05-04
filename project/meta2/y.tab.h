@@ -149,6 +149,11 @@ typedef union YYSTYPE
     struct is_opt_expr*                     is_opt_expr_t;
     struct is_opt_array_pos*                is_opt_array_pos_t;
     struct is_expression*                   is_expression_t;
+    
+    struct is_array_dim*                    is_array_dim_t;
+    struct is_opt_args*                     is_opt_args_t;
+    struct is_args*                         is_args_t;
+    struct is_opt_args_list*                is_opt_args_list_t;
 
     /* structures */
     char *value;
@@ -156,7 +161,7 @@ typedef union YYSTYPE
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */
-#line 160 "y.tab.h"
+#line 165 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

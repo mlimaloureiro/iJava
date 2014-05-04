@@ -39,6 +39,11 @@
     struct is_opt_expr*                     is_opt_expr_t;
     struct is_opt_array_pos*                is_opt_array_pos_t;
     struct is_expression*                   is_expression_t;
+    
+    struct is_array_dim*                    is_array_dim_t;
+    struct is_opt_args*                     is_opt_args_t;
+    struct is_args*                         is_args_t;
+    struct is_opt_args_list*                is_opt_args_list_t;
 
     /* structures */
     char *value;
@@ -68,6 +73,13 @@
 %type <is_opt_expr_t>               opt_expr
 %type <is_opt_array_pos_t>          opt_array_pos
 %type <is_expression_t>             Expr
+
+%type <is_array_dim_t>              array_dim;
+%type <is_opt_args_t>               opt_args
+%type <is_args_t>                   Args
+%type <is_opt_args_list_t>          opt_arg
+
+
 
 %token NUMBER
 %token ENDOF
@@ -188,23 +200,23 @@ Statement : OBRACE opt_statement CBRACE { $$ = insert_statement($2, compound_stm
 ;
 
 
-opt_array_pos: { /*$$ = insert_opt_array_pos(NULL);*/ }
-|OSQUARE Expr CSQUARE { /*$$ = insert_opt_array_pos($2);*/ }
+opt_array_pos: { $$ = insert_opt_array_pos(NULL); }
+|OSQUARE Expr CSQUARE { $$ = insert_opt_array_pos($2); }
 ;
 
-opt_expr: { /*$$ = insert_opt_expr(NULL); */}
-|Expr { /*$$ = insert_opt_expr($1);*/ }
+opt_expr: { $$ = insert_opt_expr(NULL); }
+|Expr { $$ = insert_opt_expr($1); }
 ;
 
-Expr : array_dim OSQUARE Expr CSQUARE { }
-| NEW n_Type OSQUARE Expr CSQUARE { }
-| Expr OP1 Expr { }
-| Expr OP2 Expr { }
-| Expr OP3 Expr { }
-| Expr OP4 Expr { }
-| OP3 Expr { }
-| NOT Expr { }
-| array_dim { }
+Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,NULL,NULL); }
+| NEW var_type OSQUARE Expr CSQUARE { $$ = insert_expression(new_expr,NULL,$4,NULL,$2); }
+| Expr OP1 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
+| Expr OP2 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
+| Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
+| Expr OP4 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
+| OP3 Expr { $$ = insert_expression(op3_expr,NULL,$2,NULL,NULL); }
+| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL);}
+| array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL); }
 ;
 
 array_dim: ID { }
@@ -214,10 +226,6 @@ array_dim: ID { }
 | Expr DOTLENGTH { }
 | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { }
 | ID OCURV opt_args CCURV { }
-;
-
-n_Type:INT { }
-|BOOL { }
 ;
 
 opt_args: { }

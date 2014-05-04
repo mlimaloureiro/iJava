@@ -195,6 +195,33 @@ is_statement* insert_statement(is_opt_statement* compound, statement_type type, 
     
 }
 
+is_opt_array_pos* insert_opt_array_pos(is_expression* expr) {
+    is_opt_array_pos* new = (is_opt_array_pos*) malloc(sizeof(is_opt_array_pos));
+    new->expression = expr;
+    return new;
+}
+
+is_opt_expr* insert_opt_expr(is_expression* expr) {
+    is_opt_expr* new = (is_opt_expr*) malloc(sizeof(is_opt_expr));
+    new->expression = expr;
+    return new;
+}
+
+is_expression* insert_expression(expression_type type, is_array_dim* array_dim, is_expression* expression1,
+                                 is_expression* expression2, var_type* var_type) {
+    
+	is_expression *new = (is_expression*) malloc(sizeof(is_expression));
+	new->expr_type = type;
+	new->array_dim = array_dim;
+	new->expression1 = expression1;
+	new->expression2 = expression2;
+	new->type = var_type;
+	return new;
+}
+
+
+
+
 
 
 

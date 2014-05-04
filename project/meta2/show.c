@@ -156,7 +156,7 @@ void print_statements(is_statement* var) {
                 printf("Return\n");
                 break;
             case store_stm:
-                if(var->opt_array_pos->teste) {
+                if(var->opt_array_pos->expression) {
                     printf("StoreArray\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
