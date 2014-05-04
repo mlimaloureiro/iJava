@@ -98,7 +98,7 @@ void print_method_declaration(is_field_or_method* var) {
     }
     
     if(var->method->opt_statement->statement) {
-    
+        indentation++;
         print_opt_statements(var->method->opt_statement);
         
     }
@@ -118,7 +118,7 @@ void print_statements(is_statement* var) {
         indent();
         switch (var->type) {
             case compound_stm:
-                printf("CompoundStat\n");
+                printf("\n");
                 break;
             case if_stm:
                 printf("IfElse\n");
@@ -156,10 +156,17 @@ void print_statements(is_statement* var) {
                 printf("Return\n");
                 break;
             case store_stm:
-                if(var->opt_array_pos->teste)
+                if(var->opt_array_pos->teste) {
                     printf("StoreArray\n");
-                else
+                    indentation++;indent();
+                    printf("Id(%s)\n", var->id);
+                    indentation--;
+                } else {
                     printf("Store\n");
+                    indentation++;indent();
+                    printf("Id(%s)\n", var->id);
+                    indentation--;
+                }
                 break;
             case while_stm:
                 printf("While\n");
@@ -167,7 +174,7 @@ void print_statements(is_statement* var) {
                 indentation++;indent();
                 
                 if(var->expression) {;}
-                else { printf("Null\n"); }
+                else { printf("Null\n");}
                 
                 if(var->statement1) { print_statements(var->statement1); }
                 else { printf("Null\n"); }
@@ -178,6 +185,8 @@ void print_statements(is_statement* var) {
             default:
                 break;
         }
+    
+    /* coumpound stat */
     
     if(var->opt_statement) {
         print_opt_statements(var->opt_statement);
