@@ -34,4 +34,7 @@ is_formal_params_list* insert_formal_params_list(is_type_specifier* type, char* 
 
 is_opt_var_decl* insert_opt_var_decl(field_declarator* var_decl, is_opt_var_decl* next);
 
+is_opt_statement* insert_opt_statement(is_statement* , is_opt_statement* list);
+
+is_statement* insert_statement(is_opt_statement* compound, statement_type type, is_statement* statement1, is_statement* statement2, char* id, is_opt_array_pos* opt_array_pos, is_expression* expr, is_opt_expr* opt_expr);
 

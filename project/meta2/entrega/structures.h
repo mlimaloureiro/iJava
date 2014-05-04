@@ -3,6 +3,8 @@
 typedef enum { is_bool,is_int} is_type;
 typedef enum {d_field_declaration, d_method_declaration} d_field_or_method_type;
 typedef enum {is_array,not_array} opt_array;
+typedef enum {compound_stm, if_stm, else_stm, print_stm, return_stm, store_stm, while_stm} statement_type;
+typedef enum {op_expr, array_expr, } expression_type;
 
 /* ----- common  -----*/
 
@@ -114,13 +116,33 @@ typedef struct is_opt_statement {
 
 /* ---- statements ---- */
 
+
+
 typedef struct is_statement {
-    
+    char* id;
+    statement_type type;
+    struct is_opt_statement* opt_statement;
+    struct is_expression* expression;
+    struct is_statement* statement1;
+    struct is_statement* statement2;
+    struct is_opt_array_pos* opt_array_pos;
+    struct is_opt_expr* opt_expr;
 } is_statement;
 
 
+typedef struct is_opt_expr {
+    int teste;
+} is_opt_expr;
 
+typedef struct is_opt_array_pos {
+    int teste;
+} is_opt_array_pos;
 
+/* expressions */
+
+typedef struct is_expression {
+    int teste;
+} is_expression;
 
 
 
