@@ -124,6 +124,12 @@ void print_formal_params(is_formal_params* var) {
         print_type(var->type_specifier);
         indent();
 		printf("Id(%s)\n", var->id);
+        
+        /* if we have a list */
+        if(var->list->id) {
+            print_formal_params_list(var->list);
+        }
+        
         indentation--;
         
     } else {
@@ -141,6 +147,18 @@ void print_formal_params(is_formal_params* var) {
 
 void print_formal_params_list(is_formal_params_list* var) {
     /* @TODO if we have more params */
+    while(var->id) {
+        indentation--;indent();
+        printf("ParamDeclaration\n");
+        indentation++;indent();
+        
+        print_type(var->type_specifier);
+        
+        indent();
+        
+        printf("Id(%s)\n", var->id);
+        var = var->next;
+    }
     
 }
 
