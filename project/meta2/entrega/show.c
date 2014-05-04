@@ -39,15 +39,12 @@ void print_program(is_program* program) {
         {
             case d_field_declaration:
                 
-                indentation++;
-                
                 print_field_declaration(node);
                 
-                indentation--;
                 break;
             case d_method_declaration:
                 
-                indentation++;
+                /*indentation++;*/
                 
                 print_method_declaration(node);
                 
@@ -89,6 +86,7 @@ void print_method_declaration(is_field_or_method* var) {
     }
     
     
+    
 }
 
 void print_opt_var_decl(is_opt_var_decl* var) {
@@ -109,6 +107,7 @@ void print_opt_var_decl(is_opt_var_decl* var) {
             var->varDecl->opt_vars = var->varDecl->opt_vars->next;
         }
     }
+    indentation-=2;
 }
 
 void print_formal_params(is_formal_params* var) {
@@ -124,6 +123,12 @@ void print_formal_params(is_formal_params* var) {
         print_type(var->type_specifier);
         indent();
 		printf("Id(%s)\n", var->id);
+        
+        /* if we have a list */
+        if(var->list->id) {
+            print_formal_params_list(var->list);
+        }
+        
         indentation--;
         
     } else {
@@ -141,16 +146,30 @@ void print_formal_params(is_formal_params* var) {
 
 void print_formal_params_list(is_formal_params_list* var) {
     /* @TODO if we have more params */
+    while(var->id) {
+        indentation--;indent();
+        printf("ParamDeclaration\n");
+        indentation++;indent();
+        
+        print_type(var->type_specifier);
+        
+        indent();
+        
+        printf("Id(%s)\n", var->id);
+        var = var->next;
+    }
     
 }
 
 void print_field_declaration(is_field_or_method* var) {
     indent();
-
-    printf("FieldDecl\n");
     
-    indentation++;indent();
+    printf("VarDecl\n");
+    
+    /*indentation++;*/indent();
+    
     print_type(var->field->varDecl->type_specifier);
+    
     /*indentation--;indent();*/
     
     indentation++;indent();
@@ -163,7 +182,7 @@ void print_field_declaration(is_field_or_method* var) {
             var->field->varDecl->opt_vars = var->field->varDecl->opt_vars->next;
         }
     }
-    indentation-=2;
+    indentation--;
 }
 
 void print_type(is_type_specifier* type) {

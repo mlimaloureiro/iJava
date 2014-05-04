@@ -39,15 +39,12 @@ void print_program(is_program* program) {
         {
             case d_field_declaration:
                 
-                indentation++;
-                
                 print_field_declaration(node);
                 
-                indentation--;
                 break;
             case d_method_declaration:
                 
-                indentation++;
+                /*indentation++;*/
                 
                 print_method_declaration(node);
                 
@@ -89,6 +86,7 @@ void print_method_declaration(is_field_or_method* var) {
     }
     
     
+    
 }
 
 void print_opt_var_decl(is_opt_var_decl* var) {
@@ -109,6 +107,7 @@ void print_opt_var_decl(is_opt_var_decl* var) {
             var->varDecl->opt_vars = var->varDecl->opt_vars->next;
         }
     }
+    indentation-=2;
 }
 
 void print_formal_params(is_formal_params* var) {
@@ -164,14 +163,15 @@ void print_formal_params_list(is_formal_params_list* var) {
 
 void print_field_declaration(is_field_or_method* var) {
     indent();
-
-    printf("FieldDecl\n");
+    
+    printf("VarDecl\n");
     
     indentation++;indent();
+    
     print_type(var->field->varDecl->type_specifier);
-    /*indentation--;indent();*/
     
-    indentation++;indent();
+    indent();
+    
     printf("ID(%s)\n", var->field->varDecl->ident);
     
     if(var->field->varDecl->opt_vars->ident != NULL) {
@@ -181,7 +181,7 @@ void print_field_declaration(is_field_or_method* var) {
             var->field->varDecl->opt_vars = var->field->varDecl->opt_vars->next;
         }
     }
-    indentation-=2;
+    indentation--;
 }
 
 void print_type(is_type_specifier* type) {
@@ -201,7 +201,7 @@ void print_type(is_type_specifier* type) {
 
 void indent() {
     int i;
-    for(i = 0;i < indentation; i++) printf(" ");
+    for(i = 0;i < indentation; i++) printf("  ");
 }
 
 
