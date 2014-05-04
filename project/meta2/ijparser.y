@@ -168,60 +168,60 @@ opt_array:                 { $$ = insert_opt_array(not_array); }
 ;
 
 opt_statement: { }
-|Statement opt_statement
+|Statement opt_statement { }
 ;
 
-Statement : OBRACE opt_statement CBRACE
-| IF OCURV Expr CCURV Statement
-| IF OCURV Expr CCURV Statement ELSE Statement
-| WHILE OCURV Expr CCURV Statement
-| PRINT OCURV Expr CCURV SEMIC
-| ID opt_array_pos ASSIGN Expr SEMIC
-| RETURN opt_expr SEMIC
+Statement : OBRACE opt_statement CBRACE { }
+| IF OCURV Expr CCURV Statement { }
+| IF OCURV Expr CCURV Statement ELSE Statement { }
+| WHILE OCURV Expr CCURV Statement { }
+| PRINT OCURV Expr CCURV SEMIC { }
+| ID opt_array_pos ASSIGN Expr SEMIC { }
+| RETURN opt_expr SEMIC { }
 ;
 
 
-opt_array_pos:
-|OSQUARE Expr CSQUARE
+opt_array_pos: { }
+|OSQUARE Expr CSQUARE { }
 ;
 
-opt_expr:
-|Expr
+opt_expr: { }
+|Expr { }
 ;
 
-Expr : array_dim OSQUARE Expr CSQUARE
-| NEW n_Type OSQUARE Expr CSQUARE
-| Expr OP1 Expr
-| Expr OP2 Expr
-| Expr OP3 Expr
-| Expr OP4 Expr
-| OP3 Expr
-| NOT Expr
-| array_dim
+Expr : array_dim OSQUARE Expr CSQUARE { }
+| NEW n_Type OSQUARE Expr CSQUARE { }
+| Expr OP1 Expr { }
+| Expr OP2 Expr { }
+| Expr OP3 Expr { }
+| Expr OP4 Expr { }
+| OP3 Expr { }
+| NOT Expr { }
+| array_dim { }
 ;
 
-array_dim: ID
-| INTLIT
-| BOOLLIT
-| OCURV Expr CCURV
-| Expr DOTLENGTH
-| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV
-| ID OCURV opt_args CCURV
+array_dim: ID { }
+| INTLIT { }
+| BOOLLIT { }
+| OCURV Expr CCURV { }
+| Expr DOTLENGTH { }
+| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { }
+| ID OCURV opt_args CCURV { }
 ;
 
-n_Type:INT
-|BOOL
+n_Type:INT { }
+|BOOL { }
 ;
 
-opt_args:
-|Args
+opt_args: { }
+|Args { }
 ;
 
-Args : Expr opt_arg
+Args : Expr opt_arg { }
 ;
 
-opt_arg:
-|COMMA Expr opt_arg
+opt_arg: { }
+|COMMA Expr opt_arg { }
 ;
 
 

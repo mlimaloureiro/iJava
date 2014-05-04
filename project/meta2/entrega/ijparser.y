@@ -16,16 +16,26 @@
 %}
 
 %union{
-    struct is_root* is_root_t;
-    struct is_program* is_program_t;
-    struct is_field_or_method* field_or_method_t;
-    struct is_method_declaration* method_decl_t;
-    struct is_field_declaration* field_decl_t;
-    struct field_declarator* field_declarator_t;
-    struct field_declarator_list* field_declarator_list_t;
-    struct is_type_specifier* is_type_specifier_t;
-    struct is_opt_array* is_opt_array_t;
-    struct var_type* is_var_type_t;
+    struct is_root*                         is_root_t;
+    struct is_program*                      is_program_t;
+    struct is_field_or_method*              field_or_method_t;
+    struct is_method_declaration*           method_decl_t;
+    struct is_field_declaration*            field_decl_t;
+    struct field_declarator*                field_declarator_t;
+    struct field_declarator_list*           field_declarator_list_t;
+    struct is_type_specifier*               is_type_specifier_t;
+    struct is_opt_array*                    is_opt_array_t;
+    struct var_type*                        is_var_type_t;
+    struct is_function_type*                is_function_type_t;
+    
+    struct is_opt_formal_params*            is_opt_formal_params_t;
+    struct is_formal_params*                is_formal_params_t;
+    struct is_formal_params_list*           is_formal_params_list_t;
+    
+    struct is_opt_var_decl*                 is_opt_var_decl_t;
+    struct is_opt_statement*                is_opt_statement_t;
+    struct is_statement*                    is_statement_t;
+
     /* structures */
     char *value;
     int intlit;
@@ -42,6 +52,15 @@
 %type <is_type_specifier_t>         Type
 %type <is_opt_array_t>              opt_array
 %type <is_var_type_t>               var_type
+
+%type <is_opt_formal_params_t>      opt_formal_params
+%type <is_formal_params_t>          formal_params
+%type <is_formal_params_list_t>     opt_param
+
+%type <is_function_type_t>          function_type
+%type <is_opt_var_decl_t>           opt_var_decl
+%type <is_opt_statement_t>          opt_statement
+%type <is_statement_t>              Statement
 
 %token NUMBER
 %token ENDOF
@@ -107,27 +126,27 @@ field_or_method: {$$ = insert_field_or_method(NULL, NULL, NULL);}
 field_decl : STATIC var_decl { $$ = insert_field_declaration($2);}
 ;
 
-method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE {  }
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE { $$ = insert_method_declaration($3,$4,$6,$9,$10); }
 ;
 
-function_type: Type {}
-|VOID {}
+function_type: Type { $$ = insert_function_type($1); }
+|VOID { $$ = insert_function_type(NULL); }
 ;
 
-opt_formal_params:
-|formal_params
+opt_formal_params:  {$$ = insert_opt_formal_params(NULL);}
+|formal_params      {$$ = insert_opt_formal_params($1);}
 ;
 
-formal_params : Type ID opt_param
-| STRING OSQUARE CSQUARE ID
+formal_params : Type ID opt_param { $$ = insert_formal_params($1,$2,$3); }
+| STRING OSQUARE CSQUARE ID { $$ = insert_formal_params(NULL,$4,NULL); }
 ;
 
-opt_param :
-|COMMA Type ID opt_param
+opt_param : { $$ = insert_formal_params_list(NULL,NULL,NULL);}
+|COMMA Type ID opt_param { $$ = insert_formal_params_list($2,$3,$4);}
 ;
 
-opt_var_decl:
-|var_decl opt_var_decl
+opt_var_decl: { $$ = insert_opt_var_decl(NULL,NULL); }
+|var_decl opt_var_decl { $$ = insert_opt_var_decl($1,$2); }
 ;
 
 opt_variable:           { $$ = insert_opt_vars(NULL,NULL); }
@@ -148,7 +167,7 @@ opt_array:                 { $$ = insert_opt_array(not_array); }
 |OSQUARE CSQUARE           { $$ = insert_opt_array(is_array); }
 ;
 
-opt_statement:
+opt_statement: { }
 |Statement opt_statement
 ;
 

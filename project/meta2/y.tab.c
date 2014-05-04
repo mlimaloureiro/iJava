@@ -1674,9 +1674,184 @@ yyreduce:
     { }
     break;
 
+  case 28:
+#line 171 "ijparser.y"
+    { }
+    break;
+
+  case 29:
+#line 174 "ijparser.y"
+    { }
+    break;
+
+  case 30:
+#line 175 "ijparser.y"
+    { }
+    break;
+
+  case 31:
+#line 176 "ijparser.y"
+    { }
+    break;
+
+  case 32:
+#line 177 "ijparser.y"
+    { }
+    break;
+
+  case 33:
+#line 178 "ijparser.y"
+    { }
+    break;
+
+  case 34:
+#line 179 "ijparser.y"
+    { }
+    break;
+
+  case 35:
+#line 180 "ijparser.y"
+    { }
+    break;
+
+  case 36:
+#line 184 "ijparser.y"
+    { }
+    break;
+
+  case 37:
+#line 185 "ijparser.y"
+    { }
+    break;
+
+  case 38:
+#line 188 "ijparser.y"
+    { }
+    break;
+
+  case 39:
+#line 189 "ijparser.y"
+    { }
+    break;
+
+  case 40:
+#line 192 "ijparser.y"
+    { }
+    break;
+
+  case 41:
+#line 193 "ijparser.y"
+    { }
+    break;
+
+  case 42:
+#line 194 "ijparser.y"
+    { }
+    break;
+
+  case 43:
+#line 195 "ijparser.y"
+    { }
+    break;
+
+  case 44:
+#line 196 "ijparser.y"
+    { }
+    break;
+
+  case 45:
+#line 197 "ijparser.y"
+    { }
+    break;
+
+  case 46:
+#line 198 "ijparser.y"
+    { }
+    break;
+
+  case 47:
+#line 199 "ijparser.y"
+    { }
+    break;
+
+  case 48:
+#line 200 "ijparser.y"
+    { }
+    break;
+
+  case 49:
+#line 203 "ijparser.y"
+    { }
+    break;
+
+  case 50:
+#line 204 "ijparser.y"
+    { }
+    break;
+
+  case 51:
+#line 205 "ijparser.y"
+    { }
+    break;
+
+  case 52:
+#line 206 "ijparser.y"
+    { }
+    break;
+
+  case 53:
+#line 207 "ijparser.y"
+    { }
+    break;
+
+  case 54:
+#line 208 "ijparser.y"
+    { }
+    break;
+
+  case 55:
+#line 209 "ijparser.y"
+    { }
+    break;
+
+  case 56:
+#line 212 "ijparser.y"
+    { }
+    break;
+
+  case 57:
+#line 213 "ijparser.y"
+    { }
+    break;
+
+  case 58:
+#line 216 "ijparser.y"
+    { }
+    break;
+
+  case 59:
+#line 217 "ijparser.y"
+    { }
+    break;
+
+  case 60:
+#line 220 "ijparser.y"
+    { }
+    break;
+
+  case 61:
+#line 223 "ijparser.y"
+    { }
+    break;
+
+  case 62:
+#line 224 "ijparser.y"
+    { }
+    break;
+
 
 /* Line 1267 of yacc.c.  */
-#line 1680 "y.tab.c"
+#line 1855 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
