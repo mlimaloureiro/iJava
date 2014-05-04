@@ -201,7 +201,7 @@ void print_type(is_type_specifier* type) {
 
 void indent() {
     int i;
-    for(i = 0;i < indentation; i++) printf("  ");
+    for(i = 0;i < indentation; i++) printf(" ");
 }
 
 
