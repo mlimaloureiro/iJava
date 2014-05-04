@@ -167,6 +167,37 @@ is_opt_var_decl* insert_opt_var_decl(field_declarator* var_decl, is_opt_var_decl
 }
 
 
+/* statements */
+
+is_opt_statement* insert_opt_statement(is_statement* statement, is_opt_statement* list) {
+    is_opt_statement *new = (is_opt_statement*) malloc(sizeof(is_opt_statement));
+    new->statement = statement;
+	new->next = list;
+	return new;
+}
+
+
+is_statement* insert_statement(is_opt_statement* compound, statement_type type, is_statement* statement1, is_statement* statement2, char*id, is_opt_array_pos* opt_array_pos, is_expression* expr, is_opt_expr* opt_expr) {
+    
+    is_statement* new = (is_statement*) malloc(sizeof(is_statement));
+    new->opt_statement = compound;
+    new->id = id;
+    new->statement1 = statement1;
+    new->statement2 = statement2;
+    new->type = type;
+    new->opt_array_pos = opt_array_pos;
+    new->opt_expr = opt_expr;
+    
+    printf("Registering statement\n");
+    
+    return new;
+    
+}
+
+
+
+
+
 
 
 

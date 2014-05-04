@@ -126,7 +126,7 @@ field_or_method: {$$ = insert_field_or_method(NULL, NULL, NULL);}
 field_decl : STATIC var_decl { $$ = insert_field_declaration($2);}
 ;
 
-method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE { $$ = insert_method_declaration($3,$4,$6,$9,$10); }
+method_decl : PUBLIC STATIC function_type ID OCURV opt_formal_params CCURV OBRACE opt_var_decl opt_statement CBRACE { $$ = insert_method_declaration($3, $4, $6, $9, $10); }
 ;
 
 function_type: Type { $$ = insert_function_type($1); }
@@ -137,26 +137,26 @@ opt_formal_params:  {$$ = insert_opt_formal_params(NULL);}
 |formal_params      {$$ = insert_opt_formal_params($1);}
 ;
 
-formal_params : Type ID opt_param { $$ = insert_formal_params($1,$2,$3); }
-| STRING OSQUARE CSQUARE ID { $$ = insert_formal_params(NULL,$4,NULL); }
+formal_params : Type ID opt_param { $$ = insert_formal_params($1, $2, $3); }
+| STRING OSQUARE CSQUARE ID { $$ = insert_formal_params(NULL, $4, NULL); }
 ;
 
 opt_param : { $$ = insert_formal_params_list(NULL,NULL,NULL);}
-|COMMA Type ID opt_param { $$ = insert_formal_params_list($2,$3,$4);}
+|COMMA Type ID opt_param { $$ = insert_formal_params_list($2, $3, $4);}
 ;
 
 opt_var_decl: { $$ = insert_opt_var_decl(NULL,NULL); }
-|var_decl opt_var_decl { $$ = insert_opt_var_decl($1,$2); }
+|var_decl opt_var_decl { $$ = insert_opt_var_decl($1, $2); }
 ;
 
 opt_variable:           { $$ = insert_opt_vars(NULL,NULL); }
-|COMMA ID opt_variable  { $$ = insert_opt_vars($2,$3); }
+|COMMA ID opt_variable  { $$ = insert_opt_vars($2, $3); }
 ;
 
-var_decl : Type ID opt_variable SEMIC { $$ = insert_field_declarator($1,$2,$3); }
+var_decl : Type ID opt_variable SEMIC { $$ = insert_field_declarator($1, $2, $3); }
 ;
 
-Type : var_type opt_array { $$ = insert_type_specifier($1,$2); }
+Type : var_type opt_array { $$ = insert_type_specifier($1, $2); }
 ;
 
 var_type:INT    { $$ = insert_type(is_int); }
@@ -167,17 +167,17 @@ opt_array:                 { $$ = insert_opt_array(not_array); }
 |OSQUARE CSQUARE           { $$ = insert_opt_array(is_array); }
 ;
 
-opt_statement: { }
-|Statement opt_statement { }
+opt_statement: { $$ = insert_opt_statement(NULL,NULL); }
+|Statement opt_statement { $$ = insert_opt_statement($1, $2); }
 ;
 
-Statement : OBRACE opt_statement CBRACE { }
-| IF OCURV Expr CCURV Statement { }
-| IF OCURV Expr CCURV Statement ELSE Statement { }
-| WHILE OCURV Expr CCURV Statement { }
-| PRINT OCURV Expr CCURV SEMIC { }
-| ID opt_array_pos ASSIGN Expr SEMIC { }
-| RETURN opt_expr SEMIC { }
+Statement : OBRACE opt_statement CBRACE { $$ = insert_statement($2, compound_stm, NULL, NULL, NULL, NULL, NULL, NULL); }
+| IF OCURV Expr CCURV Statement { $$ = insert_statement(NULL, if_stm, $5, NULL, NULL, NULL, $3, NULL); }
+| IF OCURV Expr CCURV Statement ELSE Statement { $$ = insert_statement(NULL, else_stm, $5, $7, NULL, NULL, $3, NULL); }
+| WHILE OCURV Expr CCURV Statement { $$ = insert_statement(NULL, while_stm, $5, NULL, NULL, NULL, $3, NULL); }
+| PRINT OCURV Expr CCURV SEMIC { $$ = insert_statement(NULL, print_stm, NULL, NULL, NULL, NULL, $3, NULL); }
+| ID opt_array_pos ASSIGN Expr SEMIC { $$ = insert_statement(NULL, store_stm, NULL, NULL, $1, $2, $4, NULL); }
+| RETURN opt_expr SEMIC { $$ = insert_statement(NULL, return_stm, $5, NULL, NULL, NULL, $3, NULL); }
 ;
 
 
