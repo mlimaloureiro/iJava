@@ -30,7 +30,12 @@ void print_program(is_program* program) {
     indentation++;
     indent();
     
-    printf("Id(%s)\n",program->ident);
+    if(!program->ident) {
+        printf("Null\n");
+    } else {
+        printf("Id(%s)\n",program->ident);
+    }
+    
     
     is_field_or_method* node = program->field_or_method;
     
@@ -74,6 +79,8 @@ void print_method_declaration(is_field_or_method* var) {
     printf("Id(%s)\n",var->method->id);
     
     /* if we have formal params */
+    indent();
+    printf("MethodParams\n");
     if(var->method->opt_formal_params->formal_params) {
         print_formal_params(var->method->opt_formal_params->formal_params);
     }
@@ -111,8 +118,7 @@ void print_opt_var_decl(is_opt_var_decl* var) {
 }
 
 void print_formal_params(is_formal_params* var) {
-    indent();
-    printf("MethodParams\n");
+
     indentation++;indent();
     
     
@@ -185,6 +191,11 @@ void print_field_declaration(is_field_or_method* var) {
 }
 
 void print_type(is_type_specifier* type) {
+    if (!type) {
+        printf("Null\n");
+        return;
+    }
+    
     switch(type->var_type->type) {
         case is_int:
             printf("Int");
@@ -203,6 +214,21 @@ void indent() {
     int i;
     for(i = 0;i < indentation; i++) printf("  ");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
