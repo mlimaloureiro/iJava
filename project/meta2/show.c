@@ -140,7 +140,7 @@ void print_formal_params(is_formal_params* var) {
 }
 
 void print_formal_params_list(is_formal_params_list* var) {
-    /* if we have more params */
+    /* @TODO if we have more params */
     
 }
 
@@ -175,7 +175,7 @@ void print_type(is_type_specifier* type) {
             printf("Bool");
             break;
     }
-    if(type->opt_array == is_array) {
+    if(type->opt_array->array == is_array) {
         printf("Array");
     }
     printf("\n");
