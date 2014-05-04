@@ -125,6 +125,12 @@ void print_statements(is_statement* var) {
                 break;
             case else_stm:
                 printf("IfElse\n");
+                if(var->statement1) { indentation++; print_statements(var->statement1); indentation--;}
+                else { printf("Null\n"); }
+                
+                if(var->statement2) { indentation++;print_statements(var->statement2);indentation--; }
+                else { printf("Null\n"); }
+                
                 break;
             case print_stm:
                 printf("Print\n");
