@@ -1609,6 +1609,11 @@ yyreduce:
     { (yyval.is_formal_params_t) = insert_formal_params(NULL,(yyvsp[(4) - (4)].identifier),NULL); }
     break;
 
+  case 15:
+#line 144 "ijparser.y"
+    { (yyval.is_formal_params_list_t) = insert_formal_params_list(NULL,NULL,NULL);}
+    break;
+
   case 16:
 #line 145 "ijparser.y"
     { (yyval.is_formal_params_list_t) = insert_formal_params_list((yyvsp[(2) - (4)].is_type_specifier_t),(yyvsp[(3) - (4)].identifier),(yyvsp[(4) - (4)].is_formal_params_list_t));}
@@ -1664,9 +1669,14 @@ yyreduce:
     { (yyval.is_opt_array_t) = insert_opt_array(is_array); }
     break;
 
+  case 27:
+#line 170 "ijparser.y"
+    { }
+    break;
+
 
 /* Line 1267 of yacc.c.  */
-#line 1670 "y.tab.c"
+#line 1680 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

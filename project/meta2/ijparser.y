@@ -141,7 +141,7 @@ formal_params : Type ID opt_param { $$ = insert_formal_params($1,$2,$3); }
 | STRING OSQUARE CSQUARE ID { $$ = insert_formal_params(NULL,$4,NULL); }
 ;
 
-opt_param :
+opt_param : { $$ = insert_formal_params_list(NULL,NULL,NULL);}
 |COMMA Type ID opt_param { $$ = insert_formal_params_list($2,$3,$4);}
 ;
 
@@ -167,7 +167,7 @@ opt_array:                 { $$ = insert_opt_array(not_array); }
 |OSQUARE CSQUARE           { $$ = insert_opt_array(is_array); }
 ;
 
-opt_statement:
+opt_statement: { }
 |Statement opt_statement
 ;
 

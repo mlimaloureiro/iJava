@@ -11,7 +11,7 @@ void print_field_declaration(is_field_or_method* var);
 void print_method_declaration(is_field_or_method* var);
 void print_formal_params(is_formal_params* var);
 void print_formal_params_list(is_formal_params_list* var);
-
+void print_opt_var_decl(is_opt_var_decl* var);
 void print_type(is_type_specifier* type);
 
 void show_program(is_root* list){
@@ -76,8 +76,38 @@ void print_method_declaration(is_field_or_method* var) {
     indent();
     printf("ID(%s)\n",var->method->id);
     
+    /* if we have formal params */
     if(var->method->opt_formal_params->formal_params) {
         print_formal_params(var->method->opt_formal_params->formal_params);
+    }
+    
+    /* method body */
+    indent();
+    printf("MethodBody\n");
+    if(var->method->opt_var_decl->varDecl) {
+        print_opt_var_decl(var->method->opt_var_decl);
+    }
+    
+    
+}
+
+void print_opt_var_decl(is_opt_var_decl* var) {
+    indentation++;indent();
+    printf("VarDecl\n");
+    indentation++;indent();
+    
+    /* print the type */
+    print_type(var->varDecl->type_specifier);
+    indent();
+    printf("Id(%s)\n", var->varDecl->ident);
+    
+    /* if we have opt vars like int 1,2,3 print them */
+    if(var->varDecl->opt_vars->ident) {
+        while(var->varDecl->opt_vars->ident) {
+            indent();
+			printf("Id(%s)\n", var->varDecl->opt_vars->ident);
+            var->varDecl->opt_vars = var->varDecl->opt_vars->next;
+        }
     }
 }
 
@@ -94,6 +124,7 @@ void print_formal_params(is_formal_params* var) {
         print_type(var->type_specifier);
         indent();
 		printf("Id(%s)\n", var->id);
+        indentation--;
         
     } else {
         printf("ParamDeclaration\n");
@@ -102,7 +133,9 @@ void print_formal_params(is_formal_params* var) {
         printf("StringArray\n");
         indent();
 		printf("Id(%s)\n", var->id);
+        indentation--;
     }
+    indentation--;
     
 }
 
@@ -136,12 +169,16 @@ void print_field_declaration(is_field_or_method* var) {
 void print_type(is_type_specifier* type) {
     switch(type->var_type->type) {
         case is_int:
-            printf("INT\n");
+            printf("Int");
             break;
         case is_bool:
-            printf("BOOL\n");
+            printf("Bool");
             break;
     }
+    if(type->opt_array == is_array) {
+        printf("Array");
+    }
+    printf("\n");
 }
 
 void indent() {
