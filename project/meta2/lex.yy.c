@@ -1497,12 +1497,12 @@ YY_RULE_SETUP
 case 86:
 YY_RULE_SETUP
 #line 104 "ijparser.l"
-{conta();yylval.intlit=atoi(yytext);return INTLIT;}
+{conta();yylval.value=(char*)strdup(yytext);return INTLIT;}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
 #line 105 "ijparser.l"
-{conta();yylval.intlit=atoi(yytext); return INTLIT;}
+{conta();yylval.value=(char*)strdup(yytext);return INTLIT;}
 	YY_BREAK
 case 88:
 /* rule 88 can match eol */

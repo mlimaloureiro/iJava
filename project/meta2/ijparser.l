@@ -101,8 +101,8 @@
 <INITIAL>";"										{conta();return SEMIC;}
 <INITIAL>","										{conta();return COMMA;}
 <INITIAL>([a-zA-Z_$])+([0-9a-zA-Z_$])*				{conta();yylval.identifier=(char*)strdup(yytext); return ID;}
-<INITIAL>(([1-9])([0-9])*|0+([1-9])([0-9])*|0+)	  	{conta();yylval.intlit=atoi(yytext);return INTLIT;}
-<INITIAL>(0[xX][0-9a-fA-F]+)	  					{conta();yylval.intlit=atoi(yytext); return INTLIT;}
+<INITIAL>(([1-9])([0-9])*|0+([1-9])([0-9])*|0+)	  	{conta();yylval.value=(char*)strdup(yytext);return INTLIT;}
+<INITIAL>(0[xX][0-9a-fA-F]+)	  					{conta();yylval.value=(char*)strdup(yytext);return INTLIT;}
 <INITIAL>\n|\t|[ ]									{conta();};
 <INITIAL>.											{printf("Line %d, col %d: illegal character ('%c')\n",linha,coluna,yytext[0]);conta();};
 <IN_COMMENT>"*/"									{conta();BEGIN INITIAL; in_comment = 0;};

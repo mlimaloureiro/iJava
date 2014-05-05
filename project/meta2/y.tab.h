@@ -157,7 +157,7 @@ typedef union YYSTYPE
 
     /* structures */
     char *value;
-    int intlit;
+    char *intlit;
     char *identifier;
 }
 /* Line 1529 of yacc.c.  */

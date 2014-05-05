@@ -221,7 +221,7 @@ typedef union YYSTYPE
 
     /* structures */
     char *value;
-    int intlit;
+    char *intlit;
     char *identifier;
 }
 /* Line 193 of yacc.c.  */
@@ -1790,62 +1790,62 @@ yyreduce:
 
   case 49:
 #line 222 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL); }
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL, NULL, 0); }
     break;
 
   case 50:
 #line 223 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 1); }
     break;
 
   case 51:
 #line 224 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 2); }
     break;
 
   case 52:
 #line 225 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL, NULL, 0); }
     break;
 
   case 53:
 #line 226 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(1) - (2)].is_expression_t), NULL);  }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(1) - (2)].is_expression_t), NULL, NULL, 0);  }
     break;
 
   case 54:
 #line 227 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL,(yyvsp[(5) - (7)].is_expression_t),NULL); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL,(yyvsp[(5) - (7)].is_expression_t),NULL,NULL, 0); }
     break;
 
   case 55:
 #line 228 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t)); }
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t), NULL, 0); }
     break;
 
   case 56:
 #line 231 "ijparser.y"
-    { }
+    { (yyval.is_opt_args_t) = insert_opt_args(NULL); }
     break;
 
   case 57:
 #line 232 "ijparser.y"
-    { }
+    { (yyval.is_opt_args_t) = insert_opt_args((yyvsp[(1) - (1)].is_args_t)); }
     break;
 
   case 58:
 #line 235 "ijparser.y"
-    { }
+    { (yyval.is_args_t) = insert_args((yyvsp[(1) - (2)].is_expression_t), (yyvsp[(2) - (2)].is_opt_args_list_t)); }
     break;
 
   case 59:
 #line 238 "ijparser.y"
-    { }
+    { (yyval.is_opt_args_list_t) = insert_opt_arg(NULL, NULL); }
     break;
 
   case 60:
 #line 239 "ijparser.y"
-    { }
+    { (yyval.is_opt_args_list_t) = insert_opt_arg((yyvsp[(2) - (3)].is_expression_t), (yyvsp[(3) - (3)].is_opt_args_list_t)); }
     break;
 
 

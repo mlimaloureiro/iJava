@@ -222,14 +222,50 @@ is_expression* insert_expression(expression_type type, is_array_dim* array_dim, 
 	return new;
 }
 
-is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args) {
+is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args, char* value, int type_check) {
     is_array_dim* new = (is_array_dim*) malloc(sizeof(is_array_dim));
+    
     new->id = id;
+    
+    if(type_check == 1) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_int;
+        new->dim_type = new_type;
+    } else if(type_check == 2) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_bool;
+        new->dim_type = new_type;
+    }
+    
     new->expr = expression;
     new->opt_args = opt_args;
-        
+    new->value = value;
+    
     return new;
 }
+
+
+is_opt_args* insert_opt_args(is_args* args) {
+    is_opt_args* new = (is_opt_args*) malloc(sizeof(is_opt_args));
+    new->args = args;
+    return new;
+}
+
+is_args* insert_args(is_expression* expression, is_opt_args_list* list) {
+    is_args* new = (is_args*) malloc(sizeof(is_args));
+    new->expr = expression;
+    new->list = list;
+    return new;
+}
+
+is_opt_args_list* insert_opt_arg(is_expression* expression, is_opt_args_list* list) {
+    is_opt_args_list* new = (is_opt_args_list*) malloc(sizeof(is_opt_args_list));
+    new->expr = expression;
+    new->next = list;
+    return new;
+}
+
+
 
 
 

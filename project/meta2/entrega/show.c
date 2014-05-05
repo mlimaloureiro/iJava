@@ -15,8 +15,15 @@ void print_opt_var_decl(is_opt_var_decl* var);
 void print_type(is_type_specifier* type);
 void print_statements(is_statement* var);
 void print_opt_statements(is_opt_statement* var);
+void print_expression(is_expression* var);
 
-
+void print_op_expression(is_expression* var);
+void print_array_expression(is_expression* var);
+void print_op3_expression(is_expression* var);
+void print_array_expression2(is_expression* var);
+void print_not_expression(is_expression* var);
+void print_new_expression(is_expression* var);
+void print_aux_value(char* value);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -93,8 +100,9 @@ void print_method_declaration(is_field_or_method* var) {
     /* method body */
     indent();
     printf("MethodBody\n");
-    if(var->method->opt_var_decl->varDecl) {
+    while(var->method->opt_var_decl->varDecl) {
         print_opt_var_decl(var->method->opt_var_decl);
+        var->method->opt_var_decl = var->method->opt_var_decl->next;
     }
     
     if(var->method->opt_statement->statement) {
@@ -113,18 +121,115 @@ void print_opt_statements(is_opt_statement* var) {
     }
 }
 
+
+void print_expression(is_expression* var) {
+    switch (var->expr_type) {
+        case op_expr:
+            print_op_expression(var);
+            break;
+        case array_expr:
+            print_array_expression(var);
+            break;
+        case op3_expr:
+            print_op3_expression(var);
+            break;
+        case array_expr2:
+            print_array_expression2(var);
+            break;
+        case not_expr:
+            print_not_expression(var);
+            break;
+        case new_expr:
+            print_new_expression(var);
+            break;
+        default:
+            break;
+    }
+}
+
+
+void print_op_expression(is_expression* var) {
+    print_aux_value(var->auxvalue);
+    
+}
+
+void print_array_expression(is_expression* var) {
+    printf("array exp\n");
+}
+
+void print_op3_expression(is_expression* var) {
+    printf("op3 exp\n");
+}
+
+void print_array_expression2(is_expression* var) {
+    printf("array2 exp\n");
+}
+
+void print_not_expression(is_expression* var) {
+    printf("not exp\n");
+}
+
+void print_new_expression(is_expression* var) {
+    if(var->type->type == is_int){
+        printf("NewInt\n");
+    } else if(var->type->type == is_bool) {
+        printf("NewBool\n");
+    }
+    
+    /* @TODO PRINT INTARRAY BOOLARRAY */
+    
+}
+
+void print_aux_value(char* value) {
+    if(strcmp("==", value) == 0) {
+        printf("Eq");
+    } else if(strcmp("||", value) == 0) {
+        printf("Or");
+    } else if(strcmp("&&", value) == 0) {
+        printf("And");
+    } else if(strcmp("!=", value) == 0) {
+        printf("Neq");
+    } else if(strcmp("<", value) == 0) {
+        printf("Lt");
+    } else if(strcmp(">", value) == 0) {
+        printf("Gt");
+    } else if(strcmp("<=", value) == 0) {
+        printf("Leq");
+    } else if(strcmp(">=", value) == 0) {
+        printf("Geq");
+    } else if(strcmp("+", value) == 0) {
+        printf("Add");
+    } else if(strcmp("-", value) == 0) {
+        printf("Sub");
+    } else if(strcmp("*", value) == 0) {
+        printf("Mul");
+    } else if(strcmp("/", value) == 0) {
+        printf("Div");
+    } else if(strcmp("!", value) == 0) {
+        printf("Not");
+    } else if(strcmp("%", value) == 0) {
+        printf("Mod");
+    }
+    
+    printf("\n");
+}
+
+
 void print_statements(is_statement* var) {
     
-        indent();
+    
         switch (var->type) {
             case compound_stm:
-                printf("\n");
+                
                 break;
             case if_stm:
+                indent();
                 printf("IfElse\n");
                 indentation++;indent();
 
-                if(var->expression) {;}
+                if(var->expression) {
+                    print_expression(var->expression);
+                }
                 else { printf("Null\n"); }
                 
                 if(var->statement1) { print_statements(var->statement1); }
@@ -134,10 +239,11 @@ void print_statements(is_statement* var) {
                 
                 break;
             case else_stm:
+                indent();
                 printf("IfElse\n");
                 indentation++;indent();
                 
-                if(var->expression) {;}
+                if(var->expression) { print_expression(var->expression); }
                 else { printf("Null\n"); }
                 
                 if(var->statement1) { print_statements(var->statement1);}
@@ -150,30 +256,42 @@ void print_statements(is_statement* var) {
                 
                 break;
             case print_stm:
+                indent();
                 printf("Print\n");
                 break;
             case return_stm:
+                indent();
                 printf("Return\n");
                 break;
             case store_stm:
-                if(var->opt_array_pos->teste) {
+                indent();
+                if(var->opt_array_pos->expression) {
                     printf("StoreArray\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
+                    
+                    if(var->expression) { indent();print_expression(var->expression); }
+                    else { printf("Null\n"); }
+
                     indentation--;
                 } else {
                     printf("Store\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
+                    
+                    if(var->expression) { indent(); print_expression(var->expression); }
+                    else { printf("Null\n"); }
+
                     indentation--;
                 }
                 break;
             case while_stm:
+                indent();
                 printf("While\n");
                 
                 indentation++;indent();
                 
-                if(var->expression) {;}
+                if(var->expression) { print_expression(var->expression); }
                 else { printf("Null\n");}
                 
                 if(var->statement1) { print_statements(var->statement1); }
@@ -219,7 +337,6 @@ void print_opt_var_decl(is_opt_var_decl* var) {
 void print_formal_params(is_formal_params* var) {
 
     indentation++;indent();
-    
     
     if(var->type_specifier) {
         printf("ParamDeclaration\n");

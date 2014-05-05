@@ -150,30 +150,62 @@ void print_expression(is_expression* var) {
 
 void print_op_expression(is_expression* var) {
     print_aux_value(var->auxvalue);
-    
+    indent();
+    print_expression(var->expression1);
+    indent();
+    print_expression(var->expression2);
 }
 
 void print_array_expression(is_expression* var) {
-    printf("array exp\n");
+    print_aux_value(var->auxvalue);
+    printf("LoadArray\n");
+    indentation++;indent();
+    printf("Id(%s)\n", var->array_dim->id);
+    indent();
+    
+    if(var->expression1->array_dim->value)
+    printf("IntLit(%s)\n", var->expression1->array_dim->value);
+    
+    
+    indentation--;
 }
 
 void print_op3_expression(is_expression* var) {
+    print_aux_value(var->auxvalue);
+
     printf("op3 exp\n");
 }
 
 void print_array_expression2(is_expression* var) {
-    printf("array2 exp\n");
+    print_aux_value(var->auxvalue);
+    
+    printf("IntLit()\n");
+   
 }
 
 void print_not_expression(is_expression* var) {
-    printf("not exp\n");
+    print_aux_value(var->auxvalue);
 }
 
 void print_new_expression(is_expression* var) {
     if(var->type->type == is_int){
         printf("NewInt\n");
+        indentation++;indent();
+        
+        /* 
+         *
+         * a expressao é NEW var_type OSQUARE Expr CSQUARE
+         * precisamos de aceder a expr filha para aceder ao value
+         *
+         */
+        printf("IntLit(%s)\n", var->expression1->array_dim->value);
+        
+        indentation--;
     } else if(var->type->type == is_bool) {
         printf("NewBool\n");
+        indentation++;indent();
+        printf("BoolLit(%s)\n", var->expression1->array_dim->value);
+        indentation--;
     }
     
     /* @TODO PRINT INTARRAY BOOLARRAY */
@@ -181,37 +213,39 @@ void print_new_expression(is_expression* var) {
 }
 
 void print_aux_value(char* value) {
-    if(strcmp("==", value) == 0) {
-        printf("Eq");
-    } else if(strcmp("||", value) == 0) {
-        printf("Or");
-    } else if(strcmp("&&", value) == 0) {
-        printf("And");
-    } else if(strcmp("!=", value) == 0) {
-        printf("Neq");
-    } else if(strcmp("<", value) == 0) {
-        printf("Lt");
-    } else if(strcmp(">", value) == 0) {
-        printf("Gt");
-    } else if(strcmp("<=", value) == 0) {
-        printf("Leq");
-    } else if(strcmp(">=", value) == 0) {
-        printf("Geq");
-    } else if(strcmp("+", value) == 0) {
-        printf("Add");
-    } else if(strcmp("-", value) == 0) {
-        printf("Sub");
-    } else if(strcmp("*", value) == 0) {
-        printf("Mul");
-    } else if(strcmp("/", value) == 0) {
-        printf("Div");
-    } else if(strcmp("!", value) == 0) {
-        printf("Not");
-    } else if(strcmp("%", value) == 0) {
-        printf("Mod");
-    }
     
-    printf("\n");
+    if(value != NULL) {
+        
+        if(strcmp("==", value) == 0) {
+            printf("Eq\n");
+        } else if(strcmp("||", value) == 0) {
+            printf("Or\n");
+        } else if(strcmp("&&", value) == 0) {
+            printf("And\n");
+        } else if(strcmp("!=", value) == 0) {
+            printf("Neq\n");
+        } else if(strcmp("<", value) == 0) {
+            printf("Lt\n");
+        } else if(strcmp(">", value) == 0) {
+            printf("Gt\n");
+        } else if(strcmp("<=", value) == 0) {
+            printf("Leq\n");
+        } else if(strcmp(">=", value) == 0) {
+            printf("Geq\n");
+        } else if(strcmp("+", value) == 0) {
+            printf("Add\n");
+        } else if(strcmp("-", value) == 0) {
+            printf("Sub\n");
+        } else if(strcmp("*", value) == 0) {
+            printf("Mul\n");
+        } else if(strcmp("/", value) == 0) {
+            printf("Div\n");
+        } else if(strcmp("!", value) == 0) {
+            printf("Not\n");
+        } else if(strcmp("%", value) == 0) {
+            printf("Mod\n");
+        }
+    }
 }
 
 
@@ -258,6 +292,10 @@ void print_statements(is_statement* var) {
             case print_stm:
                 indent();
                 printf("Print\n");
+                indentation++;
+                if(var->expression) { indent();print_expression(var->expression); }
+                else { printf("Null\n"); }
+                indentation--;
                 break;
             case return_stm:
                 indent();
@@ -269,7 +307,7 @@ void print_statements(is_statement* var) {
                     printf("StoreArray\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
-                    
+
                     if(var->expression) { indent();print_expression(var->expression); }
                     else { printf("Null\n"); }
 
