@@ -179,7 +179,7 @@ void print_op3_expression(is_expression* var) {
 void print_array_expression2(is_expression* var) {
     print_aux_value(var->auxvalue);
     
-    printf("IntLit()\n");
+    printf("IntLit(%s)\n", var->array_dim->value);
    
 }
 
@@ -308,9 +308,12 @@ void print_statements(is_statement* var) {
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
 
-                    if(var->expression) { indent();print_expression(var->expression); }
-                    else { printf("Null\n"); }
-
+                    if(var->opt_array_pos->expression) {
+                        indent();print_expression(var->opt_array_pos->expression);
+                    } else {
+                        printf("Null\n");
+                    }
+                     
                     indentation--;
                 } else {
                     printf("Store\n");
