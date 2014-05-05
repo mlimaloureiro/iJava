@@ -46,3 +46,8 @@ is_opt_expr* insert_opt_expr(is_expression* expr);
 is_expression* insert_expression(expression_type type, is_array_dim* array_dim, is_expression* expression1,
                                  is_expression* expression2, var_type* var_type, char* value);
 
+is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args);
+
+
+
+

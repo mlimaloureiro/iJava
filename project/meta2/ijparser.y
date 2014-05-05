@@ -219,13 +219,13 @@ Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,
 | array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL,NULL); }
 ;
 
-array_dim: ID { }
-| INTLIT { }
-| BOOLLIT { }
-| OCURV Expr CCURV { }
-| Expr DOTLENGTH { }
-| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { }
-| ID OCURV opt_args CCURV { }
+array_dim: ID { $$ = insert_array_dim($1, NULL, NULL); }
+| INTLIT { $$ = insert_array_dim(NULL, NULL, NULL); }
+| BOOLLIT { $$ = insert_array_dim(NULL, NULL, NULL); }
+| OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL); }
+| Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL);  }
+| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim(NULL,$5,NULL); }
+| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3); }
 ;
 
 opt_args: { }

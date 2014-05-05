@@ -100,8 +100,9 @@ void print_method_declaration(is_field_or_method* var) {
     /* method body */
     indent();
     printf("MethodBody\n");
-    if(var->method->opt_var_decl->varDecl) {
+    while(var->method->opt_var_decl->varDecl) {
         print_opt_var_decl(var->method->opt_var_decl);
+        var->method->opt_var_decl = var->method->opt_var_decl->next;
     }
     
     if(var->method->opt_statement->statement) {
@@ -169,8 +170,13 @@ void print_not_expression(is_expression* var) {
 }
 
 void print_new_expression(is_expression* var) {
-    printf("new exp\n");
-
+    if(var->type->type == is_int){
+        printf("NewInt\n");
+    } else if(var->type->type == is_bool) {
+        printf("NewBool\n");
+    }
+    
+    /* @TODO PRINT INTARRAY BOOLARRAY */
     
 }
 
@@ -211,12 +217,13 @@ void print_aux_value(char* value) {
 
 void print_statements(is_statement* var) {
     
-        indent();
+    
         switch (var->type) {
             case compound_stm:
-                printf("\n");
+                
                 break;
             case if_stm:
+                indent();
                 printf("IfElse\n");
                 indentation++;indent();
 
@@ -232,6 +239,7 @@ void print_statements(is_statement* var) {
                 
                 break;
             case else_stm:
+                indent();
                 printf("IfElse\n");
                 indentation++;indent();
                 
@@ -248,12 +256,15 @@ void print_statements(is_statement* var) {
                 
                 break;
             case print_stm:
+                indent();
                 printf("Print\n");
                 break;
             case return_stm:
+                indent();
                 printf("Return\n");
                 break;
             case store_stm:
+                indent();
                 if(var->opt_array_pos->expression) {
                     printf("StoreArray\n");
                     indentation++;indent();
@@ -275,6 +286,7 @@ void print_statements(is_statement* var) {
                 }
                 break;
             case while_stm:
+                indent();
                 printf("While\n");
                 
                 indentation++;indent();
@@ -325,7 +337,6 @@ void print_opt_var_decl(is_opt_var_decl* var) {
 void print_formal_params(is_formal_params* var) {
 
     indentation++;indent();
-    
     
     if(var->type_specifier) {
         printf("ParamDeclaration\n");
