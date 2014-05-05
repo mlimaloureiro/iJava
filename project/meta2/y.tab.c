@@ -1555,7 +1555,7 @@ yyreduce:
     {
         case 2:
 #line 136 "ijparser.y"
-    {(yyval.is_root_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t));tree = (yyval.is_root_t);}
+    {(yyval.is_root_t) = insert_start_list((yyvsp[(1) - (1)].is_program_t));tree = (yyval.is_root_t); }
     break;
 
   case 3:
@@ -1745,47 +1745,47 @@ yyreduce:
 
   case 40:
 #line 211 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(array_expr,(yyvsp[(1) - (4)].is_array_dim_t),(yyvsp[(3) - (4)].is_expression_t),NULL,NULL); }
+    { (yyval.is_expression_t) = insert_expression(array_expr,(yyvsp[(1) - (4)].is_array_dim_t),(yyvsp[(3) - (4)].is_expression_t),NULL,NULL,NULL); }
     break;
 
   case 41:
 #line 212 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(new_expr,NULL,(yyvsp[(4) - (5)].is_expression_t),NULL,(yyvsp[(2) - (5)].is_var_type_t)); }
+    { (yyval.is_expression_t) = insert_expression(new_expr,NULL,(yyvsp[(4) - (5)].is_expression_t),NULL,(yyvsp[(2) - (5)].is_var_type_t),NULL); }
     break;
 
   case 42:
 #line 213 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL); }
+    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL,(yyvsp[(2) - (3)].value)); }
     break;
 
   case 43:
 #line 214 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL); }
+    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL,(yyvsp[(2) - (3)].value)); }
     break;
 
   case 44:
 #line 215 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL); }
+    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL,(yyvsp[(2) - (3)].value)); }
     break;
 
   case 45:
 #line 216 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL); }
+    { (yyval.is_expression_t) = insert_expression(op_expr,NULL,(yyvsp[(1) - (3)].is_expression_t),(yyvsp[(3) - (3)].is_expression_t),NULL,(yyvsp[(2) - (3)].value)); }
     break;
 
   case 46:
 #line 217 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(op3_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL); }
+    { (yyval.is_expression_t) = insert_expression(op3_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL,(yyvsp[(1) - (2)].value)); }
     break;
 
   case 47:
 #line 218 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL); }
+    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL,NULL); }
     break;
 
   case 48:
 #line 219 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(array_expr2,(yyvsp[(1) - (1)].is_array_dim_t),NULL,NULL,NULL); }
+    { (yyval.is_expression_t) = insert_expression(array_expr2,(yyvsp[(1) - (1)].is_array_dim_t),NULL,NULL,NULL,NULL); }
     break;
 
   case 49:

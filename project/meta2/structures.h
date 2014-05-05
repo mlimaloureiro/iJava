@@ -123,6 +123,7 @@ typedef struct is_expression {
     struct is_array_dim* array_dim;
     struct is_expression* expression1;
     struct is_expression* expression2;
+    char* auxvalue;
 } is_expression;
 
 typedef struct is_statement {

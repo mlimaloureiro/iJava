@@ -23,6 +23,7 @@ void print_op3_expression(is_expression* var);
 void print_array_expression2(is_expression* var);
 void print_not_expression(is_expression* var);
 void print_new_expression(is_expression* var);
+void print_aux_value(char* value);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -147,7 +148,8 @@ void print_expression(is_expression* var) {
 
 
 void print_op_expression(is_expression* var) {
-    printf("op\n");
+    print_aux_value(var->auxvalue);
+    
 }
 
 void print_array_expression(is_expression* var) {
@@ -170,6 +172,40 @@ void print_new_expression(is_expression* var) {
     printf("new exp\n");
 
     
+}
+
+void print_aux_value(char* value) {
+    if(strcmp("==", value) == 0) {
+        printf("Eq");
+    } else if(strcmp("||", value) == 0) {
+        printf("Or");
+    } else if(strcmp("&&", value) == 0) {
+        printf("And");
+    } else if(strcmp("!=", value) == 0) {
+        printf("Neq");
+    } else if(strcmp("<", value) == 0) {
+        printf("Lt");
+    } else if(strcmp(">", value) == 0) {
+        printf("Gt");
+    } else if(strcmp("<=", value) == 0) {
+        printf("Leq");
+    } else if(strcmp(">=", value) == 0) {
+        printf("Geq");
+    } else if(strcmp("+", value) == 0) {
+        printf("Add");
+    } else if(strcmp("-", value) == 0) {
+        printf("Sub");
+    } else if(strcmp("*", value) == 0) {
+        printf("Mul");
+    } else if(strcmp("/", value) == 0) {
+        printf("Div");
+    } else if(strcmp("!", value) == 0) {
+        printf("Not");
+    } else if(strcmp("%", value) == 0) {
+        printf("Mod");
+    }
+    
+    printf("\n");
 }
 
 
@@ -222,11 +258,19 @@ void print_statements(is_statement* var) {
                     printf("StoreArray\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
+                    
+                    if(var->expression) { indent();print_expression(var->expression); }
+                    else { printf("Null\n"); }
+
                     indentation--;
                 } else {
                     printf("Store\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
+                    
+                    if(var->expression) { indent(); print_expression(var->expression); }
+                    else { printf("Null\n"); }
+
                     indentation--;
                 }
                 break;

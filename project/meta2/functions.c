@@ -209,7 +209,11 @@ is_opt_expr* insert_opt_expr(is_expression* expr) {
 }
 
 is_expression* insert_expression(expression_type type, is_array_dim* array_dim, is_expression* expression1,
-                                 is_expression* expression2, var_type* var_type) {
+                                 is_expression* expression2, var_type* var_type, char* value) {
+    
+    if(value) {
+        printf(" YYVALUE IS %s\n",value);
+    }
     
 	is_expression *new = (is_expression*) malloc(sizeof(is_expression));
 	new->expr_type = type;
@@ -217,11 +221,10 @@ is_expression* insert_expression(expression_type type, is_array_dim* array_dim, 
 	new->expression1 = expression1;
 	new->expression2 = expression2;
 	new->type = var_type;
+    new->auxvalue = value;
 
 	return new;
 }
-
-
 
 
 

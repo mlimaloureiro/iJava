@@ -133,7 +133,7 @@
 
 %%
 
-Start : Program {$$ = insert_start_list($1);tree = $$;}
+Start : Program {$$ = insert_start_list($1);tree = $$; }
 ;
 Program : CLASS ID OBRACE field_or_method CBRACE {$$ = insert_program($2, $4);}
 
@@ -208,15 +208,15 @@ opt_expr: { $$ = insert_opt_expr(NULL); }
 |Expr { $$ = insert_opt_expr($1); }
 ;
 
-Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,NULL,NULL); }
-| NEW var_type OSQUARE Expr CSQUARE { $$ = insert_expression(new_expr,NULL,$4,NULL,$2); }
-| Expr OP1 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
-| Expr OP2 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
-| Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
-| Expr OP4 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
-| OP3 Expr { $$ = insert_expression(op3_expr,NULL,$2,NULL,NULL); }
-| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL); }
-| array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL); }
+Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,NULL,NULL,NULL); }
+| NEW var_type OSQUARE Expr CSQUARE { $$ = insert_expression(new_expr,NULL,$4,NULL,$2,NULL); }
+| Expr OP1 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
+| Expr OP2 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
+| Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
+| Expr OP4 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
+| OP3 Expr { $$ = insert_expression(op3_expr,NULL,$2,NULL,NULL,$1); }
+| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL,NULL); }
+| array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL,NULL); }
 ;
 
 array_dim: ID { }
