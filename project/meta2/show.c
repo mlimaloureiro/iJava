@@ -17,7 +17,12 @@ void print_statements(is_statement* var);
 void print_opt_statements(is_opt_statement* var);
 void print_expression(is_expression* var);
 
-
+void print_op_expression(is_expression* var);
+void print_array_expression(is_expression* var);
+void print_op3_expression(is_expression* var);
+void print_array_expression2(is_expression* var);
+void print_not_expression(is_expression* var);
+void print_new_expression(is_expression* var);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -118,26 +123,53 @@ void print_opt_statements(is_opt_statement* var) {
 void print_expression(is_expression* var) {
     switch (var->expr_type) {
         case op_expr:
-            printf("Op expr\n");
+            print_op_expression(var);
             break;
         case array_expr:
-            printf("array_expr\n");
+            print_array_expression(var);
             break;
         case op3_expr:
-            printf("opr3_expr\n");
+            print_op3_expression(var);
             break;
         case array_expr2:
-            printf("array_expr2\n");
+            print_array_expression2(var);
             break;
         case not_expr:
-            printf("not_expr\n");
+            print_not_expression(var);
             break;
         case new_expr:
-            printf("new_expr\n");
+            print_new_expression(var);
             break;
         default:
             break;
     }
+}
+
+
+void print_op_expression(is_expression* var) {
+    printf("op\n");
+}
+
+void print_array_expression(is_expression* var) {
+    printf("array exp\n");
+}
+
+void print_op3_expression(is_expression* var) {
+    printf("op3 exp\n");
+}
+
+void print_array_expression2(is_expression* var) {
+    printf("array2 exp\n");
+}
+
+void print_not_expression(is_expression* var) {
+    printf("not exp\n");
+}
+
+void print_new_expression(is_expression* var) {
+    printf("new exp\n");
+
+    
 }
 
 
