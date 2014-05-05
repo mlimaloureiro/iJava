@@ -15,6 +15,7 @@ void print_opt_var_decl(is_opt_var_decl* var);
 void print_type(is_type_specifier* type);
 void print_statements(is_statement* var);
 void print_opt_statements(is_opt_statement* var);
+void print_expression(is_expression* var);
 
 
 
@@ -113,6 +114,33 @@ void print_opt_statements(is_opt_statement* var) {
     }
 }
 
+
+void print_expression(is_expression* var) {
+    switch (var->expr_type) {
+        case op_expr:
+            printf("Op expr\n");
+            break;
+        case array_expr:
+            printf("array_expr\n");
+            break;
+        case op3_expr:
+            printf("opr3_expr\n");
+            break;
+        case array_expr2:
+            printf("array_expr2\n");
+            break;
+        case not_expr:
+            printf("not_expr\n");
+            break;
+        case new_expr:
+            printf("new_expr\n");
+            break;
+        default:
+            break;
+    }
+}
+
+
 void print_statements(is_statement* var) {
     
         indent();
@@ -124,7 +152,9 @@ void print_statements(is_statement* var) {
                 printf("IfElse\n");
                 indentation++;indent();
 
-                if(var->expression) {;}
+                if(var->expression) {
+                    print_expression(var->expression);
+                }
                 else { printf("Null\n"); }
                 
                 if(var->statement1) { print_statements(var->statement1); }
@@ -137,7 +167,7 @@ void print_statements(is_statement* var) {
                 printf("IfElse\n");
                 indentation++;indent();
                 
-                if(var->expression) {;}
+                if(var->expression) { print_expression(var->expression); }
                 else { printf("Null\n"); }
                 
                 if(var->statement1) { print_statements(var->statement1);}
@@ -173,7 +203,7 @@ void print_statements(is_statement* var) {
                 
                 indentation++;indent();
                 
-                if(var->expression) {;}
+                if(var->expression) { print_expression(var->expression); }
                 else { printf("Null\n");}
                 
                 if(var->statement1) { print_statements(var->statement1); }

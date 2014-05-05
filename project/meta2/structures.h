@@ -117,6 +117,13 @@ typedef struct is_opt_statement {
 /* ---- statements ---- */
 
 
+typedef struct is_expression {
+    expression_type expr_type;
+    struct var_type* type;
+    struct is_array_dim* array_dim;
+    struct is_expression* expression1;
+    struct is_expression* expression2;
+} is_expression;
 
 typedef struct is_statement {
     char* id;
@@ -139,14 +146,6 @@ typedef struct is_opt_array_pos {
 } is_opt_array_pos;
 
 /* expressions */
-
-typedef struct is_expression {
-    expression_type expr_type;
-    struct var_type* type;
-    struct is_array_dim* array_dim;
-    struct is_expression* expression1;
-    struct is_expression* expression2;
-} is_expression;
 
 
 typedef struct is_array_dim {

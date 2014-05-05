@@ -215,7 +215,7 @@ Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,
 | Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
 | Expr OP4 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL); }
 | OP3 Expr { $$ = insert_expression(op3_expr,NULL,$2,NULL,NULL); }
-| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL);}
+| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL); }
 | array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL); }
 ;
 

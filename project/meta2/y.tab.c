@@ -1780,7 +1780,7 @@ yyreduce:
 
   case 47:
 #line 218 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL);}
+    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL); }
     break;
 
   case 48:

@@ -185,6 +185,7 @@ is_statement* insert_statement(is_opt_statement* compound, statement_type type, 
     new->id = id;
     new->statement1 = statement1;
     new->statement2 = statement2;
+    new->expression = expr;
     new->type = type;
     new->opt_array_pos = opt_array_pos;
     new->opt_expr = opt_expr;
@@ -216,6 +217,7 @@ is_expression* insert_expression(expression_type type, is_array_dim* array_dim, 
 	new->expression1 = expression1;
 	new->expression2 = expression2;
 	new->type = var_type;
+
 	return new;
 }
 
