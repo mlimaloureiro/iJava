@@ -168,9 +168,11 @@ void print_array_expression(is_expression* var) {
     printf("Id(%s)\n", var->array_dim->id);
     indent();
     
-    if(var->expression1->array_dim->value)
-    printf("IntLit(%s)\n", var->expression1->array_dim->value);
+    print_expression(var->expression1);
     
+    /*if(var->expression1->array_dim->value)
+        printf("IntLit(%s)\n", var->expression1->array_dim->value);
+     */
     
     indentation--;
 }
@@ -193,7 +195,7 @@ void print_array_expression2(is_expression* var) {
         printf("BoolLit(%s)\n", var->array_dim->value);
     
     } else if(var->array_dim->dim_type->type == is_equality) {
-        
+        print_expression(var->array_dim->expr);
     }
     
 }
