@@ -135,6 +135,16 @@ void print_expression(is_expression* var) {
             
             indentation--;
         }
+        else if(var->array_dim->dim_type->type == is_parse_int) {
+            
+            printf("ParseArgs\n");
+            indentation++;indent();
+            printf("Id(%s)\n", var->array_dim->id);
+            indent();
+            print_expression(var->array_dim->expr);
+            
+            indentation--;
+        }
     }
     
     
@@ -405,6 +415,14 @@ void print_statements(is_statement* var) {
                 
                 indent();
                 printf("Return\n");
+                
+                if(var->opt_expr) {
+                    indentation++;
+                    indent();
+                    print_expression(var->opt_expr->expression);
+                    indentation--;
+                }
+                
                 break;
             
             case store_stm:
@@ -616,6 +634,8 @@ void print_type(is_type_specifier* type) {
         case is_equality:
             break;
         case is_dot_length:
+            break;
+        case is_parse_int:
             break;
     }
     if(type->opt_array->array == is_array) {
