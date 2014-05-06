@@ -17,7 +17,7 @@ class echo {
                 n = a[b%2];
                 o = ! b;
                 p = -1;
-                //q = a.length;
+                q = a.length;
                 r = a-b;
                 s = a/b;
                 t = +b;

@@ -1,0 +1,18 @@
+Program
+  Id(Foda_se)
+  MethodDecl
+    Void
+    Id(puta_que_pariu)
+    MethodParams
+    MethodBody
+      IfElse
+        LoadArray
+          Leq
+            Id(a)
+            NewInt
+              IntLit(2)
+          IntLit(3)
+        Store
+          Id(a)
+          IntLit(2)
+        Null

@@ -169,20 +169,36 @@ void print_array_expression(is_expression* var) {
     indent();
     
     
-    if(var->expression1->array_dim->value) {
+    /*if(var->expression1->array_dim->value) {
         printf("IntLit(%s)\n", var->expression1->array_dim->value);
     } else {
         print_expression(var->expression1);
-    }
-    
+    }*/
+    if(var->expression1)
+        print_expression(var->expression1);
     
     indentation--;
 }
 
 void print_op3_expression(is_expression* var) {
-    print_aux_value(var->auxvalue);
-
-    printf("op3 exp\n");
+    
+    if(strcmp(var->auxvalue, "-") == 0) {
+        printf("Minus\n");
+        indentation++;indent();
+    
+        print_expression(var->expression1);
+        
+        indentation--;
+        
+    } else if (strcmp(var->auxvalue, "+") == 0) {
+        printf("Plus\n");
+        indentation++;indent();
+        
+        print_expression(var->expression1);
+        
+        indentation--;
+        
+    }
 }
 
 void print_array_expression2(is_expression* var) {
@@ -206,7 +222,9 @@ void print_not_expression(is_expression* var) {
     print_aux_value(var->auxvalue);
     
     if(var->expression1) {
+        indentation++;indent();
         print_expression(var->expression1);
+        indentation--;
     } else {
         printf("Null\n");
     }

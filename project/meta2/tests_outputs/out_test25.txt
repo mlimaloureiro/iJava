@@ -1,0 +1,23 @@
+Program
+  Id(Test)
+  MethodDecl
+    Void
+    Id(main)
+    MethodParams
+      ParamDeclaration
+        Int
+        Id(a)
+      ParamDeclaration
+        Int
+        Id(b)
+    MethodBody
+      VarDecl
+        Int
+        Id(a1)
+      VarDecl
+        Int
+        Id(b1)
+      VarDecl
+        Int
+        Id(c1)
+        Id(c2)

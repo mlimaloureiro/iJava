@@ -1,0 +1,8 @@
+Program
+  Id(gcd)
+  VarDecl
+    Int
+    Id(a)
+  VarDecl
+    Int
+    Id(a)

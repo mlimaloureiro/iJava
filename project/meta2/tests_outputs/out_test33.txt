@@ -1,0 +1,23 @@
+Program
+  Id(Test)
+  VarDecl
+    Int
+    Id(b)
+    Id(r)
+  VarDecl
+    IntArray
+    Id(gay)
+    Id(gay2)
+    Id(maxi_es_gay)
+  MethodDecl
+    Void
+    Id(main)
+    MethodParams
+    MethodBody
+      VarDecl
+        Int
+        Id(j)
+        Id(c)
+      VarDecl
+        Int
+        Id(k)

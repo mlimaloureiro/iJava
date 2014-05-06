@@ -1,0 +1,23 @@
+Program
+  Id(Test)
+  VarDecl
+    Int
+    Id(outsideInteger)
+  VarDecl
+    Int
+    Id(b)
+  MethodDecl
+    Void
+    Id(main)
+    MethodParams
+      ParamDeclaration
+        StringArray
+        Id(args)
+    MethodBody
+      VarDecl
+        Int
+        Id(j)
+        Id(abraham)
+      Store
+        Id(abraham)
+        IntLit(2)

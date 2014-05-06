@@ -1,0 +1,10 @@
+Program
+  Id(Test)
+  MethodDecl
+    Void
+    Id(main)
+    MethodParams
+      ParamDeclaration
+        Int
+        Id(a)
+    MethodBody
