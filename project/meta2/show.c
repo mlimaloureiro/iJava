@@ -124,6 +124,21 @@ void print_opt_statements(is_opt_statement* var) {
 
 
 void print_expression(is_expression* var) {
+    
+    
+    if(var->array_dim) {
+        if(var->array_dim->dim_type->type == is_dot_length) {
+            
+            printf("Length\n");
+            indentation++;indent();
+            print_expression(var->array_dim->expr);
+            
+            indentation--;
+        }
+    }
+    
+    
+    
     switch (var->expr_type) {
         case op_expr:
             print_op_expression(var);
@@ -194,6 +209,10 @@ void print_op3_expression(is_expression* var) {
         printf("Plus\n");
         indentation++;indent();
         
+        print_expression(var->expression1);
+
+        indentation--;
+
     }
 }
 
@@ -595,6 +614,8 @@ void print_type(is_type_specifier* type) {
         case is_id:
             break;
         case is_equality:
+            break;
+        case is_dot_length:
             break;
     }
     if(type->opt_array->array == is_array) {
