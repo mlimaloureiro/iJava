@@ -47,7 +47,7 @@
 
     /* structures */
     char *value;
-    int intlit;
+    char *intlit;
     char *identifier;
 }
 
@@ -114,8 +114,8 @@
 %token SEMIC
 %token COMMA
 %token<identifier> ID
-%token<intlit> INTLIT
-%token NOT
+%token<value> INTLIT
+%token<value> NOT
 
 %left OR
 %left AND
@@ -215,28 +215,28 @@ Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,
 | Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
 | Expr OP4 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
 | OP3 Expr { $$ = insert_expression(op3_expr,NULL,$2,NULL,NULL,$1); }
-| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL,NULL); }
+| NOT Expr { $$ = insert_expression(not_expr,NULL,$2,NULL,NULL,$1); }
 | array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL,NULL); }
 ;
 
-array_dim: ID { $$ = insert_array_dim($1, NULL, NULL); }
-| INTLIT { $$ = insert_array_dim(NULL, NULL, NULL); }
-| BOOLLIT { $$ = insert_array_dim(NULL, NULL, NULL); }
-| OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL); }
-| Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL);  }
-| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim(NULL,$5,NULL); }
-| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3); }
+array_dim: ID { $$ = insert_array_dim($1, NULL, NULL, NULL, 3);}
+| INTLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 1); }
+| BOOLLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 2); }
+| OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL, NULL, 4); }
+| Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL, NULL, 0);  }
+| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim($3,$5,NULL,NULL, 0);}
+| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 0); }
 ;
 
-opt_args: { }
-|Args { }
+opt_args: { $$ = insert_opt_args(NULL); }
+|Args { $$ = insert_opt_args($1); }
 ;
 
-Args : Expr opt_arg { }
+Args : Expr opt_arg { $$ = insert_args($1, $2); }
 ;
 
-opt_arg: { }
-|COMMA Expr opt_arg { }
+opt_arg: { $$ = insert_opt_arg(NULL, NULL); }
+|COMMA Expr opt_arg { $$ = insert_opt_arg($2, $3); }
 ;
 
 

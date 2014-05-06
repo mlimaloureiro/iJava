@@ -1472,7 +1472,7 @@ YY_RULE_SETUP
 case 81:
 YY_RULE_SETUP
 #line 99 "ijparser.l"
-{conta();return NOT;}
+{conta();yylval.value=(char*)strdup(yytext); return NOT;}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP

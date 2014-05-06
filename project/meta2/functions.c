@@ -235,6 +235,14 @@ is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args*
         var_type* new_type = (var_type*) malloc(sizeof(var_type));
         new_type->type = is_bool;
         new->dim_type = new_type;
+    } else if(type_check == 3) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_id;
+        new->dim_type = new_type;
+    } else if(type_check == 4) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_equality;
+        new->dim_type = new_type;
     } else {
         new->dim_type = NULL;
     }

@@ -1,6 +1,6 @@
 #define _STRUCTURES_
 
-typedef enum { is_bool,is_int} is_type;
+typedef enum { is_bool,is_int, is_id, is_equality} is_type;
 typedef enum {d_field_declaration, d_method_declaration} d_field_or_method_type;
 typedef enum {is_array,not_array} opt_array;
 typedef enum {compound_stm, if_stm, else_stm, print_stm, return_stm, store_stm, while_stm} statement_type;

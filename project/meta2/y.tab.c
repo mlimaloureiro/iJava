@@ -1780,7 +1780,7 @@ yyreduce:
 
   case 47:
 #line 218 "ijparser.y"
-    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL,NULL); }
+    { (yyval.is_expression_t) = insert_expression(not_expr,NULL,(yyvsp[(2) - (2)].is_expression_t),NULL,NULL,(yyvsp[(1) - (2)].value)); }
     break;
 
   case 48:
@@ -1790,7 +1790,7 @@ yyreduce:
 
   case 49:
 #line 222 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL, NULL, 0);}
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL, NULL, 3);}
     break;
 
   case 50:
@@ -1805,7 +1805,7 @@ yyreduce:
 
   case 52:
 #line 225 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL, NULL, 0); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL, NULL, 4); }
     break;
 
   case 53:

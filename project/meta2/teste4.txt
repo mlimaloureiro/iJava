@@ -20,7 +20,7 @@ class gcd {
         }
         while(ss){{}}
  
-        if(x==1 && x==1 && x==1)
+        if(x==1 && x==1)
            x=1;
  
         if(x)

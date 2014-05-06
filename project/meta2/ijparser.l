@@ -96,7 +96,7 @@
 <INITIAL>"*"										{conta();yylval.value=(char*)strdup(yytext);return OP4;}
 <INITIAL>"/"										{conta();yylval.value=(char*)strdup(yytext);return OP4;}
 <INITIAL>"%"										{conta();yylval.value=(char*)strdup(yytext);return OP4;}
-<INITIAL>"!"										{conta();return NOT;}
+<INITIAL>"!"										{conta();yylval.value=(char*)strdup(yytext); return NOT;}
 <INITIAL>"="										{conta();return ASSIGN;}
 <INITIAL>";"										{conta();return SEMIC;}
 <INITIAL>","										{conta();return COMMA;}

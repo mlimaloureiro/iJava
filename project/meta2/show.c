@@ -182,18 +182,36 @@ void print_op3_expression(is_expression* var) {
 }
 
 void print_array_expression2(is_expression* var) {
-    print_aux_value(var->auxvalue);
     
-    if(var->array_dim->dim_type->type == is_int) {
+    if(var->array_dim->dim_type->type == is_id) {
+        printf("Id(%s)\n", var->array_dim->id);
+    
+    } else if(var->array_dim->dim_type->type == is_int) {
         printf("IntLit(%s)\n", var->array_dim->value);
+    
     } else if(var->array_dim->dim_type->type == is_bool) {
         printf("BoolLit(%s)\n", var->array_dim->value);
+    
+    } else if(var->array_dim->dim_type->type == is_equality) {
+        print_expression(var->array_dim->expr);
     }
     
 }
 
 void print_not_expression(is_expression* var) {
     print_aux_value(var->auxvalue);
+    
+    if(var->expression1) {
+        print_expression(var->expression1);
+    } else {
+        printf("Null\n");
+    }
+    
+    /*
+    if(var->expression1) {
+        print_expression(var->expression1);
+    }
+    */
 }
 
 void print_new_expression(is_expression* var) {
@@ -262,16 +280,20 @@ void print_statements(is_statement* var) {
     
     
         switch (var->type) {
+            
             case compound_stm:
-                printf("CompoundStat\n");
+            
+                /*printf("CompoundStat\n");*/
                 break;
+            
             case if_stm:
+                
                 indent();
                 
                 printf("IfElse\n");
                 
                 indentation++;indent();
-
+                
                 if(var->expression) {
                     print_expression(var->expression);
                 } else {
@@ -280,12 +302,22 @@ void print_statements(is_statement* var) {
                 
                 if(var->statement1) {
                     print_statements(var->statement1);
-                } else { printf("Null\n");
+                } else {
+                    indent();
+                    printf("Null\n");
+                }
+                
+                if(var->statement2) {
+                    print_statements(var->statement1);
+                } else {
+                    indent();
+                    printf("Null\n");
                 }
                 
                 indentation--;
                 
                 break;
+            
             case else_stm:
                 
                 indent();
@@ -299,13 +331,13 @@ void print_statements(is_statement* var) {
                     printf("Null\n");
                 }
                 
-                if(var->statement1) {
+                if(var->statement1->type) {
                     print_statements(var->statement1);
                 } else {
                     printf("Null\n");
                 }
                 
-                if(var->statement2) {
+                if(var->statement2->type) {
                     print_statements(var->statement2);
                 } else {
                     printf("Null\n");
@@ -314,6 +346,7 @@ void print_statements(is_statement* var) {
                 indentation--;
                 
                 break;
+            
             case print_stm:
                 
                 indent();
@@ -330,11 +363,15 @@ void print_statements(is_statement* var) {
                 
                 indentation--;
                 break;
+            
             case return_stm:
+                
                 indent();
                 printf("Return\n");
                 break;
+            
             case store_stm:
+            
                 indent();
                 
                 if(var->opt_array_pos->expression) {
@@ -403,6 +440,7 @@ void print_statements(is_statement* var) {
                 if(var->statement1) {
                     print_statements(var->statement1);
                 } else {
+                    indent();
                     printf("Null\n");
                 }
                 
@@ -533,6 +571,10 @@ void print_type(is_type_specifier* type) {
             break;
         case is_bool:
             printf("Bool");
+            break;
+        case is_id:
+            break;
+        case is_equality:
             break;
     }
     if(type->opt_array->array == is_array) {
