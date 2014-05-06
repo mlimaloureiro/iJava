@@ -263,7 +263,7 @@ void print_statements(is_statement* var) {
     
         switch (var->type) {
             case compound_stm:
-                
+                printf("CompoundStat\n");
                 break;
             case if_stm:
                 indent();
@@ -349,18 +349,25 @@ void print_statements(is_statement* var) {
                         printf("Null\n");
                     }
                     
-                    /* PARSE ARGS */
+                    /* PARSE ARGS OR INTLIT */
                     
                     if(var->expression->array_dim) {
-                        indent();
-                        printf("ParseArgs\n");
+                        if(var->expression->array_dim->id) {
+                            indent();
+                            printf("ParseArgs\n");
+                            
+                            indentation++;indent();
+                            printf("Id(%s)\n", var->expression->array_dim->id);
+                            
+                            indent();
+                            printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
+                            indentation--;
+                        } else {
+                            indent();
+                            printf("IntLit(%s)\n", var->expression->array_dim->value);
+                            indentation--;
+                        }
                         
-                        indentation++;indent();
-                        printf("Id(%s)\n", var->expression->array_dim->id);
-                        
-                        indent();
-                        printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
-                        indentation--;
                     }
                     
                     
