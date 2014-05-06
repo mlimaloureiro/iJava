@@ -168,11 +168,13 @@ void print_array_expression(is_expression* var) {
     printf("Id(%s)\n", var->array_dim->id);
     indent();
     
-    print_expression(var->expression1);
     
-    /*if(var->expression1->array_dim->value)
+    if(var->expression1->array_dim->value) {
         printf("IntLit(%s)\n", var->expression1->array_dim->value);
-     */
+    } else {
+        print_expression(var->expression1);
+    }
+    
     
     indentation--;
 }
@@ -388,7 +390,7 @@ void print_statements(is_statement* var) {
                         printf("Null\n");
                     }
                     
-                    /* PARSE ARGS OR INTLIT */
+                    /* PARSE ARGS OR INTLIT OR EXPR */
                     
                     if(var->expression->array_dim) {
                         if(var->expression->array_dim->id) {
@@ -401,12 +403,14 @@ void print_statements(is_statement* var) {
                             indent();
                             printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
                             indentation--;
-                        } else {
+                        } else if(var->expression->array_dim->value) {
                             indent();
                             printf("IntLit(%s)\n", var->expression->array_dim->value);
                             indentation--;
                         }
-                        
+                    } else if(var->expression) {
+                        indent();
+                        print_expression(var->expression);
                     }
                     
                     
