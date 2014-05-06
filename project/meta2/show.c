@@ -16,6 +16,7 @@ void print_type(is_type_specifier* type);
 void print_statements(is_statement* var);
 void print_opt_statements(is_opt_statement* var);
 void print_expression(is_expression* var);
+void print_parse_args(is_opt_args* var);
 
 void print_op_expression(is_expression* var);
 void print_array_expression(is_expression* var);
@@ -179,8 +180,12 @@ void print_op3_expression(is_expression* var) {
 void print_array_expression2(is_expression* var) {
     print_aux_value(var->auxvalue);
     
-    printf("IntLit(%s)\n", var->array_dim->value);
-   
+    if(var->array_dim->dim_type->type == is_int) {
+        printf("IntLit(%s)\n", var->array_dim->value);
+    } else if(var->array_dim->dim_type->type == is_bool) {
+        printf("BoolLit(%s)\n", var->array_dim->value);
+    }
+    
 }
 
 void print_not_expression(is_expression* var) {
@@ -258,16 +263,21 @@ void print_statements(is_statement* var) {
                 break;
             case if_stm:
                 indent();
+                
                 printf("IfElse\n");
+                
                 indentation++;indent();
 
                 if(var->expression) {
                     print_expression(var->expression);
+                } else {
+                    printf("Null\n");
                 }
-                else { printf("Null\n"); }
                 
-                if(var->statement1) { print_statements(var->statement1); }
-                else { printf("Null\n"); }
+                if(var->statement1) {
+                    print_statements(var->statement1);
+                } else { printf("Null\n");
+                }
                 
                 indentation--;
                 
@@ -275,26 +285,43 @@ void print_statements(is_statement* var) {
             case else_stm:
                 indent();
                 printf("IfElse\n");
+                
                 indentation++;indent();
                 
-                if(var->expression) { print_expression(var->expression); }
-                else { printf("Null\n"); }
+                if(var->expression) {
+                    print_expression(var->expression);
+                } else {
+                    printf("Null\n");
+                }
                 
-                if(var->statement1) { print_statements(var->statement1);}
-                else { printf("Null\n"); }
+                if(var->statement1) {
+                    print_statements(var->statement1);
+                } else {
+                    printf("Null\n");
+                }
                 
-                if(var->statement2) { print_statements(var->statement2); }
-                else { printf("Null\n"); }
+                if(var->statement2) {
+                    print_statements(var->statement2);
+                } else {
+                    printf("Null\n");
+                }
                 
                 indentation--;
                 
                 break;
             case print_stm:
                 indent();
+                
                 printf("Print\n");
+                
                 indentation++;
-                if(var->expression) { indent();print_expression(var->expression); }
-                else { printf("Null\n"); }
+                
+                if(var->expression) {
+                    indent();print_expression(var->expression);
+                } else {
+                    printf("Null\n");
+                }
+                
                 indentation--;
                 break;
             case return_stm:
@@ -303,7 +330,9 @@ void print_statements(is_statement* var) {
                 break;
             case store_stm:
                 indent();
+                
                 if(var->opt_array_pos->expression) {
+                    
                     printf("StoreArray\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
@@ -313,15 +342,45 @@ void print_statements(is_statement* var) {
                     } else {
                         printf("Null\n");
                     }
-                     
+                    
+                    indent();
+                    printf("ParseArgs\n");
+                    
+                    indentation++;indent();
+                    if(var->expression->array_dim) {
+                        printf("Id(%s)\n", var->expression->array_dim->id);
+                        indent();
+                        printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
+                    } else {
+                        printf("Null\n");
+                        indent();
+                        printf("Null\n");
+
+                    }
+                    //indent();
+                    
+                    /*
+                    if(var->expression->type->type == is_int) {
+                        printf("IntLit(%s)\n",var->expression->array_dim->expr->array_dim->value);
+                        
+                    } else if(var->expression->type->type == is_bool) {
+                        printf("BoolLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
+                    }
+                    */
+                    indentation--;
                     indentation--;
                 } else {
+                    
                     printf("Store\n");
                     indentation++;indent();
                     printf("Id(%s)\n", var->id);
                     
-                    if(var->expression) { indent(); print_expression(var->expression); }
-                    else { printf("Null\n"); }
+                    
+                    if(var->expression) {
+                        indent(); print_expression(var->expression);
+                    } else {
+                        printf("Null\n");
+                    }
 
                     indentation--;
                 }
@@ -332,11 +391,17 @@ void print_statements(is_statement* var) {
                 
                 indentation++;indent();
                 
-                if(var->expression) { print_expression(var->expression); }
-                else { printf("Null\n");}
+                if(var->expression) {
+                    print_expression(var->expression);
+                } else {
+                    printf("Null\n");
+                }
                 
-                if(var->statement1) { print_statements(var->statement1); }
-                else { printf("Null\n"); }
+                if(var->statement1) {
+                    print_statements(var->statement1);
+                } else {
+                    printf("Null\n");
+                }
                 
                 indentation--;
                 
