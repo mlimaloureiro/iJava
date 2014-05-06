@@ -151,10 +151,14 @@ void print_expression(is_expression* var) {
 
 void print_op_expression(is_expression* var) {
     print_aux_value(var->auxvalue);
+    indentation++;
+    
     indent();
     print_expression(var->expression1);
     indent();
     print_expression(var->expression2);
+    
+    indentation--;
 }
 
 void print_array_expression(is_expression* var) {
@@ -283,6 +287,7 @@ void print_statements(is_statement* var) {
                 
                 break;
             case else_stm:
+                
                 indent();
                 printf("IfElse\n");
                 
@@ -310,6 +315,7 @@ void print_statements(is_statement* var) {
                 
                 break;
             case print_stm:
+                
                 indent();
                 
                 printf("Print\n");
@@ -343,31 +349,21 @@ void print_statements(is_statement* var) {
                         printf("Null\n");
                     }
                     
-                    indent();
-                    printf("ParseArgs\n");
+                    /* PARSE ARGS */
                     
-                    indentation++;indent();
                     if(var->expression->array_dim) {
+                        indent();
+                        printf("ParseArgs\n");
+                        
+                        indentation++;indent();
                         printf("Id(%s)\n", var->expression->array_dim->id);
+                        
                         indent();
                         printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
-                    } else {
-                        printf("Null\n");
-                        indent();
-                        printf("Null\n");
-
+                        indentation--;
                     }
-                    //indent();
                     
-                    /*
-                    if(var->expression->type->type == is_int) {
-                        printf("IntLit(%s)\n",var->expression->array_dim->expr->array_dim->value);
-                        
-                    } else if(var->expression->type->type == is_bool) {
-                        printf("BoolLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
-                    }
-                    */
-                    indentation--;
+                    
                     indentation--;
                 } else {
                     
