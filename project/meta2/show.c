@@ -128,7 +128,7 @@ void print_opt_args(is_opt_args* args) {
     if(args->args->expr) {
         print_expression(args->args->expr);
     }
-    
+
     if(args->args->list) {
         print_opt_args_list(args->args->list);
     }
@@ -171,7 +171,10 @@ void print_expression(is_expression* var) {
             indentation++;indent();
             printf("Id(%s)\n", var->array_dim->id);
             indent();
-            print_opt_args(var->array_dim->opt_args);
+            
+            if(var->array_dim->opt_args->args) {
+                print_opt_args(var->array_dim->opt_args);
+            }
             
             indentation--;
         }
@@ -220,7 +223,13 @@ void print_array_expression(is_expression* var) {
     print_aux_value(var->auxvalue);
     printf("LoadArray\n");
     indentation++;indent();
-    printf("Id(%s)\n", var->array_dim->id);
+    
+    if(var->array_dim->id) {
+        printf("Id(%s)\n", var->array_dim->id);
+    } else {
+        print_expression(var->array_dim->expr);
+    }
+    
     indent();
     
     
