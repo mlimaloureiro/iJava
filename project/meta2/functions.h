@@ -47,7 +47,7 @@ is_expression* insert_expression(expression_type type, is_array_dim* array_dim, 
                                  is_expression* expression2, var_type* var_type, char* value);
 
 
-is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args, char* value, int type_check);
+is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args, char* value, int type_check, is_array_dim* next);
 
 
 is_opt_args* insert_opt_args(is_args* args);

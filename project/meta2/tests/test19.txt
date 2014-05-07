@@ -9,7 +9,7 @@ class Test
     public static void main(String[] args) {
         int a;
         a = a+(args.length / 50);
-        a = b[8][9];        
+        a = b[8][9];
     }
 }
 

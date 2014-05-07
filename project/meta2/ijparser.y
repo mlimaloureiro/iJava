@@ -220,15 +220,15 @@ Expr : /* array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,
 | array_dim { $$ = insert_expression(array_expr2,$1,NULL,NULL,NULL,NULL); }
 ;
 
-array_dim: ID { $$ = insert_array_dim($1, NULL, NULL, NULL, 3);}
-| INTLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 1); }
-| BOOLLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 2); }
-| OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL, NULL, 4); }
-| Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL, NULL, 5);  }
-| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim($3,$5,NULL,NULL, 6);}
-| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 7); }
-| array_dim OSQUARE Expr CSQUARE { }
-| OSQUARE Expr CSQUARE { }
+array_dim: ID { $$ = insert_array_dim($1, NULL, NULL, NULL, 3, NULL);}
+| INTLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 1, NULL); }
+| BOOLLIT { $$ = insert_array_dim(NULL, NULL, NULL, $1, 2, NULL); }
+| OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL, NULL, 4, NULL); }
+| Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL, NULL, 5, NULL);  }
+| PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim($3,$5,NULL,NULL, 6, NULL);}
+| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 7, NULL); }
+| array_dim OSQUARE Expr CSQUARE { $$ = insert_array_dim(NULL,$3,NULL, NULL, 8, $1); }
+| OSQUARE Expr CSQUARE { $$ = insert_array_dim(NULL,$2,NULL, NULL, 9, NULL); }
 ;
 
 opt_args: { $$ = insert_opt_args(NULL); }

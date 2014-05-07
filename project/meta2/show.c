@@ -28,6 +28,7 @@ void print_aux_value(char* value);
 void print_opt_args(is_opt_args* args);
 void print_opt_args_list(is_opt_args_list* list);
 void print_compound_statements(is_opt_statement* var);
+void print_array_dim(is_array_dim* var);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -167,63 +168,87 @@ void print_opt_args_list(is_opt_args_list* list) {
 
 void print_expression(is_expression* var) {
     
-    
-    if(var->array_dim) {
-        if(var->array_dim->dim_type->type == is_dot_length) {
-            
-            printf("Length\n");
-            indentation++;indent();
-            print_expression(var->array_dim->expr);
-            
-            indentation--;
-        }
-        else if(var->array_dim->dim_type->type == is_parse_int) {
-            
-            
-            printf("ParseArgs\n");
-            indentation++;indent();
-            printf("Id(%s)\n", var->array_dim->id);
-            indent();
-            print_expression(var->array_dim->expr);
-            
-            indentation--;
-        }
-        else if(var->array_dim->dim_type->type == is_func_call) {
-            
-            printf("Call\n");
-            indentation++;indent();
-            printf("Id(%s)\n", var->array_dim->id);
-            
-            
-            if(var->array_dim->opt_args->args) {
-                indent();
-                print_opt_args(var->array_dim->opt_args);
-            }
-            
-            indentation--;
-        }
-    }
-    
-    
-    
     switch (var->expr_type) {
         case op_expr:
             print_op_expression(var);
-            break;
-        case array_expr:
-            print_array_expression(var);
             break;
         case op3_expr:
             print_op3_expression(var);
             break;
         case array_expr2:
-            print_array_expression2(var);
+            
+            print_array_dim(var->array_dim);
+            
+            //print_array_expression2(var);
             break;
         case not_expr:
             print_not_expression(var);
             break;
         case new_expr:
             print_new_expression(var);
+            break;
+        default:
+            break;
+    }
+}
+
+void print_array_dim(is_array_dim* var) {
+    
+    switch (var->dim_type->type) {
+        case is_int:
+            printf("IntLit(%s)\n", var->value);
+            break;
+        case is_bool:
+            printf("BoolLit(%s)\n", var->value);
+            break;
+        case is_id:
+            printf("Id(%s)\n", var->id);
+            break;
+        case is_equality:
+            print_expression(var->expr);
+            break;
+        case is_dot_length:
+            printf("Length\n");
+            
+            indentation++;indent();
+                print_expression(var->expr);
+            indentation--;
+
+            break;
+        case is_parse_int:
+            
+            printf("ParseArgs\n");
+            indentation++;indent();
+            printf("Id(%s)\n", var->id);
+            indent();
+            print_expression(var->expr);
+            
+            indentation--;
+            
+            break;
+        case is_ad:
+            printf("IS AD\n");
+            break;
+        case is_ad_list:
+            printf("LoadArray\n");
+            print_array_dim(var->list);
+            print_expression(var->expr);
+            indent();
+            
+            break;
+        case is_func_call:
+            
+            printf("Call\n");
+            indentation++;indent();
+            printf("Id(%s)\n", var->id);
+            
+            if(var->opt_args->args) {
+                indent();
+                print_opt_args(var->opt_args);
+            }
+            
+            indentation--;
+
             break;
         default:
             break;
@@ -251,17 +276,17 @@ void print_array_expression(is_expression* var) {
     if(var->array_dim->id) {
         printf("Id(%s)\n", var->array_dim->id);
     } else {
-        print_expression(var->array_dim->expr);
+        
+        if(var->array_dim->list) {
+            print_expression(var->array_dim->expr);
+            print_expression(var->array_dim->list->expr);
+        } else {
+            
+        }
     }
     
     indent();
     
-    
-    /*if(var->expression1->array_dim->value) {
-        printf("IntLit(%s)\n", var->expression1->array_dim->value);
-    } else {
-        print_expression(var->expression1);
-    }*/
     if(var->expression1)
         print_expression(var->expression1);
     
@@ -706,6 +731,10 @@ void print_type(is_type_specifier* type) {
         case is_parse_int:
             break;
         case is_func_call:
+            break;
+        case is_ad:
+            break;
+        case is_ad_list:
             break;
     }
     if(type->opt_array->array == is_array) {

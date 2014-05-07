@@ -222,7 +222,7 @@ is_expression* insert_expression(expression_type type, is_array_dim* array_dim, 
 	return new;
 }
 
-is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args, char* value, int type_check) {
+is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args* opt_args, char* value, int type_check, is_array_dim* next) {
     is_array_dim* new = (is_array_dim*) malloc(sizeof(is_array_dim));
     
     new->id = id;
@@ -255,6 +255,14 @@ is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args*
         var_type* new_type = (var_type*) malloc(sizeof(var_type));
         new_type->type = is_func_call;
         new->dim_type = new_type;
+    } else if(type_check == 8) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_ad_list;
+        new->dim_type = new_type;
+    } else if(type_check == 9) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_ad;
+        new->dim_type = new_type;
             
     } else {
         new->dim_type = NULL;
@@ -263,6 +271,7 @@ is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args*
     new->expr = expression;
     new->opt_args = opt_args;
     new->value = value;
+    new->list = next;
     
     return new;
 }

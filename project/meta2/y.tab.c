@@ -1787,47 +1787,47 @@ yyreduce:
 
   case 48:
 #line 223 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL, NULL, 3);}
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (1)].identifier), NULL, NULL, NULL, 3, NULL);}
     break;
 
   case 49:
 #line 224 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 1); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 1, NULL); }
     break;
 
   case 50:
 #line 225 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 2); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, NULL, NULL, (yyvsp[(1) - (1)].value), 2, NULL); }
     break;
 
   case 51:
 #line 226 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL, NULL, 4); }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(2) - (3)].is_expression_t), NULL, NULL, 4, NULL); }
     break;
 
   case 52:
 #line 227 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(1) - (2)].is_expression_t), NULL, NULL, 5);  }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL, (yyvsp[(1) - (2)].is_expression_t), NULL, NULL, 5, NULL);  }
     break;
 
   case 53:
 #line 228 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(3) - (7)].identifier),(yyvsp[(5) - (7)].is_expression_t),NULL,NULL, 6);}
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(3) - (7)].identifier),(yyvsp[(5) - (7)].is_expression_t),NULL,NULL, 6, NULL);}
     break;
 
   case 54:
 #line 229 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t), NULL, 7); }
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t), NULL, 7, NULL); }
     break;
 
   case 55:
 #line 230 "ijparser.y"
-    { }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL,(yyvsp[(3) - (4)].is_expression_t),NULL, NULL, 8, (yyvsp[(1) - (4)].is_array_dim_t)); }
     break;
 
   case 56:
 #line 231 "ijparser.y"
-    { }
+    { (yyval.is_array_dim_t) = insert_array_dim(NULL,(yyvsp[(2) - (3)].is_expression_t),NULL, NULL, 9, NULL); }
     break;
 
   case 57:
