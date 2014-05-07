@@ -231,10 +231,12 @@ void print_array_dim(is_array_dim* var) {
             break;
         case is_ad_list:
             printf("LoadArray\n");
+            indentation++;
             indent();
             print_array_dim(var->list);
             indent();
             print_expression(var->expr);
+            indentation--;
             
             break;
         case is_func_call:
@@ -414,18 +416,22 @@ void print_aux_value(char* value) {
 
 void print_statements(is_statement* var) {
         switch (var->type) {
-            
+        
             case compound_stm:
                 
                 if(var->opt_statement->next) {
                     if(var->opt_statement->next->next) {
-                        indentation++;indent();
-                        printf("CompoundStat\n");
-                        indentation++;
+                        if(var->opt_statement->next->next->statement->type) {
+                            indentation++;indent();
+                            printf("CompoundStat\n");
+                            indentation++;
+                        }
                     }
                 }
                 
-                print_opt_statements(var->opt_statement);
+                if(var->opt_statement->statement) {
+                    print_opt_statements(var->opt_statement);
+                }
                 
                
                 break;
@@ -448,6 +454,8 @@ void print_statements(is_statement* var) {
                     print_statements(var->statement1);
                 } else {
                     indent();
+                    printf("PQ CRL");
+
                     printf("Null\n");
                 }
                 
@@ -475,13 +483,13 @@ void print_statements(is_statement* var) {
                     printf("Null\n");
                 }
                 
-                if(var->statement1->type) {
+                if(var->statement1) {
                     print_statements(var->statement1);
                 } else {
                     printf("Null\n");
                 }
                 
-                if(var->statement2->type) {
+                if(var->statement2) {
                     print_statements(var->statement2);
                 } else {
                     printf("Null\n");
