@@ -225,7 +225,7 @@ array_dim: ID { $$ = insert_array_dim($1, NULL, NULL, NULL, 3);}
 | OCURV Expr CCURV { $$ = insert_array_dim(NULL, $2, NULL, NULL, 4); }
 | Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL, NULL, 5);  }
 | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim($3,$5,NULL,NULL, 6);}
-| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 0); }
+| ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 7); }
 ;
 
 opt_args: { $$ = insert_opt_args(NULL); }

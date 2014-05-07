@@ -244,14 +244,18 @@ is_array_dim* insert_array_dim(char* id, is_expression* expression, is_opt_args*
         new_type->type = is_equality;
         new->dim_type = new_type;
     } else if(type_check == 5) {
-            var_type* new_type = (var_type*) malloc(sizeof(var_type));
-            new_type->type = is_dot_length;
-            new->dim_type = new_type;
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_dot_length;
+        new->dim_type = new_type;
     } else if(type_check == 6) {
         var_type* new_type = (var_type*) malloc(sizeof(var_type));
         new_type->type = is_parse_int;
         new->dim_type = new_type;
-        
+    } else if(type_check == 7) {
+        var_type* new_type = (var_type*) malloc(sizeof(var_type));
+        new_type->type = is_func_call;
+        new->dim_type = new_type;
+            
     } else {
         new->dim_type = NULL;
     }

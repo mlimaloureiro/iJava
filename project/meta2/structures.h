@@ -1,6 +1,6 @@
 #define _STRUCTURES_
 
-typedef enum { is_bool,is_int, is_id, is_equality, is_dot_length, is_parse_int} is_type;
+typedef enum { is_bool,is_int, is_id, is_equality, is_dot_length, is_parse_int, is_func_call} is_type;
 typedef enum {d_field_declaration, d_method_declaration} d_field_or_method_type;
 typedef enum {is_array,not_array} opt_array;
 typedef enum {compound_stm, if_stm, else_stm, print_stm, return_stm, store_stm, while_stm} statement_type;
@@ -158,7 +158,6 @@ typedef struct is_opt_array_pos {
 } is_opt_array_pos;
 
 
-
 typedef struct is_opt_args {
     struct is_args* args;
 } is_opt_args;
@@ -168,6 +167,7 @@ typedef struct is_args {
     struct is_expression* expr;
     struct is_opt_args_list* list;
 } is_args;
+
 
 typedef struct is_opt_args_list {
     struct is_expression* expr;

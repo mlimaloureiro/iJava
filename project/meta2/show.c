@@ -25,6 +25,8 @@ void print_array_expression2(is_expression* var);
 void print_not_expression(is_expression* var);
 void print_new_expression(is_expression* var);
 void print_aux_value(char* value);
+void print_opt_args(is_opt_args* args);
+void print_opt_args_list(is_opt_args_list* list);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -109,7 +111,6 @@ void print_method_declaration(is_field_or_method* var) {
     if(var->method->opt_statement->statement) {
         indentation++;
         print_opt_statements(var->method->opt_statement);
-        
     }
     
     
@@ -122,6 +123,25 @@ void print_opt_statements(is_opt_statement* var) {
     }
 }
 
+
+void print_opt_args(is_opt_args* args) {
+    if(args->args->expr) {
+        print_expression(args->args->expr);
+    }
+    
+    if(args->args->list) {
+        print_opt_args_list(args->args->list);
+    }
+}
+
+void print_opt_args_list(is_opt_args_list* list) {
+    
+    while(list->expr) {
+        indent();
+        print_expression(list->expr);
+        list = list->next;
+    }
+}
 
 void print_expression(is_expression* var) {
     
@@ -142,6 +162,16 @@ void print_expression(is_expression* var) {
             printf("Id(%s)\n", var->array_dim->id);
             indent();
             print_expression(var->array_dim->expr);
+            
+            indentation--;
+        }
+        else if(var->array_dim->dim_type->type == is_func_call) {
+            
+            printf("Call\n");
+            indentation++;indent();
+            printf("Id(%s)\n", var->array_dim->id);
+            indent();
+            print_opt_args(var->array_dim->opt_args);
             
             indentation--;
         }

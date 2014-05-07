@@ -1820,7 +1820,7 @@ yyreduce:
 
   case 55:
 #line 228 "ijparser.y"
-    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t), NULL, 0); }
+    { (yyval.is_array_dim_t) = insert_array_dim((yyvsp[(1) - (4)].identifier),NULL,(yyvsp[(3) - (4)].is_opt_args_t), NULL, 7); }
     break;
 
   case 56:
