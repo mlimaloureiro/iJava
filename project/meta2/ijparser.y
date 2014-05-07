@@ -117,6 +117,7 @@
 %token<value> INTLIT
 %token<value> NOT
 
+%right ASSIGN
 %left OR
 %left AND
 %left EQUALS
@@ -124,10 +125,10 @@
 %left OP2
 %left OP3
 %left OP4
+%right NEW
 %right NOT
-%left DOTLENGTH
 %left OCURV CCURV OSQUARE CSQUARE
-%nonassoc ELSE
+%nonassoc ELSE IF INT PRINT RETURN SEMIC WHILE DOTLENGTH PUBLIC CLASS STATIC VOID BOOL
 
 %start Start
 
@@ -208,8 +209,8 @@ opt_expr: { $$ = insert_opt_expr(NULL); }
 |Expr { $$ = insert_opt_expr($1); }
 ;
 
-Expr : array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,NULL,NULL,NULL); }
-| NEW var_type OSQUARE Expr CSQUARE { $$ = insert_expression(new_expr,NULL,$4,NULL,$2,NULL); }
+Expr : /* array_dim OSQUARE Expr CSQUARE { $$ = insert_expression(array_expr,$1,$3,NULL,NULL,NULL); } */
+ NEW var_type OSQUARE Expr CSQUARE { $$ = insert_expression(new_expr,NULL,$4,NULL,$2,NULL); }
 | Expr OP1 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
 | Expr OP2 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
 | Expr OP3 Expr { $$ = insert_expression(op_expr,NULL,$1,$3,NULL,$2); }
@@ -226,6 +227,8 @@ array_dim: ID { $$ = insert_array_dim($1, NULL, NULL, NULL, 3);}
 | Expr DOTLENGTH { $$ = insert_array_dim(NULL, $1, NULL, NULL, 5);  }
 | PARSEINT OCURV ID OSQUARE Expr CSQUARE CCURV { $$ = insert_array_dim($3,$5,NULL,NULL, 6);}
 | ID OCURV opt_args CCURV { $$ = insert_array_dim($1,NULL,$3, NULL, 7); }
+| array_dim OSQUARE Expr CSQUARE { }
+| OSQUARE Expr CSQUARE { }
 ;
 
 opt_args: { $$ = insert_opt_args(NULL); }
