@@ -27,6 +27,7 @@ void print_new_expression(is_expression* var);
 void print_aux_value(char* value);
 void print_opt_args(is_opt_args* args);
 void print_opt_args_list(is_opt_args_list* list);
+void print_compound_statements(is_opt_statement* var);
 
 void show_program(is_root* list){
     /*printf("inside show program\n");*/
@@ -108,18 +109,39 @@ void print_method_declaration(is_field_or_method* var) {
         var->method->opt_var_decl = var->method->opt_var_decl->next;
     }
     
+    
     if(var->method->opt_statement->statement) {
         indentation++;
         print_opt_statements(var->method->opt_statement);
     }
     
     
+    
 }
 
 void print_opt_statements(is_opt_statement* var) {
+    
     while(var->statement) {
         print_statements(var->statement);
-        var = var->next;
+        if(var->next) {
+            var = var->next;
+        }
+    }
+    indentation--;
+    
+     
+}
+
+void print_compound_statements(is_opt_statement* var) {
+    if(var->next->statement) {
+        indent();
+        printf("CompoundStat\n");
+        indentation++;
+        while(var->statement) {
+            print_statements(var->statement);
+            var = var->next;
+        }
+        indentation--;
     }
 }
 
@@ -364,13 +386,21 @@ void print_aux_value(char* value) {
 
 
 void print_statements(is_statement* var) {
-    
-    
         switch (var->type) {
             
             case compound_stm:
-            
-                /*printf("CompoundStat\n");*/
+                
+                if(var->opt_statement->next) {
+                    if(var->opt_statement->next->next) {
+                        indentation++;indent();
+                        printf("CompoundStat\n");
+                        indentation++;
+                    }
+                }
+                
+                print_opt_statements(var->opt_statement);
+                
+               
                 break;
             
             case if_stm:
@@ -457,10 +487,13 @@ void print_statements(is_statement* var) {
                 printf("Return\n");
                 
                 if(var->opt_expr) {
-                    indentation++;
-                    indent();
-                    print_expression(var->opt_expr->expression);
-                    indentation--;
+                    
+                    if(var->opt_expr->expression) {
+                        indentation++;
+                        indent();
+                        print_expression(var->opt_expr->expression);
+                        indentation--;
+                    }
                 }
                 
                 break;
@@ -547,12 +580,6 @@ void print_statements(is_statement* var) {
             default:
                 break;
         }
-    
-    /* coumpound stat */
-    
-    if(var->opt_statement) {
-        print_opt_statements(var->opt_statement);
-    }
 
 }
 
