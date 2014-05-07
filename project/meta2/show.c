@@ -370,7 +370,10 @@ void print_statements(is_statement* var) {
             
             case compound_stm:
             
-                /*printf("CompoundStat\n");*/
+                if(var->opt_statement->statement) {
+                    indent();
+                    printf("CompoundStat\n");
+                }
                 break;
             
             case if_stm:
@@ -457,10 +460,13 @@ void print_statements(is_statement* var) {
                 printf("Return\n");
                 
                 if(var->opt_expr) {
-                    indentation++;
-                    indent();
-                    print_expression(var->opt_expr->expression);
-                    indentation--;
+                    
+                    if(var->opt_expr->expression) {
+                        indentation++;
+                        indent();
+                        print_expression(var->opt_expr->expression);
+                        indentation--;
+                    }
                 }
                 
                 break;
