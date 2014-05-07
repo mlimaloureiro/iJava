@@ -667,6 +667,8 @@ void print_type(is_type_specifier* type) {
             break;
         case is_parse_int:
             break;
+        case is_func_call:
+            break;
     }
     if(type->opt_array->array == is_array) {
         printf("Array");
