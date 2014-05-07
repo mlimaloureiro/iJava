@@ -421,10 +421,12 @@ void print_statements(is_statement* var) {
                 
                 if(var->opt_statement->next) {
                     if(var->opt_statement->next->next) {
-                        if(var->opt_statement->next->next->statement->type) {
-                            indentation++;indent();
-                            printf("CompoundStat\n");
-                            indentation++;
+                        if(var->opt_statement->next->next->statement) {
+                            if(var->opt_statement->next->next->statement->type) {
+                                indent();
+                                printf("CompoundStat\n");
+                                indentation++;
+                            }
                         }
                     }
                 }
@@ -454,8 +456,6 @@ void print_statements(is_statement* var) {
                     print_statements(var->statement1);
                 } else {
                     indent();
-                    printf("PQ CRL");
-
                     printf("Null\n");
                 }
                 
