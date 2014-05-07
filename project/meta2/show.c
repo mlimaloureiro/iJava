@@ -170,9 +170,10 @@ void print_expression(is_expression* var) {
             printf("Call\n");
             indentation++;indent();
             printf("Id(%s)\n", var->array_dim->id);
-            indent();
+            
             
             if(var->array_dim->opt_args->args) {
+                indent();
                 print_opt_args(var->array_dim->opt_args);
             }
             
