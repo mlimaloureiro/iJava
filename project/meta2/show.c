@@ -227,13 +227,14 @@ void print_array_dim(is_array_dim* var) {
             
             break;
         case is_ad:
-            printf("IS AD\n");
+            /*printf("IS AD\n");*/
             break;
         case is_ad_list:
             printf("LoadArray\n");
-            print_array_dim(var->list);
-            print_expression(var->expr);
             indent();
+            print_array_dim(var->list);
+            indent();
+            print_expression(var->expr);
             
             break;
         case is_func_call:
