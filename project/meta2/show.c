@@ -397,7 +397,7 @@ void print_statements(is_statement* var) {
     //printf("here here\n");
     
         switch (var->type) {
-        
+                
             case compound_stm:
                 //printf("compound\n");
                 /*
@@ -409,27 +409,27 @@ void print_statements(is_statement* var) {
                 if(var->opt_statement->statement) {
                     
                     //print_opt_statements(var->opt_statement);
-                }*/
+                }
                 
-                
+                */
                 break;
             
             case if_stm:
                 
-                print_if_statements(var);
+                //print_if_statements(var);
                 
                 break;
             
             case else_stm:
 
-                print_else_statements(var);
+                //print_else_statements(var);
                 
                 break;
             
             case print_stm:
                 //printf("print\n");
 
-                print_print_statements(var);
+                //print_print_statements(var);
                 
                 break;
             
@@ -475,12 +475,13 @@ void print_if_statements(is_statement* var) {
     }
     
     if(var->statement1) {
-        print_statements(var->statement1);
-    } else {
-        indent();
-        printf("Null\n");
+        if(var->statement1->expression) {
+            print_statements(var->statement1);
+        } else {
+            indent();
+            printf("Null\n");
+        }
     }
-    
     
     indentation--;
     
@@ -550,6 +551,7 @@ void print_return_statements(is_statement* var) {
             indentation--;
         }
     }
+     
 }
 
 void print_while_statements(is_statement* var) {
@@ -575,6 +577,8 @@ void print_while_statements(is_statement* var) {
     indentation--;
 }
 
+
+
 void print_store_statements(is_statement* var) {
     indent();
     
@@ -589,8 +593,6 @@ void print_store_statements(is_statement* var) {
         } else {
             printf("Null\n");
         }
-        
-        /* PARSE ARGS OR INTLIT OR EXPR */
         
         if(var->expression->array_dim) {
             if(var->expression->array_dim->id) {
@@ -630,6 +632,7 @@ void print_store_statements(is_statement* var) {
         
         indentation--;
     }
+     
 
 }
 
