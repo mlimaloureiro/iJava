@@ -400,36 +400,37 @@ void print_statements(is_statement* var) {
                 
             case compound_stm:
                 //printf("compound\n");
-                /*
-                if(calc_compound(var->opt_statement) > 1) {
-                    printf("CompoundStat\n");
-                }
                 
+                if(calc_compound(var->opt_statement) > 1) {
+                    indentation++;indent();
+                    printf("CompoundStat\n");
+                    indentation++;
+                }
                 
                 if(var->opt_statement->statement) {
                     
-                    //print_opt_statements(var->opt_statement);
+                    print_opt_statements(var->opt_statement);
                 }
                 
-                */
+                indentation--;
                 break;
             
             case if_stm:
                 
-                //print_if_statements(var);
+                print_if_statements(var);
                 
                 break;
             
             case else_stm:
 
-                //print_else_statements(var);
+                print_else_statements(var);
                 
                 break;
             
             case print_stm:
                 //printf("print\n");
 
-                //print_print_statements(var);
+                print_print_statements(var);
                 
                 break;
             
@@ -577,63 +578,30 @@ void print_while_statements(is_statement* var) {
     indentation--;
 }
 
-
-
 void print_store_statements(is_statement* var) {
+    
     indent();
+    printf("Store");
     
     if(var->opt_array_pos->expression) {
-        
-        printf("StoreArray\n");
-        indentation++;indent();
-        printf("Id(%s)\n", var->id);
-        
-        if(var->opt_array_pos->expression) {
-            indent();print_expression(var->opt_array_pos->expression);
-        } else {
-            printf("Null\n");
-        }
-        
-        if(var->expression->array_dim) {
-            if(var->expression->array_dim->id) {
-                indent();
-                printf("ParseArgs\n");
-                
-                indentation++;indent();
-                printf("Id(%s)\n", var->expression->array_dim->id);
-                
-                indent();
-                printf("IntLit(%s)\n", var->expression->array_dim->expr->array_dim->value);
-                indentation--;
-            } else if(var->expression->array_dim->value) {
-                indent();
-                printf("IntLit(%s)\n", var->expression->array_dim->value);
-                indentation--;
-            }
-        } else if(var->expression) {
-            indent();
-            print_expression(var->expression);
-        }
-        
-        
-        indentation--;
-    } else {
-        
-        printf("Store\n");
-        indentation++;indent();
-        printf("Id(%s)\n", var->id);
-        
-        
-        if(var->expression) {
-            indent(); print_expression(var->expression);
-        } else {
-            printf("Null\n");
-        }
-        
-        indentation--;
+        printf("Array");
     }
-     
-
+    printf("\n");
+    
+    indentation++;indent();
+    
+    printf("Id(%s)\n", var->id);
+    
+    if(var->opt_array_pos->expression) {
+        indent();
+        print_expression(var->opt_array_pos->expression);
+        
+    } else {
+        indent();
+        print_expression(var->expression);
+    }
+    indentation--;
+    
 }
 
 
