@@ -2,9 +2,10 @@ class test{
 
     static int a;
     public static void main() {
-        if(a) {
-
-        } else 
-		a = 3;
+        if(a == 2) {	
+        }
+        else {
+	
+        }
     }
 }

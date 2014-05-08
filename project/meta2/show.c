@@ -198,6 +198,9 @@ void print_array_dim(is_array_dim* var) {
     switch (var->dim_type->type) {
         case is_int:
             printf("IntLit(%s)\n", var->value);
+            
+            
+            
             break;
         case is_bool:
             printf("BoolLit(%s)\n", var->value);
@@ -408,11 +411,13 @@ void print_statements(is_statement* var) {
                 }
                 
                 if(var->opt_statement->statement) {
-                    
+                    indent();
                     print_opt_statements(var->opt_statement);
+
                 }
-                
                 indentation--;
+
+                
                 break;
             
             case if_stm:
@@ -476,8 +481,24 @@ void print_if_statements(is_statement* var) {
     }
     
     if(var->statement1) {
+        
         if(var->statement1->expression) {
+            
             print_statements(var->statement1);
+            
+        } else if(var->statement1->opt_statement) {
+            
+            if(var->statement1->opt_statement->statement) {
+                
+                print_statements(var->statement1);
+                
+            } else {
+                
+                indent();
+                printf("Null\n");
+                
+            }
+            
         } else {
             indent();
             printf("Null\n");
@@ -501,9 +522,29 @@ void print_else_statements(is_statement* var) {
         printf("Null\n");
     }
     
+    /* nao funciona pq verifico o var->expression e ele
+       esta a tentar printar o opt->expression
+     */
+    
     if(var->statement1) {
+        
         if(var->statement1->expression) {
+            
             print_statements(var->statement1);
+            
+        } else if(var->statement1->opt_statement) {
+            
+            if(var->statement1->opt_statement->statement) {
+                
+                print_statements(var->statement1);
+                
+            } else {
+                
+                indent();
+                printf("Null\n");
+            
+            }
+            
         } else {
             indent();
             printf("Null\n");
@@ -513,7 +554,22 @@ void print_else_statements(is_statement* var) {
     if(var->statement2) {
 
         if(var->statement2->expression) {
+            
             print_statements(var->statement2);
+            
+        } else if(var->statement2->opt_statement) {
+            
+            if(var->statement2->opt_statement->statement) {
+                
+                print_statements(var->statement2);
+                
+            } else {
+                
+                indent();
+                printf("Null\n");
+
+            }
+            
         } else {
             indent();
             printf("Null\n");
@@ -580,6 +636,8 @@ void print_while_statements(is_statement* var) {
 
 void print_store_statements(is_statement* var) {
     
+    /* esta a rebentar no caso de um store */
+    
     indent();
     printf("Store");
     
@@ -596,10 +654,11 @@ void print_store_statements(is_statement* var) {
         indent();
         print_expression(var->opt_array_pos->expression);
         
-    } else {
-        indent();
-        print_expression(var->expression);
     }
+    
+    indent();
+    print_expression(var->expression);
+    
     indentation--;
     
 }
