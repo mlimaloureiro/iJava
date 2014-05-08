@@ -228,7 +228,6 @@ void print_array_dim(is_array_dim* var) {
             
             break;
         case is_ad:
-            /*printf("IS AD\n");*/
             break;
         case is_ad_list:
             printf("LoadArray\n");
@@ -257,6 +256,8 @@ void print_array_dim(is_array_dim* var) {
         default:
             break;
     }
+     
+    
 }
 
 
@@ -370,64 +371,93 @@ void print_aux_value(char* value) {
 }
 
 
+int calc_compound(is_opt_statement* var) {
+    int total = 0;
+    
+    if(var) {
+        while(var->statement) {
+            
+            if(var->statement->type == compound_stm) {
+                total += calc_compound(var->statement->opt_statement);
+            } else {
+                total++;
+            }
+            
+            var = var->next;
+            
+        }
+        //printf("total\n %d", total);
+        return total;
+    }
+    
+    return total;
+}
+
 void print_statements(is_statement* var) {
+    //printf("here here\n");
+    
         switch (var->type) {
         
             case compound_stm:
-                
-                if(var->opt_statement->next) {
-                    if(var->opt_statement->next->next) {
-                        if(var->opt_statement->next->next->statement) {
-                            if(var->opt_statement->next->next->statement->type) {
-                                indent();
-                                printf("CompoundStat\n");
-                                indentation++;
-                            }
-                        }
-                    }
+                //printf("compound\n");
+                /*
+                if(calc_compound(var->opt_statement) > 1) {
+                    printf("CompoundStat\n");
                 }
+                
                 
                 if(var->opt_statement->statement) {
-                    print_opt_statements(var->opt_statement);
-                }
+                    
+                    //print_opt_statements(var->opt_statement);
+                }*/
                 
-               
+                
                 break;
             
             case if_stm:
                 
-                print_store_statements(var);
+                print_if_statements(var);
                 
                 break;
             
             case else_stm:
-                
+
                 print_else_statements(var);
                 
                 break;
             
             case print_stm:
-                
+                //printf("print\n");
+
                 print_print_statements(var);
                 
                 break;
             
             case return_stm:
-                
+                //printf("return\n");
+
                 print_return_statements(var);
                 
                 break;
             
             case store_stm:
+                //printf("store\n");
+
                 print_store_statements(var);
+                
                 break;
             case while_stm:
+                //printf("while\n");
+
                 print_while_statements(var);
+                
+                
                 break;
             default:
                 break;
         }
-
+    
+    
 }
 
 void print_if_statements(is_statement* var) {
@@ -451,15 +481,8 @@ void print_if_statements(is_statement* var) {
         printf("Null\n");
     }
     
-    if(var->statement2) {
-        print_statements(var->statement1);
-    } else {
-        indent();
-        printf("Null\n");
-    }
     
     indentation--;
-    
     
 }
 
@@ -472,19 +495,27 @@ void print_else_statements(is_statement* var) {
     if(var->expression) {
         print_expression(var->expression);
     } else {
+        indent();
         printf("Null\n");
     }
     
     if(var->statement1) {
-        print_statements(var->statement1);
-    } else {
-        printf("Null\n");
+        if(var->statement1->expression) {
+            print_statements(var->statement1);
+        } else {
+            indent();
+            printf("Null\n");
+        }
     }
     
     if(var->statement2) {
-        print_statements(var->statement2);
-    } else {
-        printf("Null\n");
+
+        if(var->statement2->expression) {
+            print_statements(var->statement2);
+        } else {
+            indent();
+            printf("Null\n");
+        }
     }
     
     indentation--;
@@ -522,6 +553,7 @@ void print_return_statements(is_statement* var) {
 }
 
 void print_while_statements(is_statement* var) {
+    
     indent();
     printf("While\n");
     
@@ -533,13 +565,13 @@ void print_while_statements(is_statement* var) {
         printf("Null\n");
     }
     
+    
     if(var->statement1) {
         print_statements(var->statement1);
     } else {
         indent();
         printf("Null\n");
     }
-    
     indentation--;
 }
 

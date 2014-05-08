@@ -7,7 +7,7 @@ class gcd {
  
         while(true){ { {}{}{} } }
  
-        if(x){}
+        if(x){ } else {  }
        
         x=1;
  
